@@ -1,0 +1,321 @@
+echo "# React-guide" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M master
+git remote add origin https://github.com/Kovalchuk-Alexandr/React-guide.git
+git push -u origin master
+
+https://kovalchuk-alexandr.github.io/React-guide/
+
+GIT / GITHUB — ГАЙД ПО РАБОТЕ НА ДРУГОЙ МАШИНЕ
+================================================
+
+Репозиторий:
+https://github.com/Kovalchuk-Alexandr/React-guide.git
+
+
+1. ПЕРВЫЙ ЗАПУСК НА НОВОЙ МАШИНЕ
+--------------------------------
+
+Проверить Git:
+
+git --version
+
+Один раз настроить имя и email:
+
+git config --global user.name "Kovalchuk-Alexandr"
+git config --global user.email "mo250568kaa@gmail.com"
+
+Проверить:
+
+git config --global user.name
+git config --global user.email
+
+
+2. СКАЧАТЬ ПРОЕКТ С GITHUB
+--------------------------
+
+cd C:\Projects
+
+git clone https://github.com/Kovalchuk-Alexandr/React-guide.git
+
+cd React-guide
+
+git status
+
+
+3. ОБЫЧНАЯ РАБОТА
+-----------------
+
+Перед работой:
+
+git pull
+
+Посмотреть изменения:
+
+git status
+
+git diff
+
+После работы:
+
+git add .
+
+git commit -m "описание изменений"
+
+git push
+
+Проверить:
+
+git status
+
+Нормальный результат:
+
+Your branch is up to date with 'origin/master'.
+nothing to commit, working tree clean
+
+
+4. ПЕРЕХОД НА ДРУГУЮ МАШИНУ
+---------------------------
+
+На старой машине:
+
+git status
+
+git add .
+
+git commit -m "сохранение перед переходом на другую машину"
+
+git push
+
+На новой машине:
+
+git pull
+
+
+5. ЕСЛИ ПАПКА ПРОЕКТА УЖЕ СУЩЕСТВУЕТ
+-------------------------------------
+
+НЕ делать сразу:
+
+git init
+git remote add origin ...
+
+Если в папке есть важная локальная версия:
+
+1. Сделать резервную копию.
+2. Переименовать старую папку.
+3. Скачать чистую копию через git clone.
+4. Перенести нужные изменения из резервной копии.
+
+Пример:
+
+cd C:\Projects
+
+Rename-Item "React-guide" "React-guide-local"
+
+git clone https://github.com/Kovalchuk-Alexandr/React-guide.git
+
+cd React-guide
+
+git status
+
+
+6. ОШИБКА NON-FAST-FORWARD
+--------------------------
+
+Если Git пишет:
+
+Updates were rejected because the tip of your current branch is behind
+its remote counterpart.
+
+НЕ использовать сразу:
+
+git push --force
+
+Сначала:
+
+git status
+git fetch origin
+git log --oneline --graph --decorate --all -10
+git branch -vv
+
+Если это обычная ситуация, когда на GitHub появились новые коммиты:
+
+git pull --rebase
+git push
+
+
+7. ЕСЛИ ЛОКАЛЬНАЯ И УДАЛЁННАЯ ИСТОРИИ НЕЗАВИСИМЫ
+-------------------------------------------------
+
+Проверить:
+
+git merge-base master origin/master
+
+Если команда ничего не возвращает, истории не имеют общего предка.
+
+Безопасный вариант:
+
+1. Сделать резервную копию локального проекта.
+2. Получить чистую копию через git clone.
+3. Перенести нужные локальные изменения.
+4. Сделать commit.
+5. Сделать push.
+
+НЕ использовать force push, пока точно не понятно,
+что удалённую историю нужно заменить.
+
+
+8. ОТМЕНА НЕУДАЧНОГО MERGE
+--------------------------
+
+Если Git сообщает:
+
+Automatic merge failed; fix conflicts and then commit the result.
+
+И merge ещё не завершён:
+
+git merge --abort
+
+Проверить:
+
+git status
+
+
+9. ВРЕМЕННО СОХРАНИТЬ ИЗМЕНЕНИЯ
+-------------------------------
+
+git stash push -m "temporary"
+
+Вернуть:
+
+git stash pop
+
+ВАЖНО:
+
+stash хранится внутри .git.
+
+Если удалить .git, stash тоже будет удалён.
+
+Важные файлы перед этим лучше сохранить отдельно.
+
+
+10. ПОЛНОСТЬЮ ПЕРЕСОЗДАТЬ ЛОКАЛЬНЫЙ GIT
+----------------------------------------
+
+ТОЛЬКО после резервной копии!
+
+Удалить только .git:
+
+Remove-Item -Recurse -Force .git
+
+Но для существующего GitHub-проекта обычно лучше:
+
+cd ..
+
+Rename-Item "React-guide" "React-guide-local"
+
+git clone https://github.com/Kovalchuk-Alexandr/React-guide.git
+
+
+11. ПОЛЕЗНЫЕ КОМАНДЫ
+--------------------
+
+Удалённый репозиторий:
+
+git remote -v
+
+Активная ветка:
+
+git branch
+
+Связь локальной ветки с GitHub:
+
+git branch -vv
+
+История:
+
+git log --oneline --graph --decorate -10
+
+Получить информацию с GitHub:
+
+git fetch origin
+
+Сравнить локальную ветку с GitHub:
+
+git diff origin/master..master --stat
+
+
+12. ЕСЛИ GIT ПОКАЗЫВАЕТ (END)
+----------------------------
+
+Если внизу вывода:
+
+(END)
+
+Git открыл просмотрщик.
+
+Для выхода:
+
+q
+
+НЕ нужно нажимать Enter.
+
+
+13. КОРОТКАЯ ШПАРГАЛКА
+----------------------
+
+НОВАЯ МАШИНА:
+
+git clone https://github.com/Kovalchuk-Alexandr/React-guide.git
+cd React-guide
+
+ПЕРЕД РАБОТОЙ:
+
+git pull
+
+ПОСЛЕ РАБОТЫ:
+
+git add .
+git commit -m "описание изменений"
+git push
+
+ПРОВЕРКА:
+
+git status
+
+
+14. ГЛАВНОЕ ПРАВИЛО
+-------------------
+
+GitHub — центральная точка проекта.
+
+Новая машина:
+    git clone
+
+Получить изменения:
+    git pull
+
+Отправить свои изменения:
+    git add .
+    git commit -m "..."
+    git push
+
+НЕ нужно повторно делать:
+
+git init
+git remote add origin ...
+
+для уже клонированного проекта.
+
+Если появляется ошибка — сначала:
+
+git status
+
+и проверка истории.
+
+git push --force использовать только когда точно понятно,
+что удалённая история должна быть заменена.
+

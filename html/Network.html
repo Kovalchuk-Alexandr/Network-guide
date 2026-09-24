@@ -1,0 +1,1623 @@
+<!-- ========================================================
+React. Полный справочник разработчика
+ENGINE v1.0-dev
+Status: Development
+
+Emoji Guide
+📘 Part | 📖 Chapter | 🔹 Section
+⚙️ Under the hood | 💡 Tip | ⚠️ Important
+❌ Common mistake | ✅ Best practice
+💻 Practice | 🧩 Example | 📋 Cheat Sheet
+❓ FAQ | 🚀 Performance | 📚 References
+======================================================== -->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React - Полный справочник (Offline)</title>
+
+    <link rel="shortcut icon" sizes="128x133" type="image/x-icon" href="./favicon/react.svg">
+    <link rel="apple-touch-icon" sizes="256x256" href="./favicon/react.svg">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg: #fff;
+            --bg2: #f8f9fa;
+            --text: #2c3e50;
+            --text2: #6c757d;
+            --border: #dee2e6;
+            --accent: #0066cc;
+            --code-bg: #f4f4f4;
+            --code-bg: #f5f5fa;
+            --code-font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+            --code-comment: #008200;
+            --browser-textcolor: #202020;
+            --browser-bgcolor: #fff;
+            --main-font-size: 16px;
+            --main-font-family: -apple-system, system-ui, Helvetica, Arial, sans-serif;
+        }
+
+        .comment {color: var(--code-comment);}
+
+        img, .img {
+            max-width: 99%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .none {display: none;}
+        
+        .header {
+            background: var(--bg2);
+            border-bottom: 2px solid var(--border);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .browser {
+            word-wrap: break-word;
+            margin: 5px;
+            margin-bottom: 10px;
+            padding-left: 5px;
+            padding-bottom: 5px;
+            background-color: var(--browser-bgcolor);
+            color: var(--browser-textcolor);
+            font-family: var(--main-font-family);
+            font-size: var(--main-font-size);
+        }
+
+        .sh {
+            word-wrap: break-word;
+            white-space: pre;
+            padding: 8px;
+            margin-bottom: 10px;
+            
+            background-color: var(--browser-bgcolor);
+            color: var(--browser-textcolor);
+            font-family: var(--main-font-family);
+            font-family: monospace;
+            font-size: var(--main-font-size);
+        }
+        
+        pre {
+            font-family: monospace;
+            max-width: 99%;
+            line-height: 160%;
+            white-space: pre-wrap;
+            border: 1px solid #ccc;
+            clear: both;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: var(--bg2);
+            border-right: 1px solid var(--border);
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+            position: sticky;
+            top: 70px;
+        }
+        
+        .sidebar-search {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg2);
+            z-index: 10;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-section {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-title {
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--text2);
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            margin-left: 0.5rem;
+            overflow-y: auto/scroll;
+        }
+        
+        .nav-item {
+            padding: 0.6rem 1rem 0.6rem 1.5rem;
+            /* height: 2.4rem; */
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item.has-subitems .ch-emoj::before {
+        content:'📁';
+            /* height: 2.4rem; */
+            /* transition: height 0.3s; */
+        }
+
+        .nav-item.has-subitems.expanded .ch-emoj::before {
+        content:'📖';
+            height: 2.4rem;
+            /* transition: height 0.3s; */
+        }
+
+        .nav-item.has-subitems.expanded {
+            /* height: auto; */
+            /* transition: height 0.3s; */
+        }
+
+        /* Стрелочка для глав с подразделами */
+        .nav-item.has-subitems::before {
+            content: '▶';
+            position: absolute;
+            left: 0.9rem;
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+
+               
+        .nav-item.has-subitems.expanded::before {
+            transform: rotate(90deg);
+        }
+
+        .nav-item:hover {
+            background: #e8f4f8;
+            border-left-color: var(--accent);
+        }
+        
+        .nav-item.active {
+            background: #e8f4f8;
+            border-left-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Подразделы */
+        .nav-sublist {
+            /* display: none; */
+            margin: 0;
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            /* position: relative;
+            top: -2rem; */
+        }
+        
+        .nav-sublist.expanded {
+            padding-top: 8px;
+            max-height: fit-content;
+            /* top: 0; */
+        }
+        
+        .nav-subitem {
+            padding: 0.5rem 1rem 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            border-left: 3px solid transparent;
+            color: var(--text2);
+            /* display: none; */
+        }
+        
+        .nav-subitem:hover {
+            background: #e8f4f8;
+            border-left-color: var(--accent);
+            color: var(--text);
+        }
+        
+        .nav-subitem.active {
+            background: #e8f4f8;
+            border-left-color: var(--accent);
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        body.dark-theme .nav-item:hover,
+        body.dark-theme .nav-subitem:hover {
+            background: #3d3d3d;
+            color: var(--text);
+        }
+        
+        body.dark-theme .nav-item.active,
+        body.dark-theme .nav-subitem.active {
+            background: #3d3d3d;
+            color: var(--text);
+        }
+        
+        body.dark-theme tr:hover {
+            background: #3d3d3d;
+        }
+        
+        .nav-item.new::after {
+            content: "🆕";
+            margin-left: 0.5rem;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 900px;
+        }
+        
+        .chapter {
+            margin-bottom: 4rem;
+            scroll-margin-top: 80px;
+        }
+        
+        .chapter h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+        
+        .chapter h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+        }
+        
+        .chapter h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .chapter h4 {
+            font-size: 1.2rem;
+            margin: 1.2rem 0 0.7rem;
+        }
+        
+        .chapter p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-family: var(--code-font-family);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            white-space: pre;
+        }
+        
+        code {
+            /* color: #000; */
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .b, .bb, strong {
+            font-weight: bold;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            /* margin: 1.5rem 0; */
+        }
+
+        body.dark-theme .table-wrapper {
+            background: var(--bg2);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg2);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .table-base {
+            width: unset;
+            border-collapse: unset;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: #e8f4f8;
+        }
+        
+        .info-box {
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+        }
+        
+        .info-box.note {
+            background: #e7f3ff;
+            border-color: var(--accent);
+        }
+        
+        .info-box.warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        .info-box.success {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .info-box.danger {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .info-box-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        ul, ol {
+            margin: 0.5rem 0 0.5rem 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            background: var(--bg2);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        /* Dark theme */
+        body.dark-theme {
+            --bg: #1a1a1a;
+            --bg2: #2d2d2d;
+            --text: #e0e0e0;
+            --text2: #b0b0b0;
+            --border: #404040;
+            --code-bg: #3a3a3a;
+        }
+        
+        body.dark-theme .info-box.note {
+            background: #1e3a5f;
+        }
+        
+        body.dark-theme .info-box.warning {
+            background: #5f4c1e;
+        }
+        
+        body.dark-theme .info-box.success {
+            background: #1e4d2b;
+        }
+        
+        body.dark-theme .info-box.danger {
+            background: #5f1e1e;
+        }
+
+        @media (max-width: 1080px) {
+            .main-content {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .header, .sidebar, .footer {
+                display: none;
+            }
+            .main-content {
+                /* padding: 0.5rem; */
+                max-width: 100%;
+            }
+            .chapter h1 {
+                /* font-size: 2rem; */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+            .chapter h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media print {
+            .header, .sidebar, .footer {
+                display: none;
+            }
+            .main-content {
+                padding: 0;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">📚 React Справочник</div>
+        <div>
+            <button class="btn" onclick="toggleTheme()">🌙 Тема</button>
+            <button class="btn" onclick="window.print()">🖨️ Печать</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-search">
+                <input type="text" class="search-input" placeholder="🔍 Поиск..." id="searchInput">
+            </div>
+            <nav>
+                <!-- ====================================================================== -->
+                <!-- ЧАСТЬ I. Введение в React -->
+                <!-- ====================================================================== -->
+                <div class="nav-section">
+
+                    <div class="nav-title">📘 Часть I. Введение в React</div>
+
+                    <ul class="nav-list">
+
+                        <li class="nav-item has-subitems" data-target="ch1">
+                            <span class="ch-emoj"></span> Глава 1. Знакомство с React
+
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch1-what-is-react">📜 Что такое React</li>
+                                <li class="nav-subitem" data-target="ch1-history">📜 История появления React</li>
+                                <li class="nav-subitem" data-target="ch1-react-evolution">📜 Эволюция React и версии</li>
+                                <li class="nav-subitem" data-target="ch1-why-react">📜 Почему появился React</li>
+                                <li class="nav-subitem" data-target="ch1-problems">📜 Какие проблемы решает React</li>
+                                <li class="nav-subitem" data-target="ch1-spa">📜 SPA и современная веб-разработка</li>
+                                <li class="nav-subitem" data-target="ch1-react-is-not-framework">📜 React — библиотека, а не фреймворк</li>
+                                <li class="nav-subitem" data-target="ch1-ecosystem">📜 Экосистема React</li>
+                                <li class="nav-subitem" data-target="ch1-first-look">📜 Как выглядит React-приложение</li>
+                                <li class="nav-subitem" data-target="ch1-summary">📜 Итоги главы</li>
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item has-subitems" data-target="ch2">
+                            <span class="ch-emoj"></span> Глава 2. Подготовка окружения
+
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch2-environment">📜 Подготовка окружения</li>
+
+                                <li class="nav-subitem" data-target="ch2-node-npm">📜 Node.js и npm</li>
+                                <li class="nav-subitem" data-target="ch2-node-install">📜 Установка Node.js</li>
+                                <li class="nav-subitem" data-target="ch2-node-check">📜 Проверка установки Node.js</li>
+
+                                <li class="nav-subitem" data-target="ch2-vscode">📜 Visual Studio Code</li>
+                                <li class="nav-subitem" data-target="ch2-vscode-ext">📜 Полезные расширения VS Code</li>
+
+                                <li class="nav-subitem" data-target="ch2-first-project">📜 Создание первого React-проекта (Vite)</li>
+                                <li class="nav-subitem" data-target="ch2-project-structure">📜 Структура проекта Vite</li>
+                                <li class="nav-subitem" data-target="ch2-app-main">📜 Разбор App.jsx и main.jsx</li>
+
+                                <li class="nav-subitem" data-target="ch2-first-run">📜 Первый запуск приложения</li>
+                                <li class="nav-subitem" data-target="ch2-dev-server">📜 Сервер разработки (Dev Server)</li>
+                                <li class="nav-subitem" data-target="ch2-build">📜 Production-сборка</li>
+
+                                <li class="nav-subitem" data-target="ch2-summary">📜 Шпаргалка главы</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Основы (Metanit) -->
+                <div class="nav-section">
+                    <div class="nav-title">📖 Основы (Metanit)</div>
+                    <ul class="nav-list">
+                        <li class="nav-item has-subitems" data-target="ch1-intro"><span class="ch-emoj"></span> Глава 1. Введение
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch1-history">📜 История создания JavaScript</li>
+                                <li class="nav-subitem" data-target="ch1-about">📜 Что такое JavaScript?</li>
+                                <li class="nav-subitem" data-target="ch1-first-prog">📜 Первая программа</li>
+                                <li class="nav-subitem" data-target="ch1-code-perfome">📜 Выполнение кода javascript</li>
+                                <li class="nav-subitem" data-target="ch1-syntax">📜 Основы синтаксиса javascript</li>
+                                <li class="nav-subitem" data-target="ch1-connection">📜 Способы подключения JavaScript</li>
+                                <li class="nav-subitem" data-target="ch1-console">📜 Консоль браузера</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-subitems" data-target="ch2"><span class="ch-emoj"></span> Глава 2. Основы JS
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch2-variables">📜 Переменные и константы</li>
+                                <li class="nav-subitem" data-target="ch2-data-types">📜 Типы данных в JavaScript</li>
+                                <li class="nav-subitem" data-target="ch2-arithmetic">📜 Арифметические операции</li>
+                                <li class="nav-subitem" data-target="ch2-bitwise">📜 Поразрядные операции</li>
+                                <li class="nav-subitem" data-target="ch2-condition-expr">📜 Условные выражения</li>
+                                <li class="nav-subitem" data-target="ch2-condition-combinations">📜 Условные комбинации</li>
+                                <li class="nav-subitem" data-target="ch2-ternary">📜 Условные операторы ?: и ??</li>
+                                <li class="nav-subitem" data-target="ch2-converting-data">📜 Преобразования данных</li>
+                                <li class="nav-subitem" data-target="ch2-intro-arrays">📜 Введение в массивы</li>
+                                <li class="nav-subitem" data-target="ch2-condition-constructions">📜 Условные конструкции</li>
+                                <li class="nav-subitem" data-target="ch2-loops">📜 Циклы</li>
+                                <li class="nav-subitem" data-target="ch2-debugger">📜 Отладка и отладчик</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-subitems" data-target="ch3"><span class="ch-emoj"></span> Глава 3. Функции
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch3-definition">📜 Определение функций</li>
+                                <li class="nav-subitem" data-target="ch3-params">📜 Параметры функций</li>
+                                <li class="nav-subitem" data-target="ch3-return">📜 Результат функции</li>
+                                <li class="nav-subitem" data-target="ch3-arrow">📜 Стрелочные функции</li>
+                                <li class="nav-subitem" data-target="ch3-scope">📜 Область видимости (Scope)</li>
+                                <li class="nav-subitem" data-target="ch3-closures">📜 Замыкания (Closures)</li>
+                                <li class="nav-subitem" data-target="ch3-iife">📜 Функции IIFE</li>
+                                <li class="nav-subitem" data-target="ch3-recursion">📜 Рекурсия</li>
+                                <li class="nav-subitem" data-target="ch3-override">📜 Переопределение функций</li>
+                                <li class="nav-subitem" data-target="ch3-callback">📜 Callback функции</li>
+                                <li class="nav-subitem" data-target="ch3-obj-methods">📜 Методы объектов</li>
+                                <li class="nav-subitem" data-target="ch3-pure-func">📜 Чистые функции (Pure Functions)</li>
+                                <li class="nav-subitem" data-target="ch3-hoisting">📜 Hoisting</li>
+                                <li class="nav-subitem" data-target="ch3-params-passing">📜 Передача параметров по значению и по ссылке</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-subitems" data-target="ch4"><span class="ch-emoj"></span> Глава 4. ООП. Объекты.
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch4-objects">📜 Объекты</li>
+                                <li class="nav-subitem" data-target="ch4-methods">📜 Методы объектов</li>
+                                <li class="nav-subitem" data-target="ch4-this">📜 Ключевое слово "this"</li>
+                                <li class="nav-subitem" data-target="ch4-array-syntax">📜 Синтаксис массивов</li>
+                                <li class="nav-subitem" data-target="ch4-nested-objects">📜 Вложенные объекты и массивы в объектах</li>
+                                <li class="nav-subitem" data-target="ch4-obj-copy">📜 Копирование и сравнение объектов</li>
+                                <li class="nav-subitem" data-target="ch4-check-search">📜 Проверка наличия и перебор методов и свойств</li>
+                                <li class="nav-subitem" data-target="ch4-usefull-func">📜 Функции Object.entries, Object.keys, Object.values</li>
+                                <li class="nav-subitem" data-target="ch4-usefull-methods">📜 Полезные методы Object</li>
+                                <li class="nav-subitem" data-target="ch4-obj-in-func">📜 Объекты в функциях</li>
+                                <li class="nav-subitem" data-target="ch4-constructor">📜 Функции-конструкторы</li>
+                                <li class="nav-subitem" data-target="ch4-prototype">📜 Прототипы</li>
+                                <li class="nav-subitem" data-target="ch4-call-apply">📜 Функция как объект. Методы call и apply</li>
+                                <li class="nav-subitem" data-target="ch4-obj-create">📜 Функция Object.create. Конфигурация свойств объектов</li>
+                                <li class="nav-subitem" data-target="ch4-inheritance-proto">📜 Наследование прототипов</li>
+                                <li class="nav-subitem" data-target="ch4-proto-nesting">📜 Наследование прототипов конструкторов</li>
+                                <li class="nav-subitem" data-target="ch4-incapsulation">📜 Инкапсуляция свойств. Геттеры и сеттеры</li>
+                                <li class="nav-subitem" data-target="ch4-destructuring">📜 Деструктуризация</li>
+                                <li class="nav-subitem" data-target="ch4-spread-rest">📜 Spread и Rest с объектами</li>
+                                <li class="nav-subitem" data-target="ch4-optional">📜 Оператор ?.</li>
+                                <li class="nav-subitem" data-target="ch4-const-obj">📜 Константные объекты. Запрет изменения объекта</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-subitems" data-target="ch5"><span class="ch-emoj"></span> Глава 5. ООП. Классы.
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch5-classes">📜 Классы</li>
+                                <li class="nav-subitem" data-target="ch5-private-fields">📜 Приватные поля и методы</li>
+                                <li class="nav-subitem" data-target="ch5-static-fields">📜 Статические поля и методы</li>
+                                <li class="nav-subitem" data-target="ch5-access-methods">📜 Свойства и методы доступа</li>
+                                <li class="nav-subitem" data-target="ch5-inheritance">📜 Наследование</li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- DOM и события 📁📂📖📜 📃📑-->
+                <div class="nav-section">
+                    <div class="nav-title">🎨 DOM и события</div>
+                    <ul class="nav-list">
+                        <li class="nav-item has-subitems" data-target="ch11"><span class="ch-emoj"></span> Глава 11. DOM
+                            <ul class="nav-sublist">
+                                <li class="nav-subitem" data-target="ch11-intro">📜 Что такое DOM?</li>
+                                                        </ul>
+                        </li>
+                        
+                    </ul>
+                </div>
+     
+
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <!-- ====================================================== -->
+            <!-- ГЛАВА 1: Знакомство с React -->
+            <!-- ====================================================== -->
+
+            <section class="chapter" id="ch1">
+
+                <h1>Глава 1. Знакомство с React</h1>
+
+                <h2 id="ch1-what-is-react">📜 Что такое React</h2>
+
+                <p>
+                    <strong>React</strong> — это JavaScript-библиотека для создания пользовательских интерфейсов (UI),
+                    разработанная компанией Meta (Facebook). Основная идея React заключается в том,
+                    чтобы разбивать интерфейс приложения на небольшие независимые компоненты,
+                    которые можно многократно использовать и комбинировать между собой.
+                </p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">💡 Определение</div>
+                    <p>
+                        <strong>React</strong> — декларативная компонентная библиотека для разработки
+                        современных пользовательских интерфейсов.
+                    </p>
+                </div>
+
+                <p>
+                    До появления React разработка сложных веб-интерфейсов сопровождалась большим
+                    количеством прямых операций с DOM: созданием элементов, поиском узлов,
+                    изменением атрибутов и обновлением содержимого страницы. По мере роста проекта
+                    такой подход становился всё сложнее, а вероятность появления ошибок возрастала.
+                </p>
+
+                
+                <div class="info-box success">
+                    <div class="info-box-title">✅ Главная идея React</div>
+                    <p>
+                        Вместо пошагового изменения элементов страницы разработчик описывает
+                        конечный результат. React сам вычисляет минимальный набор изменений,
+                        необходимых для обновления интерфейса.
+                    </p>
+                </div>
+
+                <h3>Компонентный подход</h3>
+
+                
+                <!-- ===== История появления React ===== -->
+
+                <h2 id="ch1-history">📜 История появления React</h2>
+
+                <p>
+                    Сегодня React является одной из самых популярных библиотек для создания пользовательских
+                    интерфейсов. Однако его появление стало ответом на вполне конкретные проблемы,
+                    с которыми столкнулись разработчики Facebook при развитии собственных веб-приложений.
+                </p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">💡 Почему появился React?</div>
+                    <p>
+                        React был создан инженером Facebook Джорданом Уолком (Jordan Walke) для упрощения
+                        разработки сложных пользовательских интерфейсов, которые постоянно изменяются
+                        в ответ на действия пользователя.
+                    </p>
+                </div>
+
+                <h3>До появления React</h3>
+
+                <p>
+                    В конце 2000-х годов большинство веб-приложений строилось на основе
+                    непосредственного изменения DOM. Разработчики самостоятельно искали элементы,
+                    изменяли их содержимое, добавляли обработчики событий и синхронизировали состояние
+                    интерфейса с данными приложения.
+                </p>
+
+               
+                <h3>Ключевые этапы развития</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Версия</th>
+                                <th>Основные изменения</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0.x</td>
+                                <td>Первые внутренние версии Facebook.</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Последняя версия классической архитектуры React.</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>Новая архитектура Fiber, Fragments, Portals, Error Boundaries.</td>
+                            </tr>
+                            <tr>
+                                <td>16.8</td>
+                                <td>Появление Hooks.</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>Подготовка к постепенному обновлению приложений.</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>Concurrent Rendering, Automatic Batching, новые API.</td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td>Actions, улучшенная работа с формами, развитие Server Components.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Почему это важно знать?</h3>
+
+
+                <div class="info-box success">
+                    <div class="info-box-title">✅ Практический совет</div>
+                    <p>
+                        Изучая React сегодня, ориентируйтесь на современные возможности библиотеки,
+                        однако полезно знать, когда появились Hooks, Fiber, Concurrent Rendering
+                        и другие ключевые технологии. Это значительно облегчает поддержку старых проектов.
+                    </p>
+                </div>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">⚠️ Важно</div>
+                    <p>
+                        В данной книге примеры будут основаны на актуальной стабильной версии React.
+                        Особенности устаревших версий рассматриваются только там, где это необходимо
+                        для понимания современного подхода к разработке.
+                    </p>
+                </div>
+
+                <h3>Краткие выводы</h3>
+
+                <ul>
+                    <li>✅ React развивается эволюционно, сохраняя обратную совместимость.</li>
+                    <li>✅ Наиболее значимыми этапами стали Fiber, Hooks и Concurrent Rendering.</li>
+                    <li>✅ Современная разработка ориентируется на React&nbsp;19.</li>
+                    <li>✅ Знание истории развития React помогает понимать код разных поколений проектов.</li>
+                </ul>
+                
+                <!-- ===== Почему появился React ===== -->
+
+                <h2 id="ch1-why-react">📜 Почему появился React</h2>
+
+                <p>
+                    К началу 2010-х годов веб-приложения стали значительно сложнее. Если раньше сайт
+                    представлял собой набор отдельных страниц, то современные сервисы начали работать
+                    как полноценные приложения, в которых интерфейс постоянно изменяется без перезагрузки страницы.
+                </p>
+
+ 
+
+                <h3>Итоги</h3>
+
+                <ul>
+                    <li>✅ Сложность веб-приложений потребовала нового подхода к разработке интерфейсов.</li>
+                    <li>✅ Основной проблемой стало ручное управление большим количеством DOM-элементов.</li>
+                    <li>✅ React автоматизировал обновление пользовательского интерфейса.</li>
+                    <li>✅ Разработчик описывает результат, а не последовательность действий.</li>
+                    <li>✅ Такой подход стал основой современной фронтенд-разработки.</li>
+                </ul>
+
+ 
+                <h3>Классический сайт</h3>
+
+                <p>При каждом переходе браузер заново запрашивает HTML-документ с сервера.</p>
+
+                <pre class="browser">
+                Пользователь
+                    │
+                    ▼
+                Открывает страницу
+                    │
+                    ▼
+                Запрос к серверу
+                    │
+                    ▼
+                Получение нового HTML
+                    │
+                    ▼
+                Полная перезагрузка страницы
+                </pre>
+
+                <h3>SPA-приложение</h3>
+
+                <p>
+                    HTML загружается один раз. Далее браузер получает только необходимые данные,
+                    а React обновляет нужные части интерфейса.
+                </p>
+
+                <pre class="browser">
+                Пользователь
+                    │
+                    ▼
+                Действие
+                    │
+                    ▼
+                Запрос данных (API)
+                    │
+                    ▼
+                React обновляет интерфейс
+                    │
+                    ▼
+                Страница не перезагружается
+                </pre>
+
+                <div class="info-box success">
+                    <div class="info-box-title">✅ Что получает пользователь?</div>
+                    <ul>
+                        <li>Быструю работу интерфейса.</li>
+                        <li>Отсутствие постоянных перезагрузок страницы.</li>
+                        <li>Более плавную навигацию.</li>
+                        <li>Поведение, похожее на обычное настольное приложение.</li>
+                    </ul>
+                </div>
+
+                
+
+                <!-- ===== Итоги главы ===== -->
+
+                <h2 id="ch1-summary">📜 Итоги главы</h2>
+
+                <p>
+                    В первой главе мы познакомились с React, рассмотрели причины его появления,
+                    основные принципы работы и место в современной веб-разработке. Теперь у нас
+                    есть общее представление о том, что представляет собой React и какие задачи
+                    он помогает решать.
+                </p>
+
+                <div class="info-box success">
+                    <div class="info-box-title">✅ Что мы изучили</div>
+                    <ul>
+                        <li>Что такое React и для чего он используется.</li>
+                        <li>Историю появления и развития React.</li>
+                        <li>Почему React стал одним из самых популярных инструментов Frontend-разработки.</li>
+                        <li>Какие проблемы решает компонентный подход.</li>
+                        <li>Что такое SPA и почему React идеально подходит для подобных приложений.</li>
+                        <li>Чем библиотека отличается от фреймворка.</li>
+                        <li>Из чего состоит экосистема React.</li>
+                        <li>Как выглядит типичный React-проект.</li>
+                    </ul>
+                </div>
+
+                <h3>Краткая памятка</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Тема</th>
+                                <th>Что нужно запомнить</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>React</td>
+                                <td>Библиотека для создания пользовательских интерфейсов.</td>
+                            </tr>
+
+                            <tr>
+                                <td>Компоненты</td>
+                                <td>Основной строительный блок React-приложения.</td>
+                            </tr>
+
+                            <tr>
+                                <td>SPA</td>
+                                <td>Страница загружается один раз, далее обновляется только интерфейс.</td>
+                            </tr>
+
+                            <tr>
+                                <td>DOM</td>
+                                <td>React самостоятельно обновляет необходимые элементы.</td>
+                            </tr>
+
+                            <tr>
+                                <td>Экосистема</td>
+                                <td>React дополняется специализированными библиотеками.</td>
+                            </tr>
+
+                            <tr>
+                                <td>Структура проекта</td>
+                                <td>Основная работа ведётся в папке <strong>src</strong>.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Что дальше?</h3>
+
+                <p>
+                    В следующей главе мы создадим первое React-приложение, познакомимся со
+                    структурой проекта, разберём назначение основных файлов и подготовим рабочее
+                    окружение для дальнейшего изучения React.
+                </p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">💡 Совет</div>
+                    <p>Если вы уже знакомы с React, эту главу можно использовать как краткую памятку перед началом работы над новым проектом.</p>
+                </div>
+
+            </section>
+
+            <!-- ====================================================== -->
+            <!-- ГЛАВА 2: Создание первого React-приложения -->
+            <!-- ====================================================== -->
+
+            <section class="chapter" id="ch2">
+
+                <h1>Глава 2. Создание первого React-приложения</h1>
+
+                <!-- ===== Подготовка окружения ===== -->
+
+                <h2 id="ch2-environment">📜 Подготовка окружения</h2>
+
+                <p>
+                    Прежде чем приступить к разработке React-приложений, необходимо подготовить
+                    рабочее окружение. В отличие от обычного HTML и JavaScript, React-проекты
+                    используют современные инструменты сборки, менеджеры пакетов и систему
+                    модулей.
+                </p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">💡 Что такое окружение разработки?</div>
+                    <p>
+                        Окружение разработки — это набор программ и инструментов, необходимых
+                        для создания, запуска, тестирования и сборки React-приложений.
+                    </p>
+                </div>
+
+                <h3>Что потребуется</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Инструмент</th>
+                                <th>Назначение</th>
+                                <th>Обязательно</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Node.js</td>
+                                <td>Среда выполнения JavaScript и менеджер пакетов npm.</td>
+                                <td>✅ Да</td>
+                            </tr>
+
+                            <tr>
+                                <td>VS Code</td>
+                                <td>Редактор исходного кода.</td>
+                                <td>✅ Рекомендуется</td>
+                            </tr>
+
+                            <tr>
+                                <td>Современный браузер</td>
+                                <td>Запуск и отладка приложения.</td>
+                                <td>✅ Да</td>
+                            </tr>
+
+                            <tr>
+                                <td>Git</td>
+                                <td>Контроль версий проекта.</td>
+                                <td>⚠️ Желательно</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Почему нельзя просто открыть HTML-файл?</h3>
+
+                <p>
+                    В обычных HTML-проектах достаточно открыть файл <strong>index.html</strong>
+                    в браузере. React работает иначе: проект состоит из множества JavaScript-модулей,
+                    которые необходимо объединить и подготовить перед запуском.
+                </p>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">⚠️ Важно</div>
+                    <p>
+                        React не запускается простым открытием файла <strong>index.html</strong>.
+                        Для разработки используется локальный сервер, который автоматически
+                        пересобирает проект при изменении файлов и мгновенно отображает результат
+                        в браузере.
+                    </p>
+                </div>
+
+                <h3>Что мы будем использовать</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Инструмент</th>
+                                <th>Причина выбора</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Node.js</td>
+                                <td>Стандарт для современной JavaScript-разработки.</td>
+                            </tr>
+
+                            <tr>
+                                <td>npm</td>
+                                <td>Устанавливает и обновляет библиотеки проекта.</td>
+                            </tr>
+
+                            <tr>
+                                <td>Vite</td>
+                                <td>Быстро создает и запускает React-приложения.</td>
+                            </tr>
+
+                            <tr>
+                                <td>Visual Studio Code</td>
+                                <td>Один из самых популярных редакторов для React-разработки.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box success">
+                    <div class="info-box-title">🔹 На практике</div>
+                    <p>
+                        Практически все современные React-проекты используют Node.js, npm (или альтернативные менеджеры пакетов) и один из современных инструментов сборки, например Vite. Освоив этот набор один раз, вы сможете работать с большинством React-проектов без дополнительной настройки.
+                    </p>
+                </div>
+
+                <h3>📝 Что запомнить</h3>
+
+                <ul>
+                    <li>✅ Для разработки React требуется подготовленное рабочее окружение.</li>
+                    <li>✅ Основные инструменты — Node.js, npm, Vite и VS Code.</li>
+                    <li>✅ React-проекты запускаются через локальный сервер разработки.</li>
+                    <li>✅ В следующих разделах мы установим и настроим все необходимые инструменты.</li>
+                </ul>
+
+
+                <!-- ===== Node.js и npm ===== -->
+
+                <h2 id="ch2-node-npm">📜 Node.js и npm</h2>
+
+                <p>
+                    React-приложения разрабатываются с использованием <strong>Node.js</strong> —
+                    среды выполнения JavaScript. Вместе с Node.js автоматически устанавливается
+                    <strong>npm (Node Package Manager)</strong> — менеджер пакетов, который используется
+                    для установки библиотек и управления зависимостями проекта.
+                </p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">💡 Важно понимать</div>
+                    <p>Node.js не нужен для выполнения React-приложения в браузере. Он используется во время разработки: для установки зависимостей, запуска локального сервера и сборки проекта.</p>
+                </div>
+
+                <h3>Что такое Node.js?</h3>
+
+                <p>
+                    Node.js — это среда выполнения JavaScript вне браузера, построенная на движке
+                    Google V8. Она позволяет запускать JavaScript-программы непосредственно
+                    в операционной системе и служит основой большинства современных инструментов
+                    Frontend-разработки.
+                </p>
+
+                <h3>Что такое npm?</h3>
+
+                <p>
+                    npm (Node Package Manager) — стандартный менеджер пакетов Node.js.
+                    Он позволяет устанавливать библиотеки, обновлять их, удалять и управлять
+                    зависимостями проекта.
+                </p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Инструмент</th>
+                                <th>Назначение</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Node.js</td>
+                                <td>Среда выполнения JavaScript.</td>
+                            </tr>
+
+                            <tr>
+                                <td>npm</td>
+                                <td>Менеджер пакетов и зависимостей.</td>
+                            </tr>
+
+                            <tr>
+                                <td>npx</td>
+                                <td>Запуск пакетов без глобальной установки.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Как они работают вместе</h3>
+
+                <pre class="browser">
+                React-проект
+
+                    │
+                    ▼
+
+                Node.js
+
+                    │
+                    ▼
+
+                npm
+
+                    │
+                    ▼
+
+                React • Vite • React Router • Axios • ...
+                </pre>
+
+                <p>
+                    Когда выполняется команда установки библиотеки, npm загружает пакет из
+                    официального репозитория и сохраняет его в папке <strong>node_modules</strong>,
+                    а также записывает информацию о зависимости в файл
+                    <strong>package.json</strong>.
+                </p>
+
+                <h3>Основные команды</h3>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Команда</th>
+                                <th>Назначение</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><code>node -v</code></td>
+                                <td>Показать версию Node.js.</td>
+                            </tr>
+
+                            <tr>
+                                <td><code>npm -v</code></td>
+                                <td>Показать версию npm.</td>
+                            </tr>
+
+                            <tr>
+                                <td><code>npm install</code></td>
+                                <td>Установить зависимости проекта.</td>
+                            </tr>
+
+                            <tr>
+                                <td><code>npm run dev</code></td>
+                                <td>Запустить локальный сервер разработки.</td>
+                            </tr>
+
+                            <tr>
+                                <td><code>npm run build</code></td>
+                                <td>Собрать production-версию приложения.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-box success">
+                    <div class="info-box-title">✅ На практике</div>
+                    <p>Большинство React-разработчиков ежедневно используют всего несколько команд: <strong>npm install</strong>, <strong>npm run dev</strong> и <strong>npm run build</strong>. Остальные команды применяются значительно реже.</p>
+                </div>
+
+                <div class="info-box danger">
+                    <div class="info-box-title">❌ Частая ошибка новичков</div>
+                    <p>Не редактируйте папку <strong>node_modules</strong> вручную. Она создается автоматически и может быть полностью пересоздана командой <strong>npm install</strong>.</p>
+                </div>
+
+                <h3>📝 Что запомнить</h3>
+
+                <ul>
+                    <li>✅ Node.js — среда выполнения JavaScript, используемая во время разработки.</li>
+                    <li>✅ npm устанавливается вместе с Node.js и управляет зависимостями проекта.</li>
+                    <li>✅ Все установленные библиотеки находятся в папке <strong>node_modules</strong>.</li>
+                    <li>✅ Информация о зависимостях хранится в файле <strong>package.json</strong>.</li>
+                    <li>✅ Для повседневной работы достаточно знать несколько основных команд npm.</li>
+                </ul>
+
+            
+                <h2 id="ch2-vite">📜 Создание проекта с Vite</h2>
+
+                <h2 id="ch2-project-structure">📜 Структура проекта</h2>
+
+                <h2 id="ch2-first-run">📜 Первый запуск приложения</h2>
+
+                <h2 id="ch2-dev-server">📜 Сервер разработки</h2>
+
+                <h2 id="ch2-build">📜 Production-сборка</h2>
+
+                <h2 id="ch2-summary">📜 Итоги главы</h2>
+
+            </section>
+            
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p><strong>📚 JavaScript - Полный справочник (Offline версия)</strong></p>
+        <p>На основе Metanit.com и книги "JavaScript и jQuery" Д. Макфарланда</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text2);">
+            Версия 4.0 • 2025
+        </p>
+    </footer>
+
+    <script>
+        // ============== TOGGLE THEME ==============
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // ============== LOAD SAVED THEME ==============
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+
+        // ============== EXPANDABLE NAVIGATION (SCROLL TO CHAPTER) ==============
+        const navItems = document.querySelectorAll('.nav-item');
+        const navSubitems = document.querySelectorAll('.nav-subitem');
+
+        // Функция удаления класса "active"
+        function removeActive() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const navSubitems = document.querySelectorAll('.nav-subitem');
+            // Убираем active со всех пунктов
+            navItems.forEach(nav => nav.classList.remove('active'));
+            navSubitems.forEach(nav => nav.classList.remove('active'));
+        }
+
+        // Toggle подразделов при клике на главу
+        navItems.forEach(item => {
+            if (item.classList.contains('has-subitems')) {
+                item.addEventListener('click', function(e) {
+                    // Предотвращаем скролл при клике на главу
+                    if (e.target === this) {
+                        const sublist = this.querySelector('.nav-sublist');
+                        if (sublist) {
+                            this.classList.toggle('expanded');
+                            sublist.classList.toggle('expanded');
+                        }
+                    }
+                });
+            } else {
+                // Обычная навигация для глав без подразделов
+                item.addEventListener('click', function() {
+                    // Убираем active со всех пунктов
+                    removeActive();
+
+                    // Добавляем active текущему
+                    this.classList.add('active');
+
+                    const targetId = this.getAttribute('data-target');
+                    scrollToSection(targetId);
+                });
+            }
+        });
+        
+        // Навигация при клике на подраздел
+        navSubitems.forEach(subitem => {
+            subitem.addEventListener('click', function(e) {
+                e.stopPropagation(); // Предотвращаем всплытие к родителю
+
+                // Убираем active со всех пунктов
+                removeActive();
+                
+                // Добавляем active текущему подразделу
+                this.classList.add('active');
+
+                const targetId = this.getAttribute('data-target');
+                scrollToSection(targetId);
+            });
+        });
+
+        // Если высота header может меняться (например, на мобилке), лучше брать её динамически:
+        const headerOffset = document.querySelector('header').offsetHeight;
+        // Функция плавного скролла к секции
+        function scrollToSection(targetId) {
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                /* Вместо scrollIntoView используем window.scrollTo с ручным вычислением позиции:
+                 берём координату элемента относительно viewport (getBoundingClientRect().top), 
+                 добавляем текущий скролл страницы (window.scrollY), и вычитаем высоту header.*/
+                //const headerOffset = 80; // высота вашего header
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                /* При данном переходе заголовок главы прячется под header
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                */
+            }
+        }
+        
+        // ============== AUTO-HIGHLIGHT НА СКРОЛЛЕ ==============
+        let isScrolling = false;
+        
+        window.addEventListener('scroll', () => {
+            if (isScrolling) return;
+            isScrolling = true;
+            
+            setTimeout(() => {
+                updateActiveSection();
+                isScrolling = false;
+            }, 50);
+        });
+        
+        function updateActiveSection() {
+            // Получаем все секции (h2 и h3)
+            const sections = document.querySelectorAll('[id^="ch"]');
+            // console.log("sections: ", sections);
+            let currentSection = '';
+            let bestMatch = null;
+            let bestDistance = Infinity; 
+            
+            sections.forEach(section => {
+                // console.log("section: ", section);
+                const rect = section.getBoundingClientRect();
+                // Секция "активна" если её верх прошёл header (ушёл выше или на уровне)
+                // const distance = Math.abs(rect.top - 100);
+                // Если секция в верхней части экрана (с учетом header)
+                // Ищем ближайшую к верху экрана секцию
+                if (rect.top <= headerOffset + 10) {
+                    const distance = headerOffset - rect.top;
+                    if (distance < bestDistance) {
+                        bestDistance = distance;
+                        bestMatch = section;
+                    }
+                }
+            });
+            
+            // выносим логику подсветки из updateActiveSection в отдельную функцию:
+            // Если нашли секцию
+            if (bestMatch) {
+                highlightNavItem(bestMatch.id);
+            }
+        }
+
+        /**
+         *  Авто-скролл меню к активному пункту (по центру)
+         * Добавляем функцию scrollNavToActive и вызываем её внутри highlightNavItem:
+        */
+       function scrollNavToActive(activeElement) {
+            const nav = document.querySelector('.nav-list'); // ваш контейнер меню (уточните селектор)
+            if (!nav || !activeElement) return;
+
+            const navRect = nav.getBoundingClientRect();
+            const itemRect = activeElement.getBoundingClientRect();
+
+            // Позиция элемента относительно nav
+            const itemOffsetTop = itemRect.top - navRect.top + nav.scrollTop;
+            // Скроллим так, чтобы элемент был по центру nav
+            const targetScrollTop = itemOffsetTop - (nav.clientHeight / 2) + (itemRect.height / 2);
+
+            nav.scrollTo({
+                top: targetScrollTop,
+                behavior: 'smooth'
+            });
+        }
+
+        /**
+         * Фикс раскрытия промежуточных глав
+         * Проблема: при скролле через несколько глав updateActiveSection срабатывает на каждой и раскрывает все.
+         * Решение — закрывать все остальные при раскрытии новой:
+         */ 
+        function collapseAllExcept(activeItem) {
+            document.querySelectorAll('.nav-item.has-subitems').forEach(item => {
+                if (item !== activeItem) {
+                    item.classList.remove('expanded');
+                    const sublist = item.querySelector('.nav-sublist');
+                    if (sublist) sublist.classList.remove('expanded');
+                }
+            });
+        }
+
+        /**
+         * Итоговая функция highlightNavItem
+         * Собираем всё вместе — выносим логику подсветки
+         * из updateActiveSection в отдельную функцию:
+         */ 
+        function highlightNavItem(currentSection) {
+            removeActive();
+
+            const activeSubitem = document.querySelector(`.nav-subitem[data-target="${currentSection}"]`);
+
+            if (activeSubitem) {
+                activeSubitem.classList.add('active');
+
+                const parentList = activeSubitem.closest('.nav-sublist');
+                const parentItem = parentList?.previousElementSibling;
+
+                if (parentItem?.classList.contains('has-subitems')) {
+                    // Закрываем все остальные, раскрываем только нужную
+                    collapseAllExcept(parentItem);
+                    parentItem.classList.add('expanded');
+                    parentList.classList.add('expanded');
+                }
+
+                scrollNavToActive(activeSubitem); // скроллим меню к активному
+
+            } else {
+                const activeItem = document.querySelector(`.nav-item[data-target="${currentSection}"]`);
+                if (!activeItem) return;
+
+                if (activeItem.classList.contains('has-subitems')) {
+                    collapseAllExcept(activeItem);
+                    const sublist = activeItem.querySelector('.nav-sublist');
+                    activeItem.classList.add('expanded');
+                    sublist?.classList.add('expanded');
+
+                    const firstVisibleSubitem = findFirstVisibleSubitem(currentSection);
+                    if (firstVisibleSubitem) {
+                        const firstSubitemNav = document.querySelector(`.nav-subitem[data-target="${firstVisibleSubitem}"]`);
+                        if (firstSubitemNav) {
+                            firstSubitemNav.classList.add('active');
+                            scrollNavToActive(firstSubitemNav);
+                        }
+                    }
+                } else {
+                    collapseAllExcept(null); // закрываем все
+                    activeItem.classList.add('active');
+                    scrollNavToActive(activeItem);
+                }
+            }
+        }
+
+        // Вспомогательная функция для поиска первого видимого подраздела
+        function findFirstVisibleSubitem(chapterId) {
+            // Ищем все h2/h3 внутри главы с id=chapterId
+            const chapterElement = document.getElementById(chapterId);
+            // console.log("chapter Element: ", chapterElement);
+            if (!chapterElement) return null;
+
+            const subitems = chapterElement.querySelectorAll(
+                '[id^="' + chapterId + '-"]'
+            );
+
+
+            for (let subitem of subitems) {
+                const rect = subitem.getBoundingClientRect();
+                // console.log("subItemID: %s, rect.top: %s, rect.bottom: %s", subitem.id, Math.round(rect.top), Math.round(rect.bottom) );
+                if (rect.top <= 150 && rect.bottom >= 45) {
+                    return subitem.id;
+                }
+            }
+
+            return null;
+        }
+        
+        // Инициализация при загрузке
+        window.addEventListener('DOMContentLoaded', () => {
+            updateActiveSection();
+        });
+
+        // ============== SEARCH FUNCTIONALITY ==============
+        const searchInput = document.getElementById('searchInput');
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                
+                if (text.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Если поиск пустой - показываем все
+            if (query === '') {
+                navItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+            }
+        });
+
+    </script>
+</body>
+</html>

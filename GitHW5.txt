@@ -1,0 +1,24 @@
+1. git init - инициализация в терминале
+2. создаем  в текущей папке с git файл .gitignore
+*.sass
+/bin
+/admin
+/config
+
+3. git add . - добавляем файлы в спискок кандидатов в хранилище
+4. git commit -m 'first commit' - добавляем файлы в локальное хранилище
+5. git branch blog  - создаем новую ветку - blog
+6. git checkout blog - переходим на ветку - blog
+7. в новой ветке создаем папку blog с файлами: index.js, index.html;
+  7.a git add . - добавляем файлы в спискок кандидатов в хранилище
+  7.b git commit -m 'added from branch blog' - добавляем файлы из ветки blog в локальное хранилище
+8. git checkout master - возвращаемся на ветку - master
+9. создаем удаленный репозиторий на GitHub
+10. git branch -M master - устанавлеваем ветку master, как МАСТЕР
+11. git remote add origin https://github.com/Kovalchuk-Alexandr/HomeWork5_Git.git - подключаем
+	удаленный репозиторий
+	https://github.com/Kovalchuk-Alexandr/jQuery.git
+12. git push -u origin master - выгружаем на удаленный репозиторий из локального хранилища
+
+13. git remote get-url --all origin - получить имя (URL) удаленного репозитория
+14. git remote remove origin - отключение от удаленного репозитория

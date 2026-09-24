@@ -1,0 +1,534 @@
+{
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+	// Placeholders with the same ids are connected.
+	// Example:
+	/* JavaScript,TypeScript snippets */
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "log",
+		"body": ["console.log('$1');", "$2"],
+		"description": "Log output to console"
+	},
+
+	"Stateless Function component": {
+		"scope": "javascript,reaact",
+		"prefix": "sfc",
+		"body": [
+			"const $1 = ($2) => {",
+			"    return ($3);",
+			"}",
+			"",
+			"export default $1;"
+		],
+		"description": "Simple React Snippet"
+	},
+
+	"QuerySelector": {
+		"scope": "javascript,typescript",
+		"prefix": "qs",
+		"body": ["document.querySelector('${1:selector}');", "$2"],
+		"description": "doc.querySelector"
+	},
+
+	"QuerySelectorAll": {
+		"scope": "javascript,typescript",
+		"prefix": "qsa",
+		"body": ["document.querySelectorAll('${1:selector}');", "$2"],
+		"description": "doc.querySelector"
+	},
+
+	"addEventListener": {
+		"scope": "javascript,typescript",
+		"prefix": "ael",
+		"body": [
+			"addEventListener('click', function() {",
+			"    console.log('Click!!!');",
+			"    $1",
+		"});",
+		"$2"],
+		"description": "addEventListener('click')"
+	},
+
+	"DOMContentLoaded": {
+		"scope": "javascript,typescript",
+		"prefix": "dom",
+		"body": [
+			"document.addEventListener('DOMContentLoaded', function() {",
+			"    $1",
+		"});",
+		"$2"],
+		"description": "DOM.onLoad"
+	},
+
+	"Promise": {
+		"scope": "javascript,typescript",
+		"prefix": "promise",
+		"body": [
+			"return new Promise((resolve, reject) => {",
+			"    $1",
+			"    resolve();",
+		"});",
+		"$2"],
+		"description": "return new Promise"
+	},
+
+	"Async/await, pause & sleep": {
+		"scope": "javascript,typescript",
+		"prefix": "pause",
+		"body": [
+			"function sleep(ms) {",
+        	"    return new Promise((resolve) => setTimeout(resolve, ms));",
+    		"}",
+			"async function pause() {",
+			"    // ${1:function}",
+        	"    await ${1:function}();",
+        	"    console.log('after ${1:function}');",
+        	"    console.log('Taking a break...');",
+        	"    await sleep(1000);",
+        	"    console.log('One second later');",
+			"}",
+			"pause();",	"$2"],
+		"description": "Insert async pause between func"
+	},
+
+	/* CSS, SCSS snippets */
+	"bgimg: Background image": {
+		"scope": "css,scss",
+		"prefix": "bgimg",
+		"body": [
+			"background-color: #999;",
+			"background-image: url('./..${1:/}');",
+			"background-position: center center; /* x y */",
+			"background-size: cover;",
+			"background-repeat: no-repeat;",
+			"$2"
+		],
+		"description": "bgimg: Background image"
+	},
+
+	"bgicon: Background icon": {
+		"scope": "css,scss",
+		"prefix": "bgicon",
+		"body": [
+			"background-image: url('./..${1:/}');",
+			"background-position: 20px 10px; /* x y */",
+			"background-size: auto;",
+			"background-repeat: no-repeat;",
+			"$2"
+		],
+		"description": "bgicon: Background icon"
+	},
+
+	"abscent: Absolute center position": {
+		"scope": "css,scss",
+		"prefix": "abscent",
+		"body": [
+			"position: absolute;",
+			"left: 50%;",
+			"top: 50%;",
+			"transform: translate(-50%, -50%);",
+			"$1"
+		],
+		"description": "abscent: Absolute center position"
+	},
+
+	"absov: Absolute Overlay": {
+		"scope": "css,scss",
+		"prefix": "absov",
+		"body": [
+			"position: absolute;",
+			"left: 0px;",
+			"top: 0px;",
+			"width: 100%;",
+			"height: 100%;",
+			"background-color:rgba(86, 86, 86, 0.5);",
+			"$1"
+		],
+		"description": "absov: Absolute Overlay"
+	},
+
+	"::absicon Pseudo absolute bg icon": {
+		"scope": "css,scss",
+		"prefix": "::absicon",
+		"body": [
+			"content: \"\";",
+			"",
+			"position: absolute;",
+			"left: 0px;",
+			"top: 0px;",
+			"width: 10px;",
+			"height: 10px;",
+			"",
+			"background-image: url('./..${1:/}');",
+			"background-repeat: no-repeat;",
+			"$2"
+		],
+		"description": "::absicon Pseudo absolute bg icon"
+	},
+
+	"wh: Widht: 100%, Heigh: 100% ": {
+		"scope": "css,scss",
+		"prefix": "wh",
+		"body": ["width: 100%;", "height: 100%;", "$1"],
+		"description": "wh: Widht: 100%, Heigh: 100% "
+	},
+
+	"trans: Transition": {
+		"scope": "css,scss",
+		"prefix": "trans",
+		"body": ["transition: all 0.2s ease-in;", "$1"],
+		"description": "trans: Transition"
+	},
+
+	"transl: Transform Translate": {
+		"scope": "css,scss",
+		"prefix": "transl",
+		"body": ["transform: translate(-50%, -50%);", "$1"],
+		"description": "transl: Transform Translate"
+	},
+
+	"imp: Import CSS / SCSS": {
+		"scope": "css,scss",
+		"prefix": "imp",
+		"body": ["@import '.${1:/}';", "$2"],
+		"description": "imp: Import CSS / SCSS"
+	},
+
+	"media: CSS, SCSS media": {
+		"scope": "css,scss",
+		"prefix": "media",
+		"body": [
+			"@media (max-width: ${1:992}px) {",
+			"    $2",
+			"}"
+		],
+		"description": "media: CSS, SCSS media"
+	},
+
+	"media: CSS, SCSS media screen & max-width" : {
+		"scope": "css,scss",
+		"prefix": "medias",
+		"body": [
+			"@media only screen and (max-width: ${1:992px}) {",
+			"    $2",
+			"}"
+		],
+		"description": "media: CSS, SCSS media"
+	},
+
+	/* Media Desktop */
+	"media Desktop": {
+		"scope": "css,scss",
+		"prefix": "desktop",
+		"body": ["@include desktop {", "    ${1}", "}"],
+		"description": "desktop"
+	},
+
+	/* Media Laptop */
+	"media Laptop": {
+		"scope": "css,scss",
+		"prefix": "laptop",
+		"body": ["@include laptop {", "    ${1}", "}"],
+		"description": "laptop"
+	},
+
+	/* Media Tablet */
+	"mediaTablet": {
+		"scope": "css,scss",
+		"prefix": "tablet",
+		"body": ["@include tablet {", "    ${1}", "}"],
+		"description": "tablet"
+	},
+
+	/* Media Mobile */
+	"mediaMobile": {
+		"scope": "css,scss",
+		"prefix": "mobile",
+		"body": ["@include mobile {", "    ${1}", "}"],
+		"description": "mobile"
+	},
+
+	"cssvars: Hint for CSS variables": {
+		"scope": "css,scss",
+		"prefix": "cssvars",
+		"body": [
+			":root {",
+			"    --textColor: #333;",
+			"    --accent: #1050da;",
+			"}",
+			"",
+			"body {",
+			"    color: var(--textColor);",
+			"}"
+		],
+		"description": ": Hint for CSS variables"
+	},
+
+	"btn: CSS Button class": {
+		"scope": "css,scss",
+		"prefix": "btn",
+		"body": [
+			".button {",
+			"    display: flex;",
+			"    justify-content: center;",
+			"    align-items: center;",
+			"    column-gap: 10px;",
+			"",
+			"    padding: 10px 15px;",
+			"    height: 30px;",
+			"",
+			"    border-radius: 12px;",
+			"    background: #333333;",
+			"",
+			"    font-size: 16px;",
+			"    color: #fff;",
+			"",
+			"    transition: background-color 0.2s ease-in, color 0.2s ease-in;",
+			"}",
+			"",
+			".button:hover, .button:focus {",
+			"    background-color: #404040;",
+			"}",
+			"",
+			".button:active {",
+			"    background-color: #222222;",
+			"}"
+		],
+		"description": "btn: CSS Button class"
+	},
+
+	"border: shorthand" : {
+		"scope": "css,scss",
+		"prefix": "borders",
+		"body": ["border: 1px solid $1#d3d3d3;", "$2"],
+		// "body": [
+		// 	"@media only screen and (max-width: ${1:992px}) {",
+		// 	"    $2",
+		// 	"}"
+		// ],
+		"description": "media: CSS, SCSS media"
+	},
+
+	"margin: 0 auto": {
+		"scope": "css,scss",
+		"prefix": "m0",
+		"body": ["margin: 0 auto;"],
+		"description": "margin: 0 auto - centered"
+	},
+
+	"display: flex (base set)": {
+		"scope": "css,scss",
+		"prefix": "dfl",
+		"body": [
+			"display: flex;",
+			"justify-content: space-between;",
+			"align-items: center;",
+			"gap: 30px;",
+			"$1"
+		],
+		"description": "display: flex (base set)"
+	},
+
+	/*  HTML  */ 
+	"HTML section": {
+		"prefix": "sect",
+		"body": [
+			"<section class=\"section-${1:example}\">",
+			"	<h2 class=\"visually-hidden\">${2:title}</h2>",
+			"	<div class=\"container\">",
+			"		<h2 class=\"section-${1:example}__title\">${2:title}</h2>",
+			"		<div class=\"section-${1:example}__${3:grid}\">",
+			"			${4:Content}",
+			"		</div>",
+			"	</div>",
+			"</section>"
+		],
+		"description": "HTML section"
+	},
+
+	"HTML section w/a 'section'": {
+		"prefix": "sect1",
+		"body": [
+			"<section class=\"${1:example}\">",
+			"	<h2 class=\"visually-hidden\">${2:title}</h2>",
+			"	<div class=\"container\">",
+			"		<h2 class=\"${1:example}__title\">${2:title}</h2>",
+			"		<div class=\"${1:example}__${3:grid}\">",
+			"			${4:Content}",
+			"		</div>",
+			"	</div>",
+			"</section>"
+		],
+		"description": "HTML section"
+	},
+	"picture webp short set": {
+		"scope": "html,jsx",
+		"prefix": "pictw",
+		"body": [
+			"<picture>",
+			"    <source srcset='./img/$1.webp' type='image/webp'>",
+			"    <source srcset='./img/$1.jpg' type='image/jpeg'>",
+			"    <img src='./img/${1}.jpg' width=''  height='' alt='' >",
+			"</picture>",
+			"$3"
+		],
+		"description": "picture set: for webp/jpg pictures"
+	},
+	"picture webp full set": {
+		"scope": "html,jsx",
+		"prefix": "pictwa",
+		"body": [
+			"<picture>",
+			"    <source srcset='./img/$1.webp 1x, ./img/$1@2x.webp 2x,' type='image/webp'>",
+			"    <source srcset='./img/$1.jpg 1x, ./img/$1@2x.jpg 2x,' type='image/jpeg'>",
+			"    <img src='./img/${1}.jpg' width=''  height='' alt='' >",
+			// <source srcset="./img/premium/pict1.webp 1x, ./img/premium/pict1@2x.webp 2x" type="image/webp">
+			// <source srcset="./img/premium/pict1.jpg 1x, ./img/premium/pict1@2x.jpg 2x" type="image/jpeg">
+			// <img src="./img/premium/pict1.jpg" width="347"  height="399" alt="Male lifting weights">
+			"</picture>",
+			"$3"
+		],
+		"description": "picture full set: for webp/jpg pictures"
+	},
+	"picture set": {
+		"scope": "html,jsx",
+		"prefix": "pict",
+		"body": [
+			"<picture>",
+			"    <source media='(max-width: ${1:767}px)' srcset='./..${2:/}' />",
+			"    <source media='(min-width: 768px)' srcset='elva-800w.jpg' />",
+			"    <img src='./..${2:/}' alt='' />",
+			"</picture>",
+			// "background-image: url('./..${1:/}');",
+			"$3"
+		],
+		"description": "picture set: for different range pictures"
+	},
+	"img set": {
+		"scope": "html,jsx",
+		"prefix": "img Set",
+		"body": [
+			"<img",
+			"    srcset='",
+			"        elva-fairy-${1:320}w.jpg ${1:320}w,",
+            "        elva-fairy-480w.jpg 480w,",
+            "        elva-fairy-767w.jpg 767w'",
+			"    sizes='",
+			"        (max-width: ${1:320}px) 280px,",
+			"        (max-width: 480px) 480px,",
+			"                           767px,'",
+			"    src='./../img/${2}' alt='Image'",
+			"/>",
+			"$3"
+			// "    <source media='(max-width: ${1:767}px)' srcset='./..${2:/}' />",
+			// "    <source media='(min-width: 768px)' srcset='elva-800w.jpg' />",
+		],
+		"description": "image set: for different range pictures"
+	},
+	"NAV": {
+		"scope": "html,jsx",
+		"prefix": "nav",
+		"body": [
+			"<nav class=\"nav\">",
+			"   <ul class=\"nav__list\">",
+            "       <li class=\"nav__item\"><a href=\"index.html\" class=\"nav__link\">Home</a></li>",
+            "       <li class=\"nav__item\"><a href=\"#!\" class=\"nav__link\"></a></li>",
+            "       <li class=\"nav__item\"><a href=\"#!\" class=\"nav__link\"></a></li>",
+            "       <li class=\"nav__item\"><a href=\"#!\" class=\"nav__link\"></a></li>",
+            "    </ul>",
+			"</nav>",
+		],
+		"description": "Nav basic set"
+	},
+	
+	"class='no-picture'": {
+		"scope": "html,jsx",
+		"prefix": "npc",
+		"body": ["class=\"no-picture\""],
+		"description": "class='no-picture'"
+	},
+
+	"class='no-picture' w/a class": {
+		"scope": "html,jsx",
+		"prefix": "np",
+		"body": ["no-picture"],
+		"description": "class='no-picture'"
+	},
+
+	"CSS BG retina": {
+		"prefix": "mediaBg",
+		"body": [
+			"@include mediaBg() {",
+			"	background-image: url('./../img/${1:example}@2x.${2:jpg}');",
+			"}"
+		],
+		"description": "CSS BG retina"
+	},
+
+	"CSS img set": {
+		"scope": "css,scss",
+		"prefix": "imgSet",
+		"body": [
+			"background-image: image-set(",
+			"	url('./../img/${1:example}') 1x,",
+			"	url('./../img/${1:example}') 2x);"
+		],
+		"description": "CSS img set"
+	},
+
+	"SVG icon sprite": {
+		"scope": "html,jsx",
+		"prefix": "svgIcon",
+		"body": [
+			"<svg class=\"icon icon--${1:example}\">",
+			"	<use href=\"./img/svgsprite/sprite.symbol.svg#${1:example}\"></use>",
+			"</svg>"
+		],
+		"description": "SVG icon sprite"
+	},
+
+	"Image srcset": {
+		"scope": "html,jsx",
+		"prefix": "imgr",
+		"body": [
+			"<img src=\"./../img${1:/}\" srcset=\"./../img${1:/}\" alt=\"${2:Alt}\">"
+		],
+		"description": "Image srcset"
+	},
+
+	"PHP start": {
+		"prefix": "php",
+		"body": [
+			"<?php",
+			"   ${1}",
+			"?>"
+		],
+		"description": "PHP start"
+	},
+
+	"pre print_r": {
+		"prefix": "prep",
+		"body": [
+			// <pre>
+			// 	<?=print_r($_POST)?>
+			// </pre>
+			"<pre>",
+			"   <?=print_r(${1})?>",
+			"</pre>"
+		],
+		"description": "PHP start"
+	},
+
+	"code-block": {
+		"prefix": "cb",
+		"body": [
+			"<div class=\"code-block\"><code>${1}</code></div>",
+		],
+		"description": "code-block wrapper"
+	},
+}
+
