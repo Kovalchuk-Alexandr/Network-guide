@@ -1,6 +1,6 @@
 # Компьютерные сети. Полный справочник
 
-[Смотреть демо](https://kovalchuk-alexandr.github.io/React-guide/)
+[Смотреть демо](https://kovalchuk-alexandr.github.io/Network-guide/)
 
 # Часть I. Основы компьютерных сетей
 

@@ -1,10 +1,10 @@
-echo "# React-guide" >> README.md
+echo "# Network-guide" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
 git branch -M master
-git remote add origin https://github.com/Kovalchuk-Alexandr/React-guide.git
+git remote add origin https://github.com/Kovalchuk-Alexandr/Network-guide.git
 git push -u origin master
 
-https://kovalchuk-alexandr.github.io/React-guide/
+https://kovalchuk-alexandr.github.io/Network-guide/
 

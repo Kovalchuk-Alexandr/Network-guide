@@ -19609,7 +19609,7 @@ Server</code></pre>
 
                 <!-- ===== Путь данных между двумя компьютерами — общий разбор ===== -->
 
-                <article id="ch2-data-path">
+                <article id="ch2-data-path-between-computers">
 
                     <h2>📜 Путь данных между двумя компьютерами — общий разбор</h2>
 
@@ -19655,7 +19655,7 @@ Server</code></pre>
 
                     <pre class="code-block"><code>PC1 ─── Switch 1 ─── Router ─── Switch 2 ─── PC2
 
-        LAN 1                         LAN 2</code></pre>
+                        LAN 1                         LAN 2</code></pre>
 
                     <p>
                         Пусть компьютеры имеют следующие адреса:
@@ -19737,12 +19737,12 @@ Server</code></pre>
                         должно передать данные приложению на PC2.
                     </p>
 
-                    <pre class="code-block"><code>  PC1
+                    <pre class="code-block"><code>PC1
 
-Приложение
-    │
-    ▼
-  Данные</code></pre>
+                Приложение
+                    │
+                    ▼
+                Данные</code></pre>
 
                     <p>
                         Пока это просто данные приложения.
@@ -19771,16 +19771,17 @@ Server</code></pre>
                     </p>
 
                     <pre class="code-block"><code>┌────────────┬──────────────────────┐
- │ TCP Header │ Данные приложения    │
- └────────────┴──────────────────────┘
-           TCP-сегмент</code></pre>
+                │ TCP Header │ Данные приложения    │
+                └────────────┴──────────────────────┘
+
+                            TCP-сегмент</code></pre>
 
                     <p>
                         Например:
                     </p>
 
                     <pre class="code-block"><code>Source Port:       51000
- Destination Port:  5000</code></pre>
+                Destination Port:  5000</code></pre>
 
                     <p>
                         Номер порта назначения позволит PC2
@@ -19816,16 +19817,17 @@ Server</code></pre>
                     </p>
 
                     <pre class="code-block"><code>┌───────────┬────────────┬──────────────────────┐
- │ IP Header │ TCP Header │ Данные приложения    │
- └───────────┴────────────┴──────────────────────┘
-                 IP-пакет</code></pre>
+                │ IP Header │ TCP Header │ Данные приложения    │
+                └───────────┴────────────┴──────────────────────┘
+
+                                    IP-пакет</code></pre>
 
                     <p>
                         В IP-заголовке находятся:
                     </p>
 
                     <pre class="code-block"><code>Source IP:       192.168.1.10
- Destination IP:  192.168.2.20</code></pre>
+                Destination IP:  192.168.2.20</code></pre>
 
                     <p>
                         Теперь определён
@@ -19906,8 +19908,8 @@ Server</code></pre>
                     </p>
 
                     <pre class="code-block"><code>192.168.1.1
-      ↓
-11:11:11:11:11:11</code></pre>
+                    ↓
+                11:11:11:11:11:11</code></pre>
 
                     <div class="info-box note">
                         <div class="info-box-title">💡 Пока без подробностей</div>
@@ -19936,19 +19938,20 @@ Server</code></pre>
 
                     <pre class="code-block"><code>Ethernet-кадр
 
-Source MAC:
-AA:AA:AA:AA:AA:AA       ← PC1
+                Source MAC:
+                AA:AA:AA:AA:AA:AA       ← PC1
 
-Destination MAC:
-11:11:11:11:11:11       ← Router
-        │
-        └── IP-пакет
+                Destination MAC:
+                11:11:11:11:11:11       ← Router
 
-            Source IP:
-            192.168.1.10
+                        │
+                        └── IP-пакет
 
-            Destination IP:
-            192.168.2.20</code></pre>
+                            Source IP:
+                            192.168.1.10
+
+                            Destination IP:
+                            192.168.2.20</code></pre>
 
                     <p>
                         Обратите внимание:
@@ -19980,12 +19983,12 @@ Destination MAC:
                     </p>
 
                     <pre class="code-block"><code>Ethernet-кадр
-     ↓
-   биты
-     ↓
-  сигналы
-     ↓
-кабель / другая среда</code></pre>
+                    ↓
+                    биты
+                    ↓
+                    сигналы
+                    ↓
+                кабель / другая среда</code></pre>
 
                     <p>
                         Данные начинают реальное движение
@@ -20017,18 +20020,18 @@ Destination MAC:
                     </p>
 
                     <pre class="code-block"><code>PC1
-  │
-  │ MAC:
-  │ PC1 → Router
-  │
-  ▼
-Switch 1
-  │
-  │ тот же MAC:
-  │ PC1 → Router
-  │
-  ▼
-Router</code></pre>
+                │
+                │ MAC:
+                │ PC1 → Router
+                │
+                ▼
+                Switch 1
+                │
+                │ тот же MAC:
+                │ PC1 → Router
+                │
+                ▼
+                Router</code></pre>
 
                     <p>
                         Switch не меняет конечный IP-адрес
@@ -20057,13 +20060,13 @@ Router</code></pre>
                     </p>
 
                     <pre class="code-block"><code>Ethernet-кадр №1
-      │
-      ▼
-    Router
-      │
-      └── IP-пакет
-          Source IP:       192.168.1.10
-          Destination IP:  192.168.2.20</code></pre>
+                        │
+                        ▼
+                    Router
+                        │
+                        └── IP-пакет
+                            Source IP:       192.168.1.10
+                            Destination IP:  192.168.2.20</code></pre>
 
                     <p>
                         Router извлекает IP-пакет
@@ -20121,32 +20124,34 @@ Router</code></pre>
 
                     <pre class="code-block"><code>Ethernet-кадр №2
 
- Source MAC:
- 22:22:22:22:22:22       ← Router
+                Source MAC:
+                22:22:22:22:22:22       ← Router
 
- Destination MAC:
- BB:BB:BB:BB:BB:BB       ← PC2
-         │
-         └── IP-пакет
+                Destination MAC:
+                BB:BB:BB:BB:BB:BB       ← PC2
 
-             Source IP:
-             192.168.1.10
+                        │
+                        └── IP-пакет
 
-             Destination IP:
-             192.168.2.20</code></pre>
+                            Source IP:
+                            192.168.1.10
+
+                            Destination IP:
+                            192.168.2.20</code></pre>
 
                     <div class="info-box success">
                         <div class="info-box-title">✅ Сравним два участка</div>
 
                         <pre class="code-block"><code>LAN 1:
 
- MAC:  PC1    → Router
- IP:   PC1    → PC2
+                MAC:  PC1    → Router
+                IP:   PC1    → PC2
 
- LAN 2:
 
- MAC:  Router → PC2
- IP:   PC1    → PC2</code></pre>
+                LAN 2:
+
+                MAC:  Router → PC2
+                IP:   PC1    → PC2</code></pre>
 
                         <p>
                             <strong>MAC-адреса изменились.</strong>
@@ -20171,7 +20176,7 @@ Router</code></pre>
                     </p>
 
                     <pre class="code-block"><code>Destination MAC:
- BB:BB:BB:BB:BB:BB</code></pre>
+                BB:BB:BB:BB:BB:BB</code></pre>
 
                     <p>
                         По своей MAC-таблице он определяет
@@ -20180,18 +20185,18 @@ Router</code></pre>
                     </p>
 
                     <pre class="code-block"><code>Router
-   │
-   │ MAC:
-   │ Router → PC2
-   │
-   ▼
-Switch 2
-   │
-   │ тот же MAC:
-   │ Router → PC2
-   │
-   ▼
-  PC2</code></pre>
+                │
+                │ MAC:
+                │ Router → PC2
+                │
+                ▼
+                Switch 2
+                │
+                │ тот же MAC:
+                │ Router → PC2
+                │
+                ▼
+                PC2</code></pre>
 
 
                     <h3>Шаг 13. PC2 принимает кадр</h3>
@@ -20207,12 +20212,12 @@ Switch 2
                     </p>
 
                     <pre class="code-block"><code>Ethernet-кадр
-      ↓
-  IP-пакет
-      ↓
-  TCP-сегмент
-      ↓
-Данные приложения</code></pre>
+                    ↓
+                IP-пакет
+                    ↓
+                TCP-сегмент
+                    ↓
+                Данные приложения</code></pre>
 
 
                     <h3>Шаг 14. L2 передаёт содержимое выше</h3>
@@ -20237,7 +20242,7 @@ Switch 2
                     </p>
 
                     <pre class="code-block"><code>Destination IP:
- 192.168.2.20</code></pre>
+                192.168.2.20</code></pre>
 
                     <p>
                         Это IP-адрес PC2,
@@ -20299,18 +20304,18 @@ Switch 2
                         исходные данные достигают приложения PC2.
                     </p>
 
-                    <pre class="code-block"><code>   PC1                                      PC2
+                    <pre class="code-block"><code>PC1                                          PC2
 
- Приложение                               Приложение
-     │                                        ▲
-     ▼                                        │
- TCP-сегмент                              TCP-сегмент
-     │                                        ▲
-     ▼                                        │
- IP-пакет          ───────────────►        IP-пакет
-     │                                        ▲
-     ▼                                        │
-Кадр №1 → Router → Кадр №2 ─────────────►  Кадр №2</code></pre>
+                Приложение                              Приложение
+                    │                                        ▲
+                    ▼                                        │
+                TCP-сегмент                              TCP-сегмент
+                    │                                        ▲
+                    ▼                                        │
+                IP-пакет          ───────────────►        IP-пакет
+                    │                                        ▲
+                    ▼                                        │
+                Кадр №1 → Router → Кадр №2 ─────────────► Кадр №2</code></pre>
 
                     <p>
                         На PC1 происходила
@@ -20549,41 +20554,41 @@ Switch 2
 
                     <h3>Весь путь в сокращённом виде</h3>
 
-                    <pre class="code-block"><code>    PC1
+                    <pre class="code-block"><code>PC1
 
-Данные приложения
-      ↓
-  TCP-сегмент
-порт назначения → приложение PC2
-      ↓
-   IP-пакет
-192.168.1.10 → 192.168.2.20
-      ↓
-Ethernet-кадр №1
-MAC PC1 → MAC Router
-      ↓
-   Switch 1
-      ↓
-    Router
-      │
-      │ анализ IP
-      │ выбор маршрута
-      │ новый L2-кадр
-      ↓
-Ethernet-кадр №2
-MAC Router → MAC PC2
-      ↓
-  Switch 2
-      ↓
-     PC2
-      ↓
-   IP-пакет
-      ↓
-  TCP-сегмент
-      ↓
-порт назначения
-      ↓
- Приложение</code></pre>
+                Данные приложения
+                    ↓
+                TCP-сегмент
+                порт назначения → приложение PC2
+                    ↓
+                IP-пакет
+                192.168.1.10 → 192.168.2.20
+                    ↓
+                Ethernet-кадр №1
+                MAC PC1 → MAC Router
+                    ↓
+                Switch 1
+                    ↓
+                Router
+                    │
+                    │ анализ IP
+                    │ выбор маршрута
+                    │ новый L2-кадр
+                    ↓
+                Ethernet-кадр №2
+                MAC Router → MAC PC2
+                    ↓
+                Switch 2
+                    ↓
+                PC2
+                    ↓
+                IP-пакет
+                    ↓
+                TCP-сегмент
+                    ↓
+                порт назначения
+                    ↓
+                Приложение</code></pre>
 
 
                     <h3>Связь с OSI</h3>
@@ -20594,20 +20599,20 @@ MAC Router → MAC PC2
                     </p>
 
                     <pre class="code-block"><code>L7–L5   данные приложения
-         ↓
- L4    TCP / UDP
-        порты
-         ↓
- L3      IP
-       IP-адреса
-       маршрутизация
-         ↓
- L2    Ethernet
-       MAC-адреса
-        кадры
-         ↓
- L1   биты / сигналы
-      физическая передача</code></pre>
+                        ↓
+                L4       TCP / UDP
+                        порты
+                        ↓
+                L3       IP
+                        IP-адреса
+                        маршрутизация
+                        ↓
+                L2       Ethernet
+                        MAC-адреса
+                        кадры
+                        ↓
+                L1       биты / сигналы
+                        физическая передача</code></pre>
 
                     <p>
                         Каждый уровень решает свою задачу,
