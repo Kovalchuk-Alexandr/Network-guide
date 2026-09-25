@@ -20706,6 +20706,3216 @@ MAC Router → MAC PC2
                         </li>
                     </ul>
                 </article>
+
+                <!-- ===== Packet Tracer: Simulation Mode ===== -->
+
+                <article id="ch2-packet-tracer-simulation">
+
+                    <h2>📜 Packet Tracer: Simulation Mode</h2>
+
+                    <p>
+                        До сих пор мы разбирали передачу данных
+                        с помощью схем:
+                        данные приложения превращаются в сегмент,
+                        пакет и кадр,
+                        проходят через сетевые устройства,
+                        а на компьютере-получателе выполняется
+                        обратный процесс.
+                    </p>
+
+                    <p>
+                        В <strong>Cisco Packet Tracer</strong>
+                        этот процесс можно увидеть практически —
+                        с помощью <strong>Simulation Mode
+                        (режима симуляции)</strong>.
+                    </p>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Зачем нужен Simulation Mode</div>
+
+                        <p>
+                            Simulation Mode позволяет
+                            <strong>остановить сетевой обмен
+                            и наблюдать его шаг за шагом</strong>.
+                        </p>
+
+                        <p>
+                            Можно увидеть:
+                        </p>
+
+                        <ul>
+                            <li>какие протоколы участвуют в обмене;</li>
+                            <li>какие PDU проходят через устройства;</li>
+                            <li>какое устройство обрабатывает PDU;</li>
+                            <li>что происходит на разных уровнях модели OSI;</li>
+                            <li>какая служебная информация находится внутри PDU.</li>
+                        </ul>
+                    </div>
+
+
+                    <h3>Realtime и Simulation</h3>
+
+                    <p>
+                        В Packet Tracer существуют два основных режима
+                        наблюдения за работой сети:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Режим</th>
+                                    <th>Что происходит</th>
+                                    <th>Когда удобен</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Realtime</strong>
+                                    </td>
+
+                                    <td>
+                                        Сеть работает практически
+                                        в обычном режиме,
+                                        а обмен происходит автоматически.
+                                    </td>
+
+                                    <td>
+                                        Настройка устройств
+                                        и обычная проверка сети.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Simulation</strong>
+                                    </td>
+
+                                    <td>
+                                        Сетевые события можно наблюдать
+                                        по отдельным шагам.
+                                    </td>
+
+                                    <td>
+                                        Изучение протоколов,
+                                        пакетов и процесса передачи данных.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Для обычной работы чаще используется
+                        <strong>Realtime</strong>,
+                        а для обучения особенно полезен
+                        <strong>Simulation</strong>.
+                    </p>
+
+
+                    <h3>Подготовим простую сеть</h3>
+
+                    <p>
+                        Используем уже знакомую схему:
+                    </p>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 820 190"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="PC0 соединён через Switch0 с PC1">
+
+                            <!-- PC0 -->
+                            <rect class="diagram-node"
+                                x="40" y="55"
+                                width="160" height="60"
+                                rx="6" />
+
+                            <text class="diagram-device"
+                                x="120" y="80"
+                                text-anchor="middle">
+                                PC0
+                            </text>
+
+                            <text class="diagram-label"
+                                x="120" y="102"
+                                text-anchor="middle">
+                                192.168.1.10
+                            </text>
+
+
+                            <!-- PC0 -> Switch -->
+                            <line class="diagram-link"
+                                x1="200" y1="85"
+                                x2="330" y2="85" />
+
+
+                            <!-- Switch -->
+                            <rect class="diagram-node"
+                                x="330" y="55"
+                                width="160" height="60"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="410" y="91"
+                                text-anchor="middle">
+                                Switch0
+                            </text>
+
+
+                            <!-- Switch -> PC1 -->
+                            <line class="diagram-link"
+                                x1="490" y1="85"
+                                x2="620" y2="85" />
+
+
+                            <!-- PC1 -->
+                            <rect class="diagram-node"
+                                x="620" y="55"
+                                width="160" height="60"
+                                rx="6" />
+
+                            <text class="diagram-device"
+                                x="700" y="80"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="700" y="102"
+                                text-anchor="middle">
+                                192.168.1.20
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+                    <p>
+                        Настроим адреса:
+                    </p>
+
+                    <pre class="code-block"><code>PC0
+IP Address:   192.168.1.10
+Subnet Mask:  255.255.255.0
+
+PC1
+IP Address:   192.168.1.20
+Subnet Mask:  255.255.255.0</code></pre>
+
+                    <p>
+                        Оба компьютера находятся
+                        в одной локальной IP-сети,
+                        поэтому router для этого эксперимента
+                        не требуется.
+                    </p>
+
+
+                    <h3>Сначала проверим сеть</h3>
+
+                    <p>
+                        Перед использованием Simulation Mode
+                        убедимся, что соединение работает.
+                    </p>
+
+                    <p>
+                        На PC0 откройте:
+                    </p>
+
+                    <pre class="code-block"><code>PC0
+ → Desktop
+ → Command Prompt</code></pre>
+
+                    <p>
+                        Выполните:
+                    </p>
+
+                    <pre class="code-block"><code>ping 192.168.1.20</code></pre>
+
+                    <p>
+                        При исправной настройке PC1 должен отвечать.
+                    </p>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Первый ping может отличаться</div>
+
+                        <p>
+                            Перед отправкой ICMP-пакета компьютеру
+                            может понадобиться узнать MAC-адрес PC1.
+                        </p>
+
+                        <p>
+                            Для этого используется
+                            <strong>ARP (Address Resolution Protocol —
+                            протокол разрешения адресов)</strong>.
+                        </p>
+
+                        <p>
+                            Поэтому при первом обмене
+                            можно увидеть дополнительные ARP-события.
+                        </p>
+                    </div>
+
+
+                    <h3>Переходим в Simulation Mode</h3>
+
+                    <p>
+                        В нижней части окна Packet Tracer
+                        переключите режим:
+                    </p>
+
+                    <pre class="code-block"><code>Realtime → Simulation</code></pre>
+
+                    <p>
+                        После переключения появляется панель,
+                        предназначенная для управления симуляцией
+                        и просмотра сетевых событий.
+                    </p>
+
+                    <p>
+                        Теперь обмен можно наблюдать
+                        не как мгновенное действие,
+                        а как последовательность отдельных событий.
+                    </p>
+
+
+                    <h3>Очистим предыдущие события</h3>
+
+                    <p>
+                        Перед новым экспериментом удобно удалить
+                        события предыдущих передач,
+                        чтобы они не мешали наблюдению.
+                    </p>
+
+                    <p>
+                        После очистки списка событий
+                        создадим новый обмен между PC0 и PC1.
+                    </p>
+
+
+                    <h3>Создаём простой PDU</h3>
+
+                    <p>
+                        Для быстрого теста в Packet Tracer
+                        можно использовать инструмент
+                        <strong>Add Simple PDU</strong>.
+                    </p>
+
+                    <p>
+                        <strong>PDU (Protocol Data Unit —
+                        протокольный блок данных)</strong> —
+                        общее название единицы данных,
+                        рассматриваемой на определённом уровне протокола.
+                    </p>
+
+                    <p>
+                        В Packet Tracer термин PDU также используется
+                        как удобное общее обозначение
+                        моделируемой сетевой передачи.
+                    </p>
+
+                    <p>
+                        Выберите:
+                    </p>
+
+                    <pre class="code-block"><code>Add Simple PDU</code></pre>
+
+                    <p>
+                        Затем последовательно щёлкните:
+                    </p>
+
+                    <pre class="code-block"><code>PC0 → PC1</code></pre>
+
+                    <p>
+                        PC0 будет источником,
+                        а PC1 — получателем.
+                    </p>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Что мы моделируем</div>
+
+                        <p>
+                            В данном случае Packet Tracer создаёт
+                            простой тест сетевой доступности,
+                            основанный на
+                            <strong>ICMP (Internet Control Message Protocol —
+                            протокол управляющих сообщений Интернета)</strong>.
+                        </p>
+
+                        <p>
+                            Именно ICMP используется командой
+                            <code>ping</code>.
+                        </p>
+                    </div>
+
+
+                    <h3>ICMP Echo Request и Echo Reply</h3>
+
+                    <p>
+                        При обычной проверке ping
+                        нас особенно интересуют два сообщения:
+                    </p>
+
+                    <pre class="code-block"><code>PC0
+  │
+  │ ICMP Echo Request
+  ▼
+ PC1
+
+ PC0
+  ▲
+  │ ICMP Echo Reply
+  │
+ PC1</code></pre>
+
+                    <p>
+                        <strong>ICMP Echo Request</strong> —
+                        запрос: условно
+                        «ты доступен?».
+                    </p>
+
+                    <p>
+                        <strong>ICMP Echo Reply</strong> —
+                        ответ получателя.
+                    </p>
+
+                    <p>
+                        Если Echo Request дошёл до PC1
+                        и Echo Reply вернулся к PC0,
+                        IP-связность между компьютерами работает.
+                    </p>
+
+
+                    <h3>Но сначала может появиться ARP</h3>
+
+                    <p>
+                        PC0 знает IP-адрес назначения:
+                    </p>
+
+                    <pre class="code-block"><code>192.168.1.20</code></pre>
+
+                    <p>
+                        Однако для формирования Ethernet-кадра
+                        ему нужен MAC-адрес PC1.
+                    </p>
+
+                    <p>
+                        Если нужного соответствия ещё нет
+                        в ARP-кэше PC0,
+                        сначала выполняется ARP.
+                    </p>
+
+                    <pre class="code-block"><code>PC0 знает:
+ IP PC1 = 192.168.1.20
+         ↓
+ нужно определить:
+ 192.168.1.20 → какой MAC?</code></pre>
+
+                    <p>
+                        Поэтому в Simulation Mode
+                        последовательность может выглядеть примерно так:
+                    </p>
+
+                    <pre class="code-block"><code>ARP Request
+     ↓
+ ARP Reply
+     ↓
+ICMP Echo Request
+     ↓
+ICMP Echo Reply</code></pre>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Это полезно увидеть своими глазами</div>
+
+                        <p>
+                            Раньше мы говорили:
+                            для Ethernet-передачи одного IP-адреса
+                            недостаточно — нужен MAC-адрес
+                            следующего L2-получателя.
+                        </p>
+
+                        <p>
+                            Simulation Mode позволяет увидеть,
+                            <strong>как эта необходимость приводит
+                            к появлению ARP перед передачей ICMP</strong>.
+                        </p>
+                    </div>
+
+
+                    <h3>Capture / Forward</h3>
+
+                    <p>
+                        Для пошагового просмотра используйте
+                        <strong>Capture / Forward</strong>.
+                    </p>
+
+                    <p>
+                        Один шаг позволяет перейти
+                        к следующему событию симуляции.
+                    </p>
+
+                    <p>
+                        Не нажимайте кнопку много раз подряд.
+                        Гораздо полезнее после каждого шага
+                        смотреть:
+                    </p>
+
+                    <ul>
+                        <li>на каком устройстве находится PDU;</li>
+                        <li>какой протокол сейчас участвует;</li>
+                        <li>куда PDU должен двигаться дальше;</li>
+                        <li>что произошло на текущем устройстве.</li>
+                    </ul>
+
+
+                    <h3>Первый участок: PC0 → Switch0</h3>
+
+                    <p>
+                        После подготовки необходимых адресов
+                        PC0 формирует передачу для PC1.
+                    </p>
+
+                    <p>
+                        Упрощённо внутри Ethernet-кадра находится:
+                    </p>
+
+                    <pre class="code-block"><code>Ethernet
+
+ Source MAC:       MAC PC0
+ Destination MAC:  MAC PC1
+         │
+         └── IP
+             Source IP:
+             192.168.1.10
+
+             Destination IP:
+             192.168.1.20
+                 │
+                 └── ICMP Echo Request</code></pre>
+
+                    <p>
+                        Кадр сначала физически поступает
+                        на Switch0.
+                    </p>
+
+
+                    <h3>Что происходит на Switch0</h3>
+
+                    <p>
+                        Switch0 работает прежде всего
+                        на <strong>L2 — Data Link (канальном уровне)</strong>.
+                    </p>
+
+                    <p>
+                        Он анализирует MAC-информацию кадра
+                        и определяет,
+                        через какой порт передать его дальше.
+                    </p>
+
+                    <pre class="code-block"><code>PC0
+  │
+  │ Ethernet-кадр
+  ▼
+Switch0
+  │
+  │ анализ Destination MAC
+  ▼
+ PC1</code></pre>
+
+                    <p>
+                        Здесь можно связать наблюдение
+                        с предыдущими разделами:
+                    </p>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Теория → практика</div>
+
+                        <p>
+                            Мы говорили:
+                            <strong>switch пересылает кадры
+                            на основании MAC-адресов</strong>.
+                        </p>
+
+                        <p>
+                            Теперь этот процесс можно наблюдать
+                            непосредственно в Simulation Mode.
+                        </p>
+                    </div>
+
+
+                    <h3>Кадр достигает PC1</h3>
+
+                    <p>
+                        После Switch0 кадр поступает на PC1.
+                    </p>
+
+                    <p>
+                        На компьютере-получателе информация
+                        обрабатывается снизу вверх:
+                    </p>
+
+                    <pre class="code-block"><code>L1  Physical
+     ↓
+ L2  Ethernet
+     ↓
+ L3  IP
+     ↓
+    ICMP</code></pre>
+
+                    <p>
+                        PC1 определяет,
+                        что ICMP Echo Request
+                        предназначен ему,
+                        и формирует ответ.
+                    </p>
+
+
+                    <h3>Ответ идёт обратно</h3>
+
+                    <p>
+                        PC1 создаёт
+                        <strong>ICMP Echo Reply</strong>.
+                    </p>
+
+                    <pre class="code-block"><code>PC1
+  │
+  │ ICMP Echo Reply
+  ▼
+Switch0
+  │
+  ▼
+ PC0</code></pre>
+
+                    <p>
+                        Теперь роли адресов меняются местами:
+                        PC1 является отправителем,
+                        а PC0 — получателем.
+                    </p>
+
+                    <pre class="code-block"><code>Source IP:       192.168.1.20
+ Destination IP:  192.168.1.10</code></pre>
+
+                    <p>
+                        Ethernet-кадр также формируется
+                        для передачи в обратном направлении.
+                    </p>
+
+
+                    <h3>Event List</h3>
+
+                    <p>
+                        В Simulation Mode Packet Tracer
+                        отображает список событий —
+                        <strong>Event List</strong>.
+                    </p>
+
+                    <p>
+                        Он позволяет увидеть последовательность
+                        сетевого обмена:
+                    </p>
+
+                    <pre class="code-block"><code> устройство
+      ↓
+тип события / протокол
+      ↓
+следующее устройство
+      ↓
+следующее событие
+      ↓
+     ...</code></pre>
+
+                    <p>
+                        Особенно полезно обращать внимание
+                        на названия протоколов:
+                    </p>
+
+                    <pre class="code-block"><code>ARP
+ICMP</code></pre>
+
+                    <p>
+                        Позже, когда сеть станет сложнее,
+                        в списке появятся и другие протоколы.
+                    </p>
+
+
+                    <h3>Открываем PDU</h3>
+
+                    <p>
+                        Один из самых полезных инструментов
+                        Simulation Mode —
+                        возможность открыть конкретный PDU
+                        и посмотреть подробности его обработки.
+                    </p>
+
+                    <p>
+                        При выборе события Packet Tracer
+                        предоставляет несколько представлений,
+                        среди которых особенно полезны:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>OSI Model</strong> —
+                            показывает обработку по уровням;
+                        </li>
+
+                        <li>
+                            <strong>Inbound PDU Details</strong> —
+                            информация о входящем PDU;
+                        </li>
+
+                        <li>
+                            <strong>Outbound PDU Details</strong> —
+                            информация об исходящем PDU.
+                        </li>
+                    </ul>
+
+
+                    <h3>OSI Model</h3>
+
+                    <p>
+                        Представление <strong>OSI Model</strong>
+                        особенно полезно после изучения
+                        уровней OSI.
+                    </p>
+
+                    <p>
+                        Теперь уровни перестают быть
+                        просто таблицей из семи строк.
+                    </p>
+
+                    <p>
+                        Packet Tracer показывает,
+                        какие уровни участвуют
+                        в обработке конкретного события.
+                    </p>
+
+                    <pre class="code-block"><code>Application
+ Presentation
+ Session
+ Transport
+ Network
+ Data Link
+ Physical</code></pre>
+
+                    <p>
+                        На конечном устройстве можно наблюдать,
+                        как информация проходит
+                        через соответствующие уровни сетевой модели.
+                    </p>
+
+                    <p>
+                        На промежуточном устройстве
+                        набор задействованных уровней зависит
+                        от того, какую функцию выполняет устройство.
+                    </p>
+
+
+                    <h3>Switch и уровни OSI</h3>
+
+                    <p>
+                        При прохождении кадра через обычный switch
+                        особенно важен
+                        <strong>L2 — Data Link</strong>.
+                    </p>
+
+                    <p>
+                        Switch не должен доставлять данные
+                        пользовательскому приложению.
+                        Его задача —
+                        обработать канальную информацию
+                        и передать кадр дальше.
+                    </p>
+
+                    <pre class="code-block"><code>PC0                    Switch0                    PC1
+
+ L7                         │                      L7
+ L6                         │                      L6
+ L5                         │                      L5
+ L4                         │                      L4
+ L3                         │                      L3
+ L2 ─────────────────────── L2 ─────────────────── L2
+ L1 ─────────────────────── L1 ─────────────────── L1</code></pre>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Это важное наблюдение</div>
+
+                        <p>
+                            Не каждое сетевое устройство
+                            обрабатывает данные одинаково
+                            на всех семи уровнях.
+                        </p>
+
+                        <p>
+                            Устройство обрабатывает прежде всего
+                            ту информацию,
+                            которая необходима
+                            для выполнения его функции.
+                        </p>
+                    </div>
+
+
+                    <h3>Inbound и Outbound PDU</h3>
+
+                    <p>
+                        Термины здесь достаточно простые:
+                    </p>
+
+                    <p>
+                        <strong>Inbound</strong> —
+                        PDU, который <strong>приходит</strong>
+                        на устройство.
+                    </p>
+
+                    <p>
+                        <strong>Outbound</strong> —
+                        PDU, который устройство
+                        <strong>отправляет дальше</strong>.
+                    </p>
+
+                    <pre class="code-block"><code>          Inbound
+              ↓
+         ┌─────────┐
+ ──────► │ Switch0 │ ──────►
+         └─────────┘
+              ↑
+          Outbound</code></pre>
+
+                    <p>
+                        Сравнивая входящую и исходящую информацию,
+                        можно увидеть,
+                        <strong>что устройство сделало с PDU</strong>.
+                    </p>
+
+
+                    <h3>Что смотреть в PDU Details</h3>
+
+                    <p>
+                        Пока не нужно пытаться понять
+                        каждое поле заголовков.
+                    </p>
+
+                    <p>
+                        На первом этапе достаточно научиться
+                        находить уже знакомые элементы:
+                    </p>
+
+                    <ul>
+                        <li>Source MAC;</li>
+                        <li>Destination MAC;</li>
+                        <li>Source IP;</li>
+                        <li>Destination IP;</li>
+                        <li>тип протокола;</li>
+                        <li>ICMP Echo Request / Echo Reply.</li>
+                    </ul>
+
+                    <p>
+                        Это позволит связать содержимое PDU
+                        с тем, что мы разбирали теоретически.
+                    </p>
+
+
+                    <h3>Небольшой эксперимент</h3>
+
+                    <p>
+                        Пройдите передачу от PC0 до PC1
+                        вручную с помощью
+                        <strong>Capture / Forward</strong>.
+                    </p>
+
+                    <p>
+                        На каждом этапе попробуйте ответить
+                        на четыре вопроса:
+                    </p>
+
+                    <ol>
+                        <li>
+                            <strong>На каком устройстве сейчас находится PDU?</strong>
+                        </li>
+
+                        <li>
+                            <strong>Какой протокол сейчас наблюдаем?</strong>
+                        </li>
+
+                        <li>
+                            <strong>Какие Source и Destination
+                            MAC/IP используются?</strong>
+                        </li>
+
+                        <li>
+                            <strong>Что устройство должно сделать дальше?</strong>
+                        </li>
+                    </ol>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Не спешите</div>
+
+                        <p>
+                            Цель Simulation Mode —
+                            не как можно быстрее довести пакет
+                            до получателя.
+                        </p>
+
+                        <p>
+                            Цель — понять,
+                            <strong>почему после каждого события
+                            происходит именно следующий шаг</strong>.
+                        </p>
+                    </div>
+
+
+                    <h3>Повторите ping второй раз</h3>
+
+                    <p>
+                        После первого обмена полезно повторить
+                        передачу ещё раз.
+                    </p>
+
+                    <p>
+                        Сравните последовательность событий
+                        с первым запуском.
+                    </p>
+
+                    <p>
+                        Если нужное соответствие IP ↔ MAC
+                        уже находится в ARP-кэше,
+                        необходимость выполнять новый ARP-обмен
+                        перед ICMP может отсутствовать.
+                    </p>
+
+                    <pre class="code-block"><code>Первый обмен:
+
+   ARP
+    ↓
+   ICMP
+
+
+ Следующий обмен:
+
+   ICMP</code></pre>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Что это показывает</div>
+
+                        <p>
+                            Протоколы не работают изолированно.
+                        </p>
+
+                        <p>
+                            Один сетевой процесс может потребовать
+                            работу другого протокола:
+                            например, перед передачей IPv4-пакета
+                            через Ethernet устройству может понадобиться
+                            ARP для определения MAC-адреса.
+                        </p>
+                    </div>
+
+
+                    <h3>Simulation Mode и инкапсуляция</h3>
+
+                    <p>
+                        Теперь можно связать Simulation Mode
+                        с основной темой этой главы.
+                    </p>
+
+                    <p>
+                        На компьютере-отправителе информация
+                        движется вниз по сетевому стеку
+                        и получает служебную информацию
+                        соответствующих уровней.
+                    </p>
+
+                    <pre class="code-block"><code>Данные
+   ↓
+   L4
+   ↓
+   L3 → IP
+   ↓
+   L2 → Ethernet
+   ↓
+   L1 → передача</code></pre>
+
+                    <p>
+                        На компьютере-получателе
+                        процесс идёт в обратном направлении:
+                    </p>
+
+                    <pre class="code-block"><code>L1 → получение
+ ↓
+ L2 → Ethernet
+ ↓
+ L3 → IP
+ ↓
+верхние уровни</code></pre>
+
+                    <p>
+                        Simulation Mode позволяет наблюдать
+                        этот процесс гораздо нагляднее,
+                        чем обычный режим Realtime.
+                    </p>
+
+
+                    <h3>Simulation Mode как инструмент диагностики</h3>
+
+                    <p>
+                        Режим симуляции полезен
+                        не только для изучения теории.
+                    </p>
+
+                    <p>
+                        Если построенная в Packet Tracer сеть
+                        не работает,
+                        пошаговое наблюдение помогает понять,
+                        <strong>на каком этапе возникает проблема</strong>.
+                    </p>
+
+                    <p>
+                        Например:
+                    </p>
+
+                    <pre class="code-block"><code>PC0
+  ↓
+Switch0
+  ↓
+Router
+  ↓
+✕ пакет дальше не идёт</code></pre>
+
+                    <p>
+                        Вместо общего вопроса
+                        <em>«почему сеть не работает?»</em>
+                        появляется более конкретный:
+                    </p>
+
+                    <p>
+                        <strong>
+                            «Почему именно это устройство
+                            не передало PDU дальше?»
+                        </strong>
+                    </p>
+
+                    <p>
+                        Такой подход значительно облегчает
+                        поиск сетевых ошибок.
+                    </p>
+
+
+                    <h3>Realtime или Simulation?</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Задача</th>
+                                    <th>Режим</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        Быстро проверить,
+                                        работает ли ping
+                                    </td>
+
+                                    <td>
+                                        <strong>Realtime</strong>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Посмотреть путь PDU
+                                    </td>
+
+                                    <td>
+                                        <strong>Simulation</strong>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Увидеть ARP перед ICMP
+                                    </td>
+
+                                    <td>
+                                        <strong>Simulation</strong>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Посмотреть обработку
+                                        по уровням OSI
+                                    </td>
+
+                                    <td>
+                                        <strong>Simulation</strong>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Изучить содержимое PDU
+                                    </td>
+
+                                    <td>
+                                        <strong>Simulation</strong>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Просто настроить устройства
+                                        и проверить результат
+                                    </td>
+
+                                    <td>
+                                        <strong>Realtime</strong>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>🧪 Практика</h3>
+
+                    <p>
+                        Выполните небольшой эксперимент
+                        в Packet Tracer.
+                    </p>
+
+                    <ol>
+                        <li>
+                            Создайте сеть
+                            <strong>PC0 — Switch0 — PC1</strong>.
+                        </li>
+
+                        <li>
+                            Назначьте адреса:
+                            <code>192.168.1.10/24</code>
+                            и
+                            <code>192.168.1.20/24</code>.
+                        </li>
+
+                        <li>
+                            Проверьте связь командой
+                            <code>ping 192.168.1.20</code>.
+                        </li>
+
+                        <li>
+                            Переключитесь
+                            <strong>Realtime → Simulation</strong>.
+                        </li>
+
+                        <li>
+                            Создайте передачу
+                            <strong>PC0 → PC1</strong>
+                            с помощью Add Simple PDU.
+                        </li>
+
+                        <li>
+                            Используйте
+                            <strong>Capture / Forward</strong>
+                            для пошагового просмотра.
+                        </li>
+
+                        <li>
+                            Найдите события
+                            <strong>ARP</strong> и
+                            <strong>ICMP</strong>,
+                            если ARP требуется в текущем обмене.
+                        </li>
+
+                        <li>
+                            Откройте PDU на PC0,
+                            Switch0 и PC1.
+                        </li>
+
+                        <li>
+                            Посмотрите вкладку
+                            <strong>OSI Model</strong>.
+                        </li>
+
+                        <li>
+                            Найдите в деталях
+                            Source/Destination MAC
+                            и Source/Destination IP.
+                        </li>
+
+                        <li>
+                            Проследите
+                            <strong>ICMP Echo Request</strong>
+                            до PC1.
+                        </li>
+
+                        <li>
+                            Проследите
+                            <strong>ICMP Echo Reply</strong>
+                            обратно до PC0.
+                        </li>
+                    </ol>
+
+
+                    <h3>📝 Что запомнить</h3>
+
+                    <ul>
+                        <li>
+                            Packet Tracer имеет режимы
+                            <strong>Realtime</strong>
+                            и <strong>Simulation</strong>.
+                        </li>
+
+                        <li>
+                            <strong>Simulation Mode</strong>
+                            позволяет наблюдать сетевой обмен
+                            по отдельным событиям.
+                        </li>
+
+                        <li>
+                            <strong>PDU (Protocol Data Unit)</strong> —
+                            протокольный блок данных.
+                        </li>
+
+                        <li>
+                            <strong>Capture / Forward</strong>
+                            позволяет двигаться
+                            по событиям симуляции шаг за шагом.
+                        </li>
+
+                        <li>
+                            <strong>Event List</strong>
+                            показывает последовательность
+                            сетевых событий и участвующие протоколы.
+                        </li>
+
+                        <li>
+                            При первом IPv4-обмене
+                            перед ICMP может потребоваться
+                            <strong>ARP</strong>,
+                            чтобы определить MAC-адрес.
+                        </li>
+
+                        <li>
+                            <strong>ICMP Echo Request</strong>
+                            отправляется к проверяемому узлу,
+                            а <strong>ICMP Echo Reply</strong>
+                            возвращается отправителю.
+                        </li>
+
+                        <li>
+                            Представление
+                            <strong>OSI Model</strong>
+                            помогает увидеть обработку PDU
+                            на разных уровнях.
+                        </li>
+
+                        <li>
+                            <strong>Inbound PDU Details</strong>
+                            показывает входящий PDU,
+                            а <strong>Outbound PDU Details</strong> —
+                            исходящий.
+                        </li>
+
+                        <li>
+                            На switch особенно важно наблюдать
+                            работу <strong>L2 и MAC-адресов</strong>.
+                        </li>
+
+                        <li>
+                            Simulation Mode связывает
+                            теоретические понятия
+                            <strong>кадр, пакет, IP, MAC, ARP, ICMP и OSI</strong>
+                            с реальным процессом передачи данных.
+                        </li>
+
+                        <li>
+                            При диагностике Simulation Mode помогает
+                            определить не просто факт ошибки,
+                            а <strong>на каком устройстве
+                            и на каком этапе остановилась передача</strong>.
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- ===== Итоги главы ===== -->
+
+                <article id="ch2-summary">
+
+                    <h2>📜 Итоги главы</h2>
+
+                    <p>
+                        В этой главе мы разобрали,
+                        <strong>как данные проходят путь от одного приложения
+                        до другого через сеть</strong>.
+                    </p>
+
+                    <p>
+                        Теперь знакомые понятия —
+                        данные, сегмент, пакет, кадр, биты,
+                        TCP/IP, OSI, IP, MAC, switch и router —
+                        можно связать в один последовательный процесс.
+                    </p>
+
+
+                    <h3>Передача начинается с приложения</h3>
+
+                    <p>
+                        Пользователь работает с приложением,
+                        а приложение создаёт данные,
+                        которые необходимо передать другому устройству.
+                    </p>
+
+                    <p>
+                        Прежде чем эти данные смогут физически
+                        отправиться по сети,
+                        они проходят через сетевой стек.
+                    </p>
+
+                    <pre class="code-block"><code> Приложение
+      ↓
+Транспортный уровень
+      ↓
+Сетевой уровень
+      ↓
+Канальный уровень
+      ↓
+Физический уровень
+      ↓
+     Сеть</code></pre>
+
+                    <p>
+                        На каждом этапе добавляется служебная информация,
+                        необходимая соответствующему уровню.
+                    </p>
+
+
+                    <h3>Инкапсуляция</h3>
+
+                    <p>
+                        На компьютере-отправителе происходит
+                        <strong>инкапсуляция</strong> —
+                        данные последовательно помещаются
+                        внутрь структур нижележащих уровней.
+                    </p>
+
+                    <pre class="code-block"><code>Данные приложения
+        ↓
+   TCP-сегмент
+        ↓
+    IP-пакет
+        ↓
+   Ethernet-кадр
+        ↓
+ Биты / сигналы</code></pre>
+
+                    <p>
+                        Упрощённо это можно представить как вложенность:
+                    </p>
+
+                    <pre class="code-block"><code>Ethernet-кадр
+      └── IP-пакет
+            └── TCP-сегмент
+                     └── Данные приложения</code></pre>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Основная цепочка</div>
+
+                        <p>
+                            <strong>
+                                данные → сегмент → пакет → кадр → биты
+                            </strong>
+                        </p>
+                    </div>
+
+
+                    <h3>Декапсуляция</h3>
+
+                    <p>
+                        На конечном устройстве происходит
+                        обратный процесс —
+                        <strong>декапсуляция</strong>.
+                    </p>
+
+                    <pre class="code-block"><code>Биты / сигналы
+      ↓
+  Ethernet-кадр
+      ↓
+   IP-пакет
+      ↓
+  TCP-сегмент
+      ↓
+Данные приложения</code></pre>
+
+                    <p>
+                        Каждый уровень обрабатывает
+                        предназначенную ему служебную информацию
+                        и передаёт содержимое выше.
+                    </p>
+
+
+                    <h3>TCP/IP и OSI описывают сетевое взаимодействие по уровням</h3>
+
+                    <p>
+                        Для понимания работы сети мы познакомились
+                        с двумя моделями:
+                        <strong>TCP/IP</strong> и <strong>OSI</strong>.
+                    </p>
+
+                    <p>
+                        <strong>TCP/IP (Transmission Control Protocol /
+                        Internet Protocol)</strong> —
+                        модель, тесно связанная
+                        с реально используемым стеком протоколов TCP/IP.
+                    </p>
+
+                    <p>
+                        <strong>OSI (Open Systems Interconnection —
+                        взаимодействие открытых систем)</strong> —
+                        семиуровневая эталонная модель,
+                        удобная для изучения и анализа
+                        сетевых процессов.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>OSI</th>
+                                    <th>Основная задача</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>L7 — Application</strong></td>
+                                    <td>
+                                        Сетевые функции,
+                                        необходимые приложениям.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L6 — Presentation</strong></td>
+                                    <td>
+                                        Представление и преобразование данных.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L5 — Session</strong></td>
+                                    <td>
+                                        Организация взаимодействия
+                                        между сторонами.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L4 — Transport</strong></td>
+                                    <td>
+                                        Передача между приложениями,
+                                        TCP/UDP и порты.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L3 — Network</strong></td>
+                                    <td>
+                                        IP-адресация
+                                        и передача между сетями.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L2 — Data Link</strong></td>
+                                    <td>
+                                        Кадры и передача
+                                        по канальному участку.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L1 — Physical</strong></td>
+                                    <td>
+                                        Биты, сигналы
+                                        и физическая среда.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Особенно важны L4, L3, L2 и L1</h3>
+
+                    <p>
+                        Для дальнейшего изучения сетей
+                        особенно полезно хорошо запомнить
+                        нижние четыре уровня:
+                    </p>
+
+                    <pre class="code-block"><code>L4  Transport
+     TCP / UDP
+     порты
+       ↓
+ L3  Network
+     IP
+     IP-адреса
+     пакеты
+       ↓
+ L2  Data Link
+     Ethernet
+     MAC-адреса
+     кадры
+       ↓
+ L1  Physical
+     биты
+     сигналы
+     физическая среда</code></pre>
+
+                    <p>
+                        Эта последовательность будет постоянно
+                        встречаться в следующих главах.
+                    </p>
+
+
+                    <h3>На разных уровнях используются разные идентификаторы</h3>
+
+                    <p>
+                        Мы увидели, что порт, IP-адрес и MAC-адрес
+                        выполняют разные задачи.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Уровень</th>
+                                    <th>Идентификатор</th>
+                                    <th>Что помогает определить</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>L4 — Transport</strong>
+                                    </td>
+
+                                    <td>
+                                        Порт
+                                    </td>
+
+                                    <td>
+                                        Приложение
+                                        или сетевую службу.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>L3 — Network</strong>
+                                    </td>
+
+                                    <td>
+                                        IP-адрес
+                                    </td>
+
+                                    <td>
+                                        IP-узел
+                                        и сеть назначения.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>L2 — Data Link</strong>
+                                    </td>
+
+                                    <td>
+                                        MAC-адрес
+                                    </td>
+
+                                    <td>
+                                        Канального получателя
+                                        на текущем участке.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Удобно запомнить</div>
+
+                        <p>
+                            <strong>Порт → приложение.</strong>
+                        </p>
+
+                        <p>
+                            <strong>IP → узел / сеть.</strong>
+                        </p>
+
+                        <p>
+                            <strong>MAC → текущий канальный участок.</strong>
+                        </p>
+                    </div>
+
+
+                    <h3>Switch и router выполняют разные задачи</h3>
+
+                    <p>
+                        Одно из важнейших различий этой главы —
+                        работа <strong>switch</strong>
+                        и <strong>router</strong>.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Switch</th>
+                                    <th>Router</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Основной уровень</strong>
+                                    </td>
+
+                                    <td>
+                                        L2
+                                    </td>
+
+                                    <td>
+                                        L3
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Работает прежде всего с</strong>
+                                    </td>
+
+                                    <td>
+                                        Кадрами
+                                    </td>
+
+                                    <td>
+                                        IP-пакетами
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Основная адресация</strong>
+                                    </td>
+
+                                    <td>
+                                        MAC
+                                    </td>
+
+                                    <td>
+                                        IP
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Основная задача</strong>
+                                    </td>
+
+                                    <td>
+                                        Передать кадр
+                                        в нужный порт.
+                                    </td>
+
+                                    <td>
+                                        Определить дальнейший путь
+                                        IP-пакета.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Switch пересылает кадр</h3>
+
+                    <p>
+                        В обычной Ethernet LAN
+                        switch принимает кадр,
+                        анализирует MAC-адрес назначения
+                        и определяет нужный выходной порт.
+                    </p>
+
+                    <pre class="code-block"><code>PC1
+ │
+ │ Ethernet-кадр
+ ▼
+Switch
+ │
+ │ тот же кадр
+ ▼
+PC2</code></pre>
+
+                    <p>
+                        При обычной L2-пересылке switch
+                        не выполняет маршрутизацию IP-пакета
+                        между IP-сетями.
+                    </p>
+
+
+                    <h3>Router соединяет разные сети</h3>
+
+                    <p>
+                        Когда IP-пакету необходимо перейти
+                        в другую сеть,
+                        используется router.
+                    </p>
+
+                    <pre class="code-block"><code>LAN 1                LAN 2
+
+          Кадр №1
+             │
+             ▼
+           Router
+             │
+             ▼
+          Кадр №2</code></pre>
+
+                    <p>
+                        Старый кадр относится
+                        к предыдущему канальному участку.
+                    </p>
+
+                    <p>
+                        Router обрабатывает IP-пакет,
+                        выбирает дальнейший путь
+                        и для следующего участка
+                        использует новую канальную оболочку.
+                    </p>
+
+
+                    <h3>MAC может меняться от участка к участку</h3>
+
+                    <p>
+                        Рассмотренный нами путь:
+                    </p>
+
+                    <pre class="code-block"><code>PC1 ─── Switch 1 ─── Router ─── Switch 2 ─── PC2</code></pre>
+
+                    <p>
+                        можно представить так:
+                    </p>
+
+                    <pre class="code-block"><code>LAN 1
+
+ MAC:
+ PC1 → Router
+
+ IP:
+ PC1 ───────────────→ PC2
+
+
+         Router
+
+ LAN 2
+
+ MAC:
+ Router → PC2
+
+ IP:
+ PC1 ───────────────→ PC2</code></pre>
+
+                    <p>
+                        При переходе на другой Ethernet-участок
+                        MAC-адреса кадра меняются.
+                    </p>
+
+                    <p>
+                        IP-адреса источника и назначения
+                        при обычной маршрутизации без NAT
+                        сохраняют смысл конечных участников обмена.
+                    </p>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 При этом IP-пакет не абсолютно неизменен</div>
+
+                        <p>
+                            Router изменяет некоторые поля
+                            IP-заголовка.
+                        </p>
+
+                        <p>
+                            Например, при прохождении IPv4-пакета
+                            через router уменьшается
+                            <strong>TTL (Time To Live —
+                            время жизни)</strong>.
+                        </p>
+                    </div>
+
+
+                    <h3>Если получатель находится в другой сети</h3>
+
+                    <p>
+                        Компьютер определяет,
+                        находится ли IP-адрес назначения
+                        в его локальной сети.
+                    </p>
+
+                    <p>
+                        Если получатель находится
+                        в другой сети,
+                        пакет передаётся через
+                        <strong>default gateway
+                        (шлюз по умолчанию)</strong>.
+                    </p>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">⚠️ Важный момент</div>
+
+                        <p>
+                            Если пакет направляется удалённому компьютеру,
+                            <strong>Destination IP</strong>
+                            остаётся IP-адресом этого компьютера.
+                        </p>
+
+                        <p>
+                            Но на первом Ethernet-участке
+                            <strong>Destination MAC</strong>
+                            может принадлежать интерфейсу router —
+                            следующему L2-получателю.
+                        </p>
+                    </div>
+
+
+                    <h3>ARP связывает IPv4 и Ethernet-передачу</h3>
+
+                    <p>
+                        Для формирования Ethernet-кадра
+                        устройству необходимо знать
+                        MAC-адрес соответствующего узла
+                        на локальном Ethernet-участке.
+                    </p>
+
+                    <p>
+                        В IPv4-сетях для определения MAC-адреса
+                        по известному IPv4-адресу используется
+                        <strong>ARP (Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>.
+                    </p>
+
+                    <pre class="code-block"><code>известен IPv4-адрес
+          ↓
+         ARP
+          ↓
+  получен MAC-адрес
+          ↓
+можно сформировать Ethernet-кадр</code></pre>
+
+                    <p>
+                        Подробно работу ARP
+                        мы ещё разберём позже.
+                    </p>
+
+
+                    <h3>Путь данных можно представить одной цепочкой</h3>
+
+                    <p>
+                        Теперь общий процесс выглядит так:
+                    </p>
+
+                    <pre class="code-block"><code>Приложение-отправитель
+           ↓
+        данные
+           ↓
+   L4 → TCP / UDP → порты
+           ↓
+   L3 → IP → IP-адреса
+           ↓
+   L2 → Ethernet → MAC-адреса
+           ↓
+   L1 → биты / сигналы
+           ↓
+          сеть
+           ↓
+           L1
+           ↓
+           L2
+           ↓
+           L3
+           ↓
+           L4
+           ↓
+   Приложение-получатель</code></pre>
+
+                    <p>
+                        Если на пути находится router,
+                        передача разбивается
+                        на отдельные канальные участки,
+                        но IP-пакет продолжает двигаться
+                        к конечному IP-узлу.
+                    </p>
+
+
+                    <h3>Simulation Mode позволяет увидеть процесс</h3>
+
+                    <p>
+                        В конце главы мы посмотрели,
+                        как теоретический процесс передачи
+                        можно наблюдать в
+                        <strong>Cisco Packet Tracer</strong>.
+                    </p>
+
+                    <p>
+                        В <strong>Simulation Mode
+                        (режиме симуляции)</strong>
+                        сетевые события можно выполнять
+                        и анализировать пошагово.
+                    </p>
+
+                    <p>
+                        Мы познакомились с:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>PDU (Protocol Data Unit —
+                            протокольный блок данных)</strong>;
+                        </li>
+
+                        <li>
+                            <strong>Event List</strong> —
+                            списком событий;
+                        </li>
+
+                        <li>
+                            <strong>Capture / Forward</strong> —
+                            пошаговым переходом между событиями;
+                        </li>
+
+                        <li>
+                            представлением <strong>OSI Model</strong>;
+                        </li>
+
+                        <li>
+                            <strong>Inbound PDU Details</strong>
+                            и <strong>Outbound PDU Details</strong>.
+                        </li>
+                    </ul>
+
+
+                    <h3>ARP и ICMP можно увидеть в действии</h3>
+
+                    <p>
+                        При проверке связи между компьютерами
+                        мы встретили
+                        <strong>ICMP (Internet Control Message Protocol —
+                        протокол управляющих сообщений Интернета)</strong>.
+                    </p>
+
+                    <p>
+                        Команда <code>ping</code>
+                        использует сообщения:
+                    </p>
+
+                    <pre class="code-block"><code>ICMP Echo Request
+         ↓
+  ICMP Echo Reply</code></pre>
+
+                    <p>
+                        Перед первым ICMP-обменом
+                        может потребоваться ARP,
+                        если устройству ещё неизвестен
+                        необходимый MAC-адрес.
+                    </p>
+
+                    <pre class="code-block"><code> ARP Request
+      ↓
+  ARP Reply
+      ↓
+ICMP Echo Request
+      ↓
+ICMP Echo Reply</code></pre>
+
+                    <p>
+                        Это наглядно показывает,
+                        что разные сетевые протоколы
+                        работают совместно.
+                    </p>
+
+
+                    <h3>Главная картина главы</h3>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ От приложения до приложения</div>
+
+                        <p>
+                            <strong>1.</strong>
+                            Приложение создаёт данные.
+                        </p>
+
+                        <p>
+                            <strong>2.</strong>
+                            Транспортный уровень добавляет
+                            информацию, необходимую
+                            для взаимодействия приложений.
+                        </p>
+
+                        <p>
+                            <strong>3.</strong>
+                            Сетевой уровень формирует IP-пакет
+                            и использует IP-адреса.
+                        </p>
+
+                        <p>
+                            <strong>4.</strong>
+                            Канальный уровень формирует кадр
+                            для текущего участка передачи.
+                        </p>
+
+                        <p>
+                            <strong>5.</strong>
+                            Физический уровень обеспечивает
+                            реальную передачу сигналов.
+                        </p>
+
+                        <p>
+                            <strong>6.</strong>
+                            Switch пересылает кадры
+                            внутри L2-сети.
+                        </p>
+
+                        <p>
+                            <strong>7.</strong>
+                            Router передаёт IP-пакеты
+                            между сетями и формирует
+                            новую L2-оболочку
+                            для следующего участка.
+                        </p>
+
+                        <p>
+                            <strong>8.</strong>
+                            На конечном устройстве
+                            выполняется декапсуляция.
+                        </p>
+
+                        <p>
+                            <strong>9.</strong>
+                            Полученные данные передаются
+                            нужному приложению.
+                        </p>
+                    </div>
+
+
+                    <h3>📝 Что нужно вынести из главы</h3>
+
+                    <ul>
+                        <li>
+                            Передача данных —
+                            это <strong>многоуровневый процесс</strong>.
+                        </li>
+
+                        <li>
+                            На отправителе выполняется
+                            <strong>инкапсуляция</strong>,
+                            на получателе —
+                            <strong>декапсуляция</strong>.
+                        </li>
+
+                        <li>
+                            Основная цепочка единиц данных:
+                            <strong>
+                                данные → сегмент → пакет → кадр → биты.
+                            </strong>
+                        </li>
+
+                        <li>
+                            Модели <strong>OSI и TCP/IP</strong>
+                            помогают разделить сетевой процесс
+                            на понятные функциональные уровни.
+                        </li>
+
+                        <li>
+                            <strong>L4</strong> связан
+                            с TCP/UDP и портами.
+                        </li>
+
+                        <li>
+                            <strong>L3</strong> связан
+                            с IP, IP-адресами,
+                            пакетами и маршрутизацией.
+                        </li>
+
+                        <li>
+                            <strong>L2</strong> связан
+                            с Ethernet, MAC-адресами
+                            и кадрами.
+                        </li>
+
+                        <li>
+                            <strong>L1</strong> связан
+                            с битами, сигналами
+                            и физической средой.
+                        </li>
+
+                        <li>
+                            Удобная связка:
+                            <strong>
+                                порт → приложение,
+                                IP → узел / сеть,
+                                MAC → текущий канальный участок.
+                            </strong>
+                        </li>
+
+                        <li>
+                            <strong>Switch</strong>
+                            в базовом случае работает
+                            прежде всего с кадрами и MAC-адресами.
+                        </li>
+
+                        <li>
+                            <strong>Router</strong>
+                            работает прежде всего
+                            с IP-пакетами и IP-адресами.
+                        </li>
+
+                        <li>
+                            При переходе через router
+                            предыдущая L2-оболочка заканчивается,
+                            а для следующего участка
+                            используется новая.
+                        </li>
+
+                        <li>
+                            Поэтому MAC-адреса могут меняться
+                            по пути от участка к участку.
+                        </li>
+
+                        <li>
+                            Для передачи IPv4-пакета через Ethernet
+                            может потребоваться
+                            <strong>ARP</strong>
+                            для определения MAC-адреса.
+                        </li>
+
+                        <li>
+                            <strong>ICMP</strong>
+                            используется, в частности,
+                            для проверки сетевой доступности
+                            с помощью <code>ping</code>.
+                        </li>
+
+                        <li>
+                            <strong>Simulation Mode</strong>
+                            в Packet Tracer позволяет
+                            наблюдать эти процессы пошагово.
+                        </li>
+                    </ul>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Если глава уложилась правильно</div>
+
+                        <p>
+                            Теперь при виде простой схемы:
+                        </p>
+
+                        <pre class="code-block"><code>PC1 ─── Switch ─── Router ─── Switch ─── PC2</code></pre>
+
+                        <p>
+                            должно быть понятно не только,
+                            <strong>куда идут данные</strong>,
+                            но и что примерно происходит внутри:
+                        </p>
+
+                        <pre class="code-block"><code>приложение
+     ↓
+    порт
+     ↓
+     IP
+     ↓
+    MAC
+     ↓
+    кадр
+     ↓
+   Switch
+     ↓
+   Router
+     ↓
+ новый кадр
+     ↓
+   Switch
+     ↓
+    PC2
+     ↓
+    IP
+     ↓
+    порт
+     ↓
+ приложение</code></pre>
+
+                        <p>
+                            Именно эта картина станет основой
+                            для дальнейшего изучения
+                            Ethernet, IPv4, подсетей,
+                            ARP, маршрутизации, TCP и UDP.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ===== Шпаргалка главы ===== -->
+
+                <article id="ch2-cheatsheet">
+
+                    <h2>📌 Шпаргалка главы</h2>
+
+                    <p>
+                        Краткая схема основных понятий главы
+                        <strong>«Как данные передаются по сети»</strong>.
+                    </p>
+
+
+                    <h3>Главная цепочка передачи</h3>
+
+                    <pre class="code-block"><code>   Приложение
+        ↓
+      Данные
+        ↓
+TCP-сегмент / UDP-датаграмма
+        ↓
+    IP-пакет
+        ↓
+   Ethernet-кадр
+        ↓
+  Биты / сигналы
+        ↓
+      Сеть</code></pre>
+
+                    <p>
+                        На компьютере-получателе процесс идёт
+                        в обратном направлении.
+                    </p>
+
+                    <pre class="code-block"><code>    Биты / сигналы
+           ↓
+     Ethernet-кадр
+           ↓
+        IP-пакет
+           ↓
+TCP-сегмент / UDP-датаграмма
+           ↓
+        Данные
+           ↓
+       Приложение</code></pre>
+
+
+                    <h3>Инкапсуляция и декапсуляция</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Процесс</th>
+                                    <th>Что происходит</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Инкапсуляция</strong>
+                                    </td>
+
+                                    <td>
+                                        При движении данных вниз
+                                        по сетевому стеку
+                                        добавляется служебная информация
+                                        соответствующих уровней.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Декапсуляция</strong>
+                                    </td>
+
+                                    <td>
+                                        На получателе служебная информация
+                                        уровней последовательно обрабатывается,
+                                        а данные передаются выше.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <pre class="code-block"><code>Ethernet-кадр
+      └── IP-пакет
+             └── TCP-сегмент
+                     └── Данные приложения</code></pre>
+
+
+                    <h3>OSI — 7 уровней</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Уровень</th>
+                                    <th>Название</th>
+                                    <th>Ключевая идея</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>L7</strong></td>
+                                    <td>Application</td>
+                                    <td>Сетевые функции приложений</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L6</strong></td>
+                                    <td>Presentation</td>
+                                    <td>Представление данных</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L5</strong></td>
+                                    <td>Session</td>
+                                    <td>Организация взаимодействия</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L4</strong></td>
+                                    <td>Transport</td>
+                                    <td>TCP / UDP, порты</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L3</strong></td>
+                                    <td>Network</td>
+                                    <td>IP, пакеты, маршрутизация</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L2</strong></td>
+                                    <td>Data Link</td>
+                                    <td>Ethernet, кадры, MAC</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>L1</strong></td>
+                                    <td>Physical</td>
+                                    <td>Биты, сигналы, среда передачи</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>TCP/IP — 4 уровня</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>TCP/IP</th>
+                                    <th>Примерно соответствует OSI</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Application</strong>
+                                    </td>
+
+                                    <td>
+                                        L7 + L6 + L5
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Transport</strong>
+                                    </td>
+
+                                    <td>
+                                        L4
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Internet</strong>
+                                    </td>
+
+                                    <td>
+                                        L3
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Network Access</strong>
+                                    </td>
+
+                                    <td>
+                                        L2 + L1
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Четыре уровня, которые особенно важно помнить</h3>
+
+                    <pre class="code-block"><code>L4  Transport
+   TCP / UDP
+     порты
+       ↓
+ L3  Network
+     IP
+     IP-адреса
+     пакеты
+       ↓
+ L2  Data Link
+     Ethernet
+     MAC-адреса
+     кадры
+       ↓
+ L1  Physical
+     биты
+     сигналы</code></pre>
+
+
+                    <h3>Единицы данных</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Уровень</th>
+                                    <th>Единица данных</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        Application
+                                    </td>
+
+                                    <td>
+                                        Данные
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Transport
+                                    </td>
+
+                                    <td>
+                                        TCP-сегмент /
+                                        UDP-датаграмма
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Network
+                                    </td>
+
+                                    <td>
+                                        IP-пакет
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Data Link
+                                    </td>
+
+                                    <td>
+                                        Кадр
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Physical
+                                    </td>
+
+                                    <td>
+                                        Биты / сигналы
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Адреса на разных уровнях</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Уровень</th>
+                                    <th>Что используется</th>
+                                    <th>Для чего</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>L4</strong>
+                                    </td>
+
+                                    <td>
+                                        Порт
+                                    </td>
+
+                                    <td>
+                                        Определить приложение
+                                        или службу.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>L3</strong>
+                                    </td>
+
+                                    <td>
+                                        IP-адрес
+                                    </td>
+
+                                    <td>
+                                        Определить IP-узел
+                                        и сеть.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>L2</strong>
+                                    </td>
+
+                                    <td>
+                                        MAC-адрес
+                                    </td>
+
+                                    <td>
+                                        Передать кадр
+                                        на текущем канальном участке.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Запомнить</div>
+
+                        <p>
+                            <strong>Порт → приложение</strong>
+                        </p>
+
+                        <p>
+                            <strong>IP → узел / сеть</strong>
+                        </p>
+
+                        <p>
+                            <strong>MAC → текущий канальный участок</strong>
+                        </p>
+                    </div>
+
+
+                    <h3>Switch</h3>
+
+                    <pre class="code-block"><code>Switch
+   │
+   ├── основной уровень: L2
+   ├── работает с кадрами
+   ├── использует MAC-адреса
+   ├── изучает Source MAC
+   └── выбирает выходной порт
+       по Destination MAC</code></pre>
+
+                    <p>
+                        Упрощённо:
+                    </p>
+
+                    <pre class="code-block"><code>PC1 ───► Switch ───► PC2
+
+      Ethernet-кадр</code></pre>
+
+                    <p>
+                        Обычный L2 switch
+                        <strong>не маршрутизирует IP-пакет
+                        между IP-сетями</strong>.
+                    </p>
+
+
+                    <h3>Router</h3>
+
+                    <pre class="code-block"><code>Router
+   │
+   ├── основной уровень: L3
+   ├── работает с IP-пакетами
+   ├── анализирует Destination IP
+   ├── использует таблицу маршрутизации
+   └── выбирает дальнейший путь</code></pre>
+
+                    <p>
+                        При переходе на следующий канальный участок:
+                    </p>
+
+                    <pre class="code-block"><code>Старый кадр
+      │
+      ▼
+   Router
+      │
+      │ IP-пакет
+      ▼
+  Новый кадр</code></pre>
+
+
+                    <h3>Switch vs Router</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Switch</th>
+                                    <th>Router</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Уровень</strong>
+                                    </td>
+
+                                    <td>L2</td>
+                                    <td>L3</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Единица данных</strong>
+                                    </td>
+
+                                    <td>Кадр</td>
+                                    <td>IP-пакет</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Адресация</strong>
+                                    </td>
+
+                                    <td>MAC</td>
+                                    <td>IP</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Основное решение</strong>
+                                    </td>
+
+                                    <td>
+                                        В какой порт
+                                        передать кадр?
+                                    </td>
+
+                                    <td>
+                                        Куда дальше
+                                        передать пакет?
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Локальный и удалённый получатель</h3>
+
+                    <pre class="code-block"><code>Получатель в моей сети?
+           │
+      ┌────┴────┐
+      │         │
+     ДА        НЕТ
+      │         │
+      ▼         ▼
+     кадр      кадр
+   получателю  router
+                │
+                ▼
+          default gateway</code></pre>
+
+                    <p>
+                        Если конечный IP-адрес находится
+                        в другой сети,
+                        компьютер передаёт пакет
+                        через <strong>default gateway
+                        (шлюз по умолчанию)</strong>.
+                    </p>
+
+
+                    <h3>IP и MAC при передаче через router</h3>
+
+                    <pre class="code-block"><code>PC1 ───── Router ───── PC2
+
+ Участок 1:
+
+ MAC:  PC1 → Router
+ IP:   PC1 → PC2
+
+
+ Участок 2:
+
+ MAC:  Router → PC2
+ IP:   PC1 → PC2</code></pre>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">⚠️ Не путать</div>
+
+                        <p>
+                            Если PC2 находится в другой сети,
+                            первый Ethernet-кадр может иметь:
+                        </p>
+
+                        <pre class="code-block"><code>Destination MAC = MAC Router
+ Destination IP  = IP PC2</code></pre>
+
+                        <p>
+                            Router — следующий L2-получатель,
+                            а PC2 — конечный IP-получатель.
+                        </p>
+                    </div>
+
+
+                    <h3>Что меняется на router</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле / структура</th>
+                                    <th>Что происходит</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Ethernet-кадр</strong>
+                                    </td>
+
+                                    <td>
+                                        Для следующего канального участка
+                                        используется новая L2-оболочка.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>MAC-адреса</strong>
+                                    </td>
+
+                                    <td>
+                                        Меняются для нового
+                                        Ethernet-участка.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Source / Destination IP</strong>
+                                    </td>
+
+                                    <td>
+                                        При обычной маршрутизации
+                                        без NAT сохраняются.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>TTL</strong>
+                                    </td>
+
+                                    <td>
+                                        Уменьшается router.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>ARP</h3>
+
+                    <p>
+                        <strong>ARP (Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>
+                        используется в IPv4-сети,
+                        когда известен IPv4-адрес,
+                        но для локальной Ethernet-передачи
+                        необходимо определить MAC-адрес.
+                    </p>
+
+                    <pre class="code-block"><code>известен IPv4
+      ↓
+     ARP
+      ↓
+  получен MAC
+      ↓
+ Ethernet-кадр</code></pre>
+
+                    <p>
+                        Основные сообщения:
+                    </p>
+
+                    <pre class="code-block"><code>ARP Request
+     ↓
+ ARP Reply</code></pre>
+
+
+                    <h3>ICMP и ping</h3>
+
+                    <p>
+                        <strong>ICMP (Internet Control Message Protocol —
+                        протокол управляющих сообщений Интернета)</strong>
+                        используется для передачи
+                        управляющих и диагностических сообщений.
+                    </p>
+
+                    <p>
+                        При обычной проверке
+                        с помощью <code>ping</code>:
+                    </p>
+
+                    <pre class="code-block"><code>ICMP Echo Request
+        ↓
+    получатель
+        ↓
+ ICMP Echo Reply</code></pre>
+
+
+                    <h3>Путь между двумя компьютерами</h3>
+
+                    <pre class="code-block"><code>PC1
+  │
+  │ данные
+  ▼
+  L4
+  │ TCP / UDP
+  │ порты
+  ▼
+  L3
+  │ IP-пакет
+  │ IP-адреса
+  ▼
+  L2
+  │ Ethernet-кадр
+  │ MAC-адреса
+  ▼
+Switch
+  │
+  ▼
+Router
+  │
+  │ новый кадр
+  ▼
+Switch
+  │
+  ▼
+ PC2
+  │
+  ▼
+  L2
+  │
+  ▼
+  L3
+  │
+  ▼
+  L4
+  │
+  ▼
+Приложение</code></pre>
+
+
+                    <h3>Packet Tracer: Simulation Mode</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Инструмент</th>
+                                    <th>Назначение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Realtime</strong>
+                                    </td>
+
+                                    <td>
+                                        Обычная работа сети.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Simulation</strong>
+                                    </td>
+
+                                    <td>
+                                        Пошаговое наблюдение
+                                        за сетевыми событиями.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Event List</strong>
+                                    </td>
+
+                                    <td>
+                                        Последовательность событий
+                                        и протоколов.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Capture / Forward</strong>
+                                    </td>
+
+                                    <td>
+                                        Переход к следующему
+                                        событию симуляции.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>OSI Model</strong>
+                                    </td>
+
+                                    <td>
+                                        Обработка PDU
+                                        по уровням.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Inbound PDU Details</strong>
+                                    </td>
+
+                                    <td>
+                                        Детали входящего PDU.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Outbound PDU Details</strong>
+                                    </td>
+
+                                    <td>
+                                        Детали исходящего PDU.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Что искать в Simulation Mode</h3>
+
+                    <pre class="code-block"><code>Какой протокол?
+        ↓
+Где сейчас PDU?
+        ↓
+Source MAC / Destination MAC
+        ↓
+Source IP / Destination IP
+        ↓
+Что делает устройство?
+        ↓
+Куда PDU идёт дальше?</code></pre>
+
+                    <p>
+                        При первом обмене можно увидеть:
+                    </p>
+
+                    <pre class="code-block"><code> ARP Request
+      ↓
+  ARP Reply
+      ↓
+ICMP Echo Request
+      ↓
+ ICMP Echo Reply</code></pre>
+
+
+                    <h3>Сокращения главы</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Сокращение</th>
+                                    <th>Расшифровка</th>
+                                    <th>Кратко</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>OSI</strong></td>
+                                    <td>Open Systems Interconnection</td>
+                                    <td>
+                                        Эталонная модель
+                                        сетевого взаимодействия.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>IP</strong></td>
+                                    <td>Internet Protocol</td>
+                                    <td>
+                                        Межсетевой протокол.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>TCP</strong></td>
+                                    <td>Transmission Control Protocol</td>
+                                    <td>
+                                        Протокол управления передачей.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>UDP</strong></td>
+                                    <td>User Datagram Protocol</td>
+                                    <td>
+                                        Протокол пользовательских датаграмм.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>MAC</strong></td>
+                                    <td>Media Access Control</td>
+                                    <td>
+                                        Канальная адресация.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>ARP</strong></td>
+                                    <td>Address Resolution Protocol</td>
+                                    <td>
+                                        Определение MAC-адреса
+                                        по известному IPv4-адресу.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>ICMP</strong></td>
+                                    <td>Internet Control Message Protocol</td>
+                                    <td>
+                                        Управляющие
+                                        и диагностические сообщения.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>PDU</strong></td>
+                                    <td>Protocol Data Unit</td>
+                                    <td>
+                                        Протокольный блок данных.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>TTL</strong></td>
+                                    <td>Time To Live</td>
+                                    <td>
+                                        Ограничивает время жизни
+                                        IP-пакета в сети.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>NAT</strong></td>
+                                    <td>Network Address Translation</td>
+                                    <td>
+                                        Преобразование сетевых адресов.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Минимум, который нужно помнить</h3>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Глава 2 в нескольких строках</div>
+
+                        <pre class="code-block"><code>Данные
+    ↓
+ Сегмент
+    ↓
+  Пакет
+    ↓
+  Кадр
+    ↓
+   Биты
+
+
+L4 → TCP / UDP → порты
+
+L3 → IP → IP-адреса → router
+
+L2 → Ethernet → MAC → switch
+
+L1 → биты → сигналы
+
+
+Порт → приложение
+
+IP → конечный узел / сеть
+
+MAC → текущий канальный участок
+
+
+Switch → пересылает кадры
+
+Router → маршрутизирует IP-пакеты
+
+
+Через router:
+
+старый кадр
+     ↓
+ IP-пакет
+     ↓
+ новый кадр
+
+Отправитель → инкапсуляция
+
+Получатель → декапсуляция</code></pre>
+
+                    </div>
+                </article>
             </section>
 
                         
