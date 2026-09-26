@@ -24576,7 +24576,1471 @@ PC ───── Switch
                     </ul>
                 </article>
 
+                <!-- ===== Сетевой интерфейс (NIC) ===== -->
 
+                <article id="ch3-nic">
+
+                    <h2>📜 Сетевой интерфейс (NIC)</h2>
+
+                    <p>
+                        Чтобы компьютер или другое устройство
+                        могло подключиться к сети,
+                        ему необходим <strong>сетевой интерфейс</strong>.
+                    </p>
+
+                    <p>
+                        Для проводного Ethernet-подключения
+                        эту функцию выполняет
+                        <strong>NIC (Network Interface Card —
+                        сетевая интерфейсная карта, сетевой адаптер)</strong>.
+                    </p>
+
+                    <p>
+                        Именно через сетевой интерфейс
+                        устройство отправляет данные в сеть
+                        и принимает их из сети.
+                    </p>
+
+                    <pre class="code-block"><code>Компьютер
+    │
+    ▼
+   NIC
+    │
+    │ Ethernet
+    ▼
+ Switch</code></pre>
+
+
+                    <h3>Что такое NIC</h3>
+
+                    <p>
+                        Исторически сетевой адаптер часто представлял собой
+                        отдельную плату расширения,
+                        устанавливаемую в компьютер.
+                    </p>
+
+                    <p>
+                        Отсюда и название
+                        <strong>Network Interface Card</strong> —
+                        «сетевая интерфейсная карта».
+                    </p>
+
+                    <p>
+                        В современных компьютерах Ethernet-контроллер
+                        часто встроен в материнскую плату,
+                        поэтому отдельной платы может вообще не быть.
+                    </p>
+
+                    <p>
+                        Тем не менее термин <strong>NIC</strong>
+                        по-прежнему широко используется
+                        для обозначения сетевого адаптера
+                        или сетевого интерфейса устройства.
+                    </p>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 NIC — не обязательно отдельная карта</div>
+
+                        <p>
+                            Слово <strong>Card</strong> в названии
+                            может немного запутать.
+                        </p>
+
+                        <p>
+                            NIC может быть:
+                        </p>
+
+                        <ul>
+                            <li>встроен в материнскую плату;</li>
+                            <li>установлен как отдельная плата расширения;</li>
+                            <li>подключён как внешний USB-адаптер;</li>
+                            <li>встроен в сервер или другое сетевое устройство.</li>
+                        </ul>
+                    </div>
+
+
+                    <h3>NIC связывает устройство с сетью</h3>
+
+                    <p>
+                        Приложения сами по себе
+                        не передают электрические или оптические сигналы
+                        в сетевой кабель.
+                    </p>
+
+                    <p>
+                        Данные проходят через сетевой стек
+                        операционной системы,
+                        после чего сетевой интерфейс обеспечивает
+                        их дальнейшую передачу через сеть.
+                    </p>
+
+                    <pre class="code-block"><code>Приложение
+     ↓
+ TCP / UDP
+     ↓
+    IP
+     ↓
+ Ethernet
+     ↓
+    NIC
+     ↓
+физическая среда
+     ↓
+   Switch</code></pre>
+
+                    <p>
+                        При получении данных процесс
+                        идёт в обратном направлении:
+                    </p>
+
+                    <pre class="code-block"><code>  Switch
+     ↓
+физическая среда
+     ↓
+    NIC
+     ↓
+  Ethernet
+     ↓
+     IP
+     ↓
+ TCP / UDP
+     ↓
+ Приложение</code></pre>
+
+
+                    <h3>NIC и уровни OSI</h3>
+
+                    <p>
+                        Работа Ethernet NIC связана прежде всего
+                        с двумя нижними уровнями модели
+                        <strong>OSI (Open Systems Interconnection —
+                        взаимодействие открытых систем)</strong>.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Уровень</th>
+                                    <th>Роль сетевого интерфейса</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>L2 — Data Link</strong>
+                                    </td>
+
+                                    <td>
+                                        Работа с Ethernet-кадрами
+                                        и MAC-адресацией.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>L1 — Physical</strong>
+                                    </td>
+
+                                    <td>
+                                        Физическая передача
+                                        и приём сигналов
+                                        через среду связи.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <pre class="code-block"><code>L2  Data Link
+  Ethernet-кадры
+    MAC-адреса
+        │
+        │
+       NIC
+        │
+        │
+L1  Physical
+    сигналы
+    физическая среда</code></pre>
+
+
+                    <h3>NIC и MAC-адрес</h3>
+
+                    <p>
+                        С Ethernet-интерфейсом связан
+                        <strong>MAC-адрес</strong>.
+                    </p>
+
+                    <p>
+                        <strong>MAC (Media Access Control —
+                        управление доступом к среде)</strong> —
+                        часть канального уровня,
+                        с которой связана адресация Ethernet.
+                    </p>
+
+                    <p>
+                        MAC-адрес обычно записывается
+                        как последовательность шести байтов,
+                        например:
+                    </p>
+
+                    <pre class="code-block"><code>00:1A:2B:3C:4D:5E</code></pre>
+
+                    <p>
+                        В Ethernet-кадре используются
+                        MAC-адрес источника
+                        и MAC-адрес назначения:
+                    </p>
+
+                    <pre class="code-block"><code>Ethernet-кадр
+
+ Source MAC       → кто отправляет кадр
+ Destination MAC  → кому предназначен кадр
+                    на текущем Ethernet-участке</code></pre>
+
+                    <p>
+                        Если компьютер отправляет кадр,
+                        его Ethernet-интерфейс использует
+                        соответствующий MAC-адрес
+                        в качестве адреса источника.
+                    </p>
+
+
+                    <h3>У одного устройства может быть несколько сетевых интерфейсов</h3>
+
+                    <p>
+                        Сетевой интерфейс и устройство —
+                        не одно и то же.
+                    </p>
+
+                    <p>
+                        Один компьютер может иметь
+                        несколько сетевых интерфейсов.
+                    </p>
+
+                    <p>
+                        Например:
+                    </p>
+
+                    <pre class="code-block"><code>      Компьютер
+    ┌─────┴─────┐
+    │           │
+Ethernet NIC   Wi-Fi
+    │           │
+    ▼           ▼
+кабель      беспроводная
+                сеть</code></pre>
+
+                    <p>
+                        Это два разных сетевых интерфейса
+                        одного компьютера.
+                    </p>
+
+                    <p>
+                        Каждый из них имеет собственные
+                        характеристики и собственную
+                        канальную идентификацию.
+                    </p>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Важно</div>
+
+                        <p>
+                            MAC-адрес правильнее связывать
+                            <strong>с сетевым интерфейсом</strong>,
+                            а не просто с компьютером целиком.
+                        </p>
+
+                        <p>
+                            Если у компьютера несколько
+                            сетевых интерфейсов,
+                            у них могут быть разные MAC-адреса.
+                        </p>
+                    </div>
+
+
+                    <h3>NIC и физический порт</h3>
+
+                    <p>
+                        В обычном настольном компьютере
+                        Ethernet-интерфейс часто имеет
+                        знакомый разъём для подключения
+                        сетевого кабеля.
+                    </p>
+                   
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 760 500"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Ethernet NIC компьютера соединён сетевым кабелем со switch">
+
+                            <!-- ========================================================= -->
+                            <!-- Компьютер -->
+                            <!-- ========================================================= -->
+
+                            <text x="380" y="32"
+                                text-anchor="middle"
+                                font-size="21"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Компьютер
+                            </text>
+
+                            <rect x="205" y="50"
+                                width="350" height="175"
+                                rx="13"
+                                fill="#f1f4f6"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+
+                            <!-- ========================================================= -->
+                            <!-- Ethernet NIC -->
+                            <!-- ========================================================= -->
+
+                            <rect x="272" y="86"
+                                width="216" height="104"
+                                rx="11"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text x="380" y="114"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#172026">
+                                Ethernet NIC
+                            </text>
+
+
+                            <!-- RJ-45 / разъём -->
+
+                            <rect x="356" y="130"
+                                width="48" height="38"
+                                rx="4"
+                                fill="#d9dee2"
+                                stroke="#425563"
+                                stroke-width="3" />
+
+                            <rect x="363" y="137"
+                                width="34" height="23"
+                                rx="2"
+                                fill="#263746" />
+
+                            <!-- Контакты -->
+
+                            <line x1="369" y1="147"
+                                x2="369" y2="157"
+                                stroke="#e3b341"
+                                stroke-width="2" />
+
+                            <line x1="375" y1="147"
+                                x2="375" y2="157"
+                                stroke="#e3b341"
+                                stroke-width="2" />
+
+                            <line x1="381" y1="147"
+                                x2="381" y2="157"
+                                stroke="#e3b341"
+                                stroke-width="2" />
+
+                            <line x1="387" y1="147"
+                                x2="387" y2="157"
+                                stroke="#e3b341"
+                                stroke-width="2" />
+
+                            <line x1="393" y1="147"
+                                x2="393" y2="157"
+                                stroke="#e3b341"
+                                stroke-width="2" />
+
+
+                            <!-- Подпись разъёма -->
+
+                            <circle cx="404" cy="149"
+                                r="3"
+                                fill="#263746" />
+
+                            <line x1="407" y1="149"
+                                x2="448" y2="149"
+                                stroke="#263746"
+                                stroke-width="2" />
+
+                            <text x="457" y="155"
+                                font-size="15"
+                                font-weight="600"
+                                fill="#1f2933">
+                                разъём
+                            </text>
+
+
+                            <!-- ========================================================= -->
+                            <!-- Ethernet-кабель -->
+                            <!-- ========================================================= -->
+
+                            <!-- Верхний коннектор -->
+
+                            <rect x="366" y="168"
+                                width="28" height="21"
+                                rx="3"
+                                fill="#9aa8b2"
+                                stroke="#425563"
+                                stroke-width="2.5" />
+
+                            <path d="M369 189 L391 189 L388 201 L372 201 Z"
+                                fill="#8796a1"
+                                stroke="#425563"
+                                stroke-width="2.5" />
+
+
+                            <!-- Кабель -->
+
+                            <line x1="380" y1="201"
+                                x2="380" y2="337"
+                                stroke="#1976bd"
+                                stroke-width="10"
+                                stroke-linecap="round" />
+
+                            <line x1="380" y1="201"
+                                x2="380" y2="337"
+                                stroke="#3c91cf"
+                                stroke-width="3"
+                                stroke-linecap="round" />
+
+
+                            <!-- Подпись кабеля -->
+
+                            <circle cx="380" cy="269"
+                                r="4"
+                                fill="#263746" />
+
+                            <line x1="384" y1="269"
+                                x2="424" y2="269"
+                                stroke="#263746"
+                                stroke-width="2" />
+
+                            <text x="434" y="275"
+                                font-size="15"
+                                font-weight="600"
+                                fill="#1f2933">
+                                кабель
+                            </text>
+
+
+                            <!-- Нижний коннектор -->
+
+                            <path d="M372 337 L388 337 L391 349 L369 349 Z"
+                                fill="#8796a1"
+                                stroke="#425563"
+                                stroke-width="2.5" />
+
+                            <rect x="366" y="349"
+                                width="28" height="21"
+                                rx="3"
+                                fill="#9aa8b2"
+                                stroke="#425563"
+                                stroke-width="2.5" />
+
+
+                            <!-- ========================================================= -->
+                            <!-- Switch -->
+                            <!-- ========================================================= -->
+
+                            <!-- Верхняя часть корпуса -->
+
+                            <path d="
+                                M240 377
+                                L520 377
+                                L544 393
+                                L216 393
+                                Z"
+                                fill="#72899c"
+                                stroke="#263746"
+                                stroke-width="3"
+                                stroke-linejoin="round" />
+
+                            <!-- Передняя часть -->
+
+                            <rect x="216" y="393"
+                                width="328" height="68"
+                                rx="8"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+
+                            <!-- Панель портов -->
+
+                            <rect x="232" y="409"
+                                width="260" height="36"
+                                rx="4"
+                                fill="#c3cbd1"
+                                stroke="#344b5c"
+                                stroke-width="2.5" />
+
+
+                            <!-- Порты -->
+
+                            <g fill="#263746">
+
+                                <rect x="242" y="417"
+                                    width="25" height="20"
+                                    rx="2" />
+
+                                <rect x="274" y="417"
+                                    width="25" height="20"
+                                    rx="2" />
+
+                                <rect x="306" y="417"
+                                    width="25" height="20"
+                                    rx="2" />
+
+                                <rect x="338" y="417"
+                                    width="25" height="20"
+                                    rx="2" />
+
+                                <rect x="370" y="417"
+                                    width="25" height="20"
+                                    rx="2" />
+
+                                <rect x="402" y="417"
+                                    width="25" height="20"
+                                    rx="2" />
+
+                                <rect x="434" y="417"
+                                    width="25" height="20"
+                                    rx="2" />
+
+                                <rect x="466" y="417"
+                                    width="17" height="20"
+                                    rx="2" />
+
+                            </g>
+
+
+                            <!-- Контакты портов -->
+
+                            <g stroke="#e3b341"
+                                stroke-width="1.5">
+
+                                <line x1="247" y1="432"
+                                    x2="263" y2="432" />
+
+                                <line x1="279" y1="432"
+                                    x2="295" y2="432" />
+
+                                <line x1="311" y1="432"
+                                    x2="327" y2="432" />
+
+                                <line x1="343" y1="432"
+                                    x2="359" y2="432" />
+
+                                <line x1="375" y1="432"
+                                    x2="391" y2="432" />
+
+                                <line x1="407" y1="432"
+                                    x2="423" y2="432" />
+
+                                <line x1="439" y1="432"
+                                    x2="455" y2="432" />
+
+                                <line x1="470" y1="432"
+                                    x2="480" y2="432" />
+
+                            </g>
+
+
+                            <!-- Индикаторы -->
+
+                            <circle cx="516" cy="415"
+                                r="4"
+                                fill="#7ac943" />
+
+                            <circle cx="516" cy="429"
+                                r="4"
+                                fill="#7ac943" />
+
+                            <circle cx="516" cy="443"
+                                r="4"
+                                fill="#7ac943" />
+
+
+                            <!-- Кабель входит в switch -->
+
+                            <rect x="366" y="370"
+                                width="28" height="23"
+                                rx="3"
+                                fill="#d6dde2"
+                                stroke="#425563"
+                                stroke-width="2.5" />
+
+
+                            <!-- Подпись Switch -->
+
+                            <text x="380" y="489"
+                                text-anchor="middle"
+                                font-size="21"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Switch
+                            </text>
+
+                        </svg>
+                    </div>
+                    <p>
+                        Однако важно не считать
+                        сам разъём сетевым адаптером.
+                    </p>
+
+                    <p>
+                        <strong>Разъём</strong> —
+                        это физическая точка подключения кабеля,
+                        а <strong>NIC</strong> —
+                        сетевой интерфейс,
+                        который выполняет значительно больше работы.
+                    </p>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">⚠️ Не путать</div>
+
+                        <pre class="code-block"><code>NIC ≠ разъём
+
+   NIC
+   │
+   ├── работа с Ethernet
+   ├── MAC-адресация
+   ├── передача / приём данных
+   │
+   └── физический интерфейс
+           │
+           └── разъём для подключения среды</code></pre>
+                    </div>
+
+                    <h3>Отправка и получение Ethernet-кадра</h3>
+
+                    <p>
+                        Сетевой интерфейс находится между
+                        сетевым стеком устройства
+                        и физической средой передачи.
+                    </p>
+
+                    <p>
+                        При отправке данные проходят
+                        от верхних уровней к NIC,
+                        а при получении —
+                        в обратном направлении.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 480"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Отправка и получение Ethernet-кадра через сетевой интерфейс">
+
+                            <!-- ================================================= -->
+                            <!-- Заголовки -->
+                            <!-- ================================================= -->
+
+                            <text x="225" y="32"
+                                text-anchor="middle"
+                                font-size="21"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Отправка
+                            </text>
+
+                            <text x="675" y="32"
+                                text-anchor="middle"
+                                font-size="21"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Получение
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- ОТПРАВКА -->
+                            <!-- ================================================= -->
+
+
+                            <!-- IP-пакет -->
+
+                            <rect x="145" y="55"
+                                width="160" height="45"
+                                rx="8"
+                                fill="#e8eef3"
+                                stroke="#526777"
+                                stroke-width="2.5" />
+
+                            <text x="225" y="83"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="600"
+                                fill="#1f2933">
+                                IP-пакет
+                            </text>
+
+
+                            <!-- Стрелка -->
+
+                            <line x1="225" y1="100"
+                                x2="225" y2="125"
+                                stroke="#526777"
+                                stroke-width="2.5" />
+
+                            <path d="M219 119 L225 127 L231 119"
+                                fill="none"
+                                stroke="#526777"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" />
+
+
+                            <!-- Ethernet-кадр -->
+
+                            <rect x="135" y="130"
+                                width="180" height="45"
+                                rx="8"
+                                fill="#dce8f1"
+                                stroke="#42677f"
+                                stroke-width="2.5" />
+
+                            <text x="225" y="158"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="600"
+                                fill="#1f2933">
+                                Ethernet-кадр
+                            </text>
+
+
+                            <!-- Стрелка -->
+
+                            <line x1="225" y1="175"
+                                x2="225" y2="200"
+                                stroke="#526777"
+                                stroke-width="2.5" />
+
+                            <path d="M219 194 L225 202 L231 194"
+                                fill="none"
+                                stroke="#526777"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" />
+
+
+                            <!-- NIC -->
+
+                            <rect x="125" y="205"
+                                width="200" height="85"
+                                rx="12"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text x="225" y="235"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#172026">
+                                Ethernet NIC
+                            </text>
+
+
+                            <!-- Разъём -->
+
+                            <rect x="205" y="250"
+                                width="40" height="30"
+                                rx="4"
+                                fill="#d9dee2"
+                                stroke="#425563"
+                                stroke-width="2.5" />
+
+                            <rect x="211" y="256"
+                                width="28" height="18"
+                                rx="2"
+                                fill="#263746" />
+
+                            <g stroke="#e3b341"
+                                stroke-width="2">
+
+                                <line x1="216" y1="263"
+                                    x2="216" y2="271" />
+
+                                <line x1="222" y1="263"
+                                    x2="222" y2="271" />
+
+                                <line x1="228" y1="263"
+                                    x2="228" y2="271" />
+
+                                <line x1="234" y1="263"
+                                    x2="234" y2="271" />
+
+                            </g>
+
+
+                            <!-- Кабель -->
+
+                            <line x1="225" y1="290"
+                                x2="225" y2="360"
+                                stroke="#1976bd"
+                                stroke-width="10"
+                                stroke-linecap="round" />
+
+                            <line x1="225" y1="290"
+                                x2="225" y2="360"
+                                stroke="#3c91cf"
+                                stroke-width="3"
+                                stroke-linecap="round" />
+
+                            <text x="247" y="330"
+                                font-size="14"
+                                font-weight="600"
+                                fill="#1f2933">
+                                кабель
+                            </text>
+
+
+                            <!-- Стрелка направления -->
+
+                            <path d="M217 350 L225 362 L233 350"
+                                fill="#1976bd" />
+
+
+                            <!-- Switch -->
+
+                            <path d="
+                                M145 375
+                                L305 375
+                                L320 386
+                                L130 386
+                                Z"
+                                fill="#72899c"
+                                stroke="#263746"
+                                stroke-width="2.5"
+                                stroke-linejoin="round" />
+
+                            <rect x="130" y="386"
+                                width="190" height="55"
+                                rx="7"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="2.5" />
+
+                            <!-- Панель портов -->
+
+                            <rect x="145" y="400"
+                                width="130" height="27"
+                                rx="3"
+                                fill="#c3cbd1"
+                                stroke="#344b5c"
+                                stroke-width="2" />
+
+                            <g fill="#263746">
+
+                                <rect x="153" y="406"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="177" y="406"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="201" y="406"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="225" y="406"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="249" y="406"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                            </g>
+
+                            <circle cx="296" cy="404"
+                                r="3.5"
+                                fill="#7ac943" />
+
+                            <circle cx="296" cy="416"
+                                r="3.5"
+                                fill="#7ac943" />
+
+                            <text x="225" y="466"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Switch
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Разделитель -->
+                            <!-- ================================================= -->
+
+                            <line x1="450" y1="55"
+                                x2="450" y2="450"
+                                stroke="#d5dce1"
+                                stroke-width="2"
+                                stroke-dasharray="6 7" />
+
+
+                            <!-- ================================================= -->
+                            <!-- ПОЛУЧЕНИЕ -->
+                            <!-- ================================================= -->
+
+
+                            <!-- Switch -->
+
+                            <path d="
+                                M595 55
+                                L755 55
+                                L770 66
+                                L580 66
+                                Z"
+                                fill="#72899c"
+                                stroke="#263746"
+                                stroke-width="2.5"
+                                stroke-linejoin="round" />
+
+                            <rect x="580" y="66"
+                                width="190" height="55"
+                                rx="7"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="2.5" />
+
+                            <!-- Панель портов -->
+
+                            <rect x="595" y="80"
+                                width="130" height="27"
+                                rx="3"
+                                fill="#c3cbd1"
+                                stroke="#344b5c"
+                                stroke-width="2" />
+
+                            <g fill="#263746">
+
+                                <rect x="603" y="86"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="627" y="86"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="651" y="86"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="675" y="86"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                                <rect x="699" y="86"
+                                    width="18" height="15"
+                                    rx="1" />
+
+                            </g>
+
+                            <circle cx="746" cy="84"
+                                r="3.5"
+                                fill="#7ac943" />
+
+                            <circle cx="746" cy="96"
+                                r="3.5"
+                                fill="#7ac943" />
+
+                            <text x="675" y="143"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Switch
+                            </text>
+
+
+                            <!-- Кабель -->
+
+                            <line x1="675" y1="121"
+                                x2="675" y2="190"
+                                stroke="#1976bd"
+                                stroke-width="10"
+                                stroke-linecap="round" />
+
+                            <line x1="675" y1="121"
+                                x2="675" y2="190"
+                                stroke="#3c91cf"
+                                stroke-width="3"
+                                stroke-linecap="round" />
+
+                            <text x="697" y="177"
+                                font-size="14"
+                                font-weight="600"
+                                fill="#1f2933">
+                                кабель
+                            </text>
+
+                            <!-- Стрелка -->
+
+                            <path d="M667 180 L675 192 L683 180"
+                                fill="#1976bd" />
+
+
+                            <!-- NIC -->
+
+                            <rect x="575" y="195"
+                                width="200" height="85"
+                                rx="12"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <!-- Разъём -->
+
+                            <rect x="655" y="202"
+                                width="40" height="30"
+                                rx="4"
+                                fill="#d9dee2"
+                                stroke="#425563"
+                                stroke-width="2.5" />
+
+                            <rect x="661" y="208"
+                                width="28" height="18"
+                                rx="2"
+                                fill="#263746" />
+
+                            <g stroke="#e3b341"
+                                stroke-width="2">
+
+                                <line x1="666" y1="215"
+                                    x2="666" y2="223" />
+
+                                <line x1="672" y1="215"
+                                    x2="672" y2="223" />
+
+                                <line x1="678" y1="215"
+                                    x2="678" y2="223" />
+
+                                <line x1="684" y1="215"
+                                    x2="684" y2="223" />
+
+                            </g>
+
+                            <text x="675" y="260"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#172026">
+                                Ethernet NIC
+                            </text>
+
+
+                            <!-- Стрелка -->
+
+                            <line x1="675" y1="280"
+                                x2="675" y2="305"
+                                stroke="#526777"
+                                stroke-width="2.5" />
+
+                            <path d="M669 299 L675 307 L681 299"
+                                fill="none"
+                                stroke="#526777"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" />
+
+
+                            <!-- Ethernet-кадр -->
+
+                            <rect x="585" y="310"
+                                width="180" height="45"
+                                rx="8"
+                                fill="#dce8f1"
+                                stroke="#42677f"
+                                stroke-width="2.5" />
+
+                            <text x="675" y="338"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="600"
+                                fill="#1f2933">
+                                Ethernet-кадр
+                            </text>
+
+
+                            <!-- Стрелка -->
+
+                            <line x1="675" y1="355"
+                                x2="675" y2="380"
+                                stroke="#526777"
+                                stroke-width="2.5" />
+
+                            <path d="M669 374 L675 382 L681 374"
+                                fill="none"
+                                stroke="#526777"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" />
+
+
+                            <!-- IP-пакет -->
+
+                            <rect x="595" y="385"
+                                width="160" height="45"
+                                rx="8"
+                                fill="#e8eef3"
+                                stroke="#526777"
+                                stroke-width="2.5" />
+
+                            <text x="675" y="413"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="600"
+                                fill="#1f2933">
+                                IP-пакет
+                            </text>
+
+
+                            <!-- Верхние уровни -->
+
+                            <line x1="675" y1="430"
+                                x2="675" y2="448"
+                                stroke="#526777"
+                                stroke-width="2.5" />
+
+                            <path d="M669 442 L675 450 L681 442"
+                                fill="none"
+                                stroke="#526777"
+                                stroke-width="2.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" />
+
+                            <text x="675" y="472"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="600"
+                                fill="#52606d">
+                                верхние уровни
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+                    <p>
+                        При <strong>отправке</strong>
+                        сетевой стек передаёт данные вниз:
+                        IP-пакет помещается в Ethernet-кадр,
+                        после чего NIC обеспечивает передачу
+                        через физическую среду.
+                    </p>
+
+                    <p>
+                        При <strong>получении</strong>
+                        процесс идёт в обратном направлении:
+                        NIC принимает данные из физической среды,
+                        Ethernet-кадр обрабатывается,
+                        а находящийся внутри IP-пакет
+                        передаётся выше по сетевому стеку.
+                    </p>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            <strong>Отправка:</strong>
+                            сетевой стек → NIC → физическая среда.
+                        </p>
+
+                        <p>
+                            <strong>Получение:</strong>
+                            физическая среда → NIC → сетевой стек.
+                        </p>
+                    </div>
+
+                    <h3>Скорость сетевого интерфейса</h3>
+
+                    <p>
+                        Ethernet NIC рассчитан
+                        на работу с определёнными
+                        скоростями Ethernet.
+                    </p>
+
+                    <p>
+                        Например, интерфейс может поддерживать:
+                    </p>
+
+                    <pre class="code-block"><code>10 Mbit/s
+ 100 Mbit/s
+ 1 Gbit/s</code></pre>
+
+                    <p>
+                        или более высокие скорости.
+                    </p>
+
+                    <p>
+                        Для соединения важны возможности
+                        не только NIC компьютера,
+                        но и интерфейса устройства
+                        на другом конце линии.
+                    </p>
+
+                    <p>
+                        Например:
+                    </p>
+
+                    <pre class="code-block"><code>   PC                      Switch
+
+   NIC                       Port
+1 Gbit/s  ───────────────  1 Gbit/s</code></pre>
+
+                    <p>
+                        Реальная скорость соединения
+                        зависит от возможностей
+                        участвующих интерфейсов
+                        и используемой физической среды.
+                    </p>
+
+
+                    <h3>NIC в Cisco Packet Tracer</h3>
+
+                    <p>
+                        С сетевыми интерфейсами
+                        мы уже работали в Cisco Packet Tracer,
+                        хотя подробно их ещё не разбирали.
+                    </p>
+
+                    <p>
+                        Например, при подключении компьютера
+                        мы использовали интерфейс:
+                    </p>
+
+                    <pre class="code-block"><code>PC0
+  └── FastEthernet0</code></pre>
+
+                    <p>
+                        А на switch выбирали один
+                        из его Ethernet-интерфейсов:
+                    </p>
+
+                    <pre class="code-block"><code>Switch0
+    ├── FastEthernet0/1
+    ├── FastEthernet0/2
+    ├── FastEthernet0/3
+    └── ...</code></pre>
+
+                    <p>
+                        Поэтому соединение, которое мы строили раньше:
+                    </p>
+
+                    <pre class="code-block"><code> PC0 FastEthernet0
+         │
+         │
+         ▼
+ Switch0 FastEthernet0/1</code></pre>
+
+                    <p>
+                        на самом деле соединяет
+                        <strong>два конкретных сетевых интерфейса</strong>.
+                    </p>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Теперь знакомая схема читается точнее</div>
+
+                        <pre class="code-block"><code>  PC0
+FastEthernet0
+    │
+    │ Ethernet-соединение
+    │
+FastEthernet0/1
+  Switch0</code></pre>
+
+                         <p>
+                            Мы соединяем не просто
+                            «компьютер со switch»,
+                            а сетевой интерфейс компьютера
+                            с конкретным интерфейсом switch.
+                        </p>
+                    </div>
+
+
+                    <h3>NIC и IP-адрес — не одно и то же</h3>
+
+                    <p>
+                        Ещё одно важное различие:
+                        <strong>NIC, MAC-адрес и IP-адрес —
+                        это не одно понятие</strong>.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Понятие</th>
+                                    <th>Что означает</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>NIC</strong>
+                                    </td>
+
+                                    <td>
+                                        Сетевой интерфейс,
+                                        через который устройство
+                                        подключается к сети.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>MAC-адрес</strong>
+                                    </td>
+
+                                    <td>
+                                        Адрес канального уровня,
+                                        связанный с сетевым интерфейсом.
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>IP-адрес</strong>
+                                    </td>
+
+                                    <td>
+                                        Логический адрес
+                                        сетевого уровня,
+                                        назначаемый интерфейсу
+                                        в IP-сети.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <pre class="code-block"><code>Сетевой интерфейс
+
+      NIC
+      │
+      ├── L2 → MAC-адрес
+      │
+      └── L3 → IP-конфигурация
+              интерфейса</code></pre>
+
+                    <p>
+                        Разницу между MAC- и IP-адресами
+                        мы ещё подробно разберём
+                        в следующих разделах.
+                    </p>
+
+
+                    <h3>📝 Что запомнить</h3>
+
+                    <ul>
+                        <li>
+                            <strong>NIC (Network Interface Card)</strong> —
+                            сетевой адаптер или сетевой интерфейс,
+                            через который устройство
+                            подключается к сети.
+                        </li>
+
+                        <li>
+                            NIC не обязательно является
+                            отдельной физической платой —
+                            сетевой адаптер часто встроен
+                            в материнскую плату.
+                        </li>
+
+                        <li>
+                            Ethernet NIC связан прежде всего
+                            с <strong>L2 и L1</strong>
+                            модели OSI.
+                        </li>
+
+                        <li>
+                            На L2 происходит работа
+                            с Ethernet-кадрами
+                            и MAC-адресацией.
+                        </li>
+
+                        <li>
+                            На L1 выполняется
+                            физическая передача
+                            и приём сигналов.
+                        </li>
+
+                        <li>
+                            <strong>MAC-адрес</strong>
+                            правильнее связывать
+                            с сетевым интерфейсом,
+                            а не с устройством целиком.
+                        </li>
+
+                        <li>
+                            Одно устройство может иметь
+                            <strong>несколько сетевых интерфейсов</strong>.
+                        </li>
+
+                        <li>
+                            Ethernet и Wi-Fi —
+                            это разные сетевые интерфейсы
+                            и разные технологии
+                            нижних уровней.
+                        </li>
+
+                        <li>
+                            Физический разъём —
+                            только часть интерфейса;
+                            <strong>NIC ≠ разъём</strong>.
+                        </li>
+
+                        <li>
+                            В Packet Tracer
+                            <code>FastEthernet0</code>,
+                            <code>FastEthernet0/1</code>
+                            и подобные обозначения —
+                            это конкретные сетевые интерфейсы.
+                        </li>
+
+                        <li>
+                            При соединении двух устройств
+                            фактически соединяются
+                            <strong>их сетевые интерфейсы</strong>.
+                        </li>
+
+                        <li>
+                            <strong>NIC, MAC-адрес и IP-адрес</strong>
+                            связаны между собой,
+                            но обозначают разные вещи.
+                        </li>
+                    </ul>
+
+                </article>
             </section>
 
                         
