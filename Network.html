@@ -29450,6 +29450,1123 @@ Dst MAC | Src MAC | Type | IP-пакет |    FCS</code></pre>
                         </li>
                     </ul>
                 </article>
+
+                <!-- ===== Source MAC и Destination MAC ===== -->
+
+                <article id="ch3-source-destination-mac">
+
+                    <h2>📜 Source MAC и Destination MAC</h2>
+
+                    <p>
+                        В предыдущем разделе мы увидели,
+                        что заголовок Ethernet-кадра содержит
+                        два MAC-адреса:
+                        <strong>Source MAC</strong>
+                        и <strong>Destination MAC</strong>.
+                    </p>
+
+                    <p>
+                        Эти два поля отвечают на разные вопросы:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Source MAC</strong> —
+                            от какого сетевого интерфейса
+                            отправлен текущий Ethernet-кадр;
+                        </li>
+
+                        <li>
+                            <strong>Destination MAC</strong> —
+                            какому L2-адресату
+                            предназначен текущий Ethernet-кадр.
+                        </li>
+                    </ul>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное правило</div>
+
+                        <p>
+                            <strong>Source MAC</strong> —
+                            адрес отправителя текущего кадра.
+                        </p>
+
+                        <p>
+                            <strong>Destination MAC</strong> —
+                            адрес назначения текущего кадра.
+                        </p>
+                    </div>
+
+
+                    <h3>Простой пример в одной локальной сети</h3>
+
+                    <p>
+                        Пусть два компьютера
+                        находятся в одной Ethernet LAN
+                        и соединены через switch:
+                    </p>
+
+                    <pre class="code-block"><code>PC1 ───── Switch ───── PC2</code></pre>
+
+                    <p>
+                        Предположим,
+                        их сетевые интерфейсы имеют
+                        следующие MAC-адреса:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Устройство</th>
+                                    <th>MAC-адрес</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>PC1</td>
+                                    <td>
+                                        <code>00:11:22:33:44:55</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC2</td>
+                                    <td>
+                                        <code>AA:BB:CC:DD:EE:FF</code>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Если PC1 отправляет Ethernet-кадр PC2,
+                        адреса будут выглядеть так:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC       → 00:11:22:33:44:55
+ Destination MAC  → AA:BB:CC:DD:EE:FF</code></pre>
+
+                    <p>
+                        PC1 является отправителем кадра,
+                        поэтому его MAC-адрес
+                        помещается в поле
+                        <strong>Source MAC</strong>.
+                    </p>
+
+                    <p>
+                        PC2 является L2-адресатом,
+                        поэтому его MAC-адрес
+                        находится в поле
+                        <strong>Destination MAC</strong>.
+                    </p>
+
+
+                    <h3>Что с этими адресами делает switch</h3>
+
+                    <p>
+                        Когда кадр поступает на switch,
+                        тот видит оба MAC-адреса,
+                        но использует их
+                        для разных задач.
+                    </p>
+
+                    <p>
+                        <strong>Source MAC</strong>
+                        помогает switch изучать сеть.
+                    </p>
+
+                    <pre class="code-block"><code>кадр пришёл в порт Fa0/1
+         ↓
+ Source MAC = 00:11:22:33:44:55
+         ↓
+ switch запоминает
+         ↓
+ 00:11:22:33:44:55 ↔ Fa0/1</code></pre>
+
+                    <p>
+                        <strong>Destination MAC</strong>
+                        используется для принятия решения,
+                        куда кадр необходимо переслать.
+                    </p>
+
+                    <pre class="code-block"><code>Destination MAC
+        ↓
+   MAC-таблица
+        ↓
+   нужный порт
+        ↓
+  пересылка кадра</code></pre>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Два разных назначения</div>
+
+                        <p>
+                            Упрощённо можно запомнить:
+                        </p>
+
+                        <p>
+                            <strong>Source MAC → изучение.</strong>
+                        </p>
+
+                        <p>
+                            <strong>Destination MAC → пересылка.</strong>
+                        </p>
+
+                        <p>
+                            Подробно этот механизм
+                            разберём при изучении
+                            MAC-таблицы switch.
+                        </p>
+                    </div>
+
+
+                    <h3>Switch не становится новым отправителем кадра</h3>
+
+                    <p>
+                        Это важный момент.
+                    </p>
+
+                    <p>
+                        Обычный L2 switch,
+                        пересылая Ethernet-кадр
+                        между своими портами,
+                        <strong>не заменяет Source MAC
+                        своим MAC-адресом</strong>.
+                    </p>
+
+                    <p>
+                        В нашем примере кадр проходит так:
+                    </p>
+
+                    <pre class="code-block"><code>PC1 ───── Switch ───── PC2
+
+Source MAC       → MAC PC1
+Destination MAC  → MAC PC2</code></pre>
+
+                    <p>
+                        Switch находится на пути кадра,
+                        но Source MAC по-прежнему
+                        относится к PC1,
+                        а Destination MAC —
+                        к PC2.
+                    </p>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">⚠️ Частая ошибка</div>
+
+                        <p>
+                            Наличие switch между компьютерами
+                            не означает,
+                            что MAC-адрес switch
+                            должен появиться
+                            в Source MAC или Destination MAC
+                            каждого проходящего через него кадра.
+                        </p>
+                    </div>
+
+
+                    <h3>А если получатель находится в другой сети?</h3>
+
+                    <p>
+                        Теперь рассмотрим
+                        более важный случай.
+                    </p>
+
+                    <p>
+                        PC1 хочет отправить IP-пакет PC2,
+                        но PC2 находится
+                        <strong>в другой IP-сети</strong>.
+                    </p>
+
+                    <p>
+                        Между ними находится router:
+                    </p>
+
+                    <pre class="code-block"><code>PC1 ───── Router ───── PC2</code></pre>
+
+                    <p>
+                        Здесь появляется ключевое различие
+                        между IP-адресом назначения
+                        и Destination MAC.
+                    </p>
+
+                    <p>
+                        IP-пакет предназначен PC2,
+                        но PC1 не может отправить
+                        Ethernet-кадр напрямую
+                        удалённому интерфейсу PC2
+                        через несколько L2-сегментов.
+                    </p>
+
+                    <p>
+                        На первом участке
+                        кадр должен попасть
+                        к следующему L2-узлу —
+                        интерфейсу router,
+                        используемому как шлюз.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 920 470"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Изменение Source MAC и Destination MAC при прохождении IP-пакета через router">
+
+                            <defs>
+
+                                <marker id="mac-arrow-blue"
+                                    viewBox="0 0 10 10"
+                                    refX="9"
+                                    refY="5"
+                                    markerWidth="7"
+                                    markerHeight="7"
+                                    orient="auto">
+
+                                    <path d="M 0 0 L 10 5 L 0 10 Z"
+                                        fill="#1976bd" />
+
+                                </marker>
+
+                            </defs>
+
+
+                            <!-- ================================================= -->
+                            <!-- Устройства -->
+                            <!-- ================================================= -->
+
+
+                            <!-- PC1 -->
+
+                            <rect x="45" y="55"
+                                width="150" height="65"
+                                rx="10"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text x="120" y="82"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#172026">
+                                PC1
+                            </text>
+
+                            <text x="120" y="104"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#52606d">
+                                192.168.1.10
+                            </text>
+
+
+                            <!-- Router -->
+
+                            <rect x="370" y="45"
+                                width="180" height="85"
+                                rx="12"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="460" y="80"
+                                text-anchor="middle"
+                                font-size="19"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Router
+                            </text>
+
+                            <text x="460" y="105"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#ffffff">
+                                два L2-интерфейса
+                            </text>
+
+
+                            <!-- PC2 -->
+
+                            <rect x="725" y="55"
+                                width="150" height="65"
+                                rx="10"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text x="800" y="82"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#172026">
+                                PC2
+                            </text>
+
+                            <text x="800" y="104"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#52606d">
+                                192.168.2.20
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Первый L2-участок -->
+                            <!-- ================================================= -->
+
+                            <line x1="195" y1="87"
+                                x2="360" y2="87"
+                                stroke="#1976bd"
+                                stroke-width="5"
+                                marker-end="url(#mac-arrow-blue)" />
+
+                            <text x="277" y="67"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#315d78">
+                                L2-участок 1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Второй L2-участок -->
+                            <!-- ================================================= -->
+
+                            <line x1="550" y1="87"
+                                x2="715" y2="87"
+                                stroke="#1976bd"
+                                stroke-width="5"
+                                marker-end="url(#mac-arrow-blue)" />
+
+                            <text x="632" y="67"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#315d78">
+                                L2-участок 2
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Кадр 1 -->
+                            <!-- ================================================= -->
+
+                            <text x="245" y="175"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Ethernet-кадр 1
+                            </text>
+
+
+                            <!-- Source -->
+
+                            <rect x="65" y="195"
+                                width="180" height="65"
+                                rx="8"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="2.5" />
+
+                            <text x="155" y="220"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#172026">
+                                Source MAC
+                            </text>
+
+                            <text x="155" y="243"
+                                text-anchor="middle"
+                                font-size="14"
+                                fill="#52606d">
+                                MAC PC1
+                            </text>
+
+
+                            <!-- Destination -->
+
+                            <rect x="245" y="195"
+                                width="205" height="65"
+                                rx="8"
+                                fill="#f3ead3"
+                                stroke="#a47c2c"
+                                stroke-width="2.5" />
+
+                            <text x="347.5" y="220"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Destination MAC
+                            </text>
+
+                            <text x="347.5" y="243"
+                                text-anchor="middle"
+                                font-size="14"
+                                fill="#52606d">
+                                MAC Router-1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Router: новый кадр -->
+                            <!-- ================================================= -->
+
+                            <path d="
+                                M460 275
+                                L460 307"
+                                fill="none"
+                                stroke="#526777"
+                                stroke-width="2.5"
+                                marker-end="url(#mac-arrow-blue)" />
+
+                            <text x="460" y="335"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="600"
+                                fill="#52606d">
+                                новый Ethernet-кадр
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Кадр 2 -->
+                            <!-- ================================================= -->
+
+                            <text x="675" y="175"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Ethernet-кадр 2
+                            </text>
+
+
+                            <!-- Source -->
+
+                            <rect x="475" y="195"
+                                width="205" height="65"
+                                rx="8"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="2.5" />
+
+                            <text x="577.5" y="220"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#172026">
+                                Source MAC
+                            </text>
+
+                            <text x="577.5" y="243"
+                                text-anchor="middle"
+                                font-size="14"
+                                fill="#52606d">
+                                MAC Router-2
+                            </text>
+
+
+                            <!-- Destination -->
+
+                            <rect x="680" y="195"
+                                width="180" height="65"
+                                rx="8"
+                                fill="#f3ead3"
+                                stroke="#a47c2c"
+                                stroke-width="2.5" />
+
+                            <text x="770" y="220"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#1f2933">
+                                Destination MAC
+                            </text>
+
+                            <text x="770" y="243"
+                                text-anchor="middle"
+                                font-size="14"
+                                fill="#52606d">
+                                MAC PC2
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- IP-пакет -->
+                            <!-- ================================================= -->
+
+                            <rect x="245" y="365"
+                                width="430" height="70"
+                                rx="10"
+                                fill="#dce8f1"
+                                stroke="#42677f"
+                                stroke-width="2.5" />
+
+                            <text x="460" y="390"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="700"
+                                fill="#172026">
+                                IP-пакет
+                            </text>
+
+                            <text x="460" y="416"
+                                text-anchor="middle"
+                                font-size="14"
+                                fill="#52606d">
+                                Source IP: 192.168.1.10
+                                → Destination IP: 192.168.2.20
+                            </text>
+
+
+                            <!-- Пояснение -->
+
+                            <text x="460" y="460"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="600"
+                                fill="#356b4a">
+                                MAC-адреса меняются — IP-адреса конечных узлов сохраняются
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Первый Ethernet-кадр</h3>
+
+                    <p>
+                        На участке между PC1 и router
+                        Ethernet-кадр содержит:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC       → MAC PC1
+ Destination MAC  → MAC интерфейса Router</code></pre>
+
+                    <p>
+                        При этом внутри кадра
+                        находится IP-пакет:
+                    </p>
+
+                    <pre class="code-block"><code>Source IP       → IP PC1
+ Destination IP  → IP PC2</code></pre>
+
+                    <p>
+                        Обратите внимание:
+                        <strong>Destination IP относится к PC2,
+                        а Destination MAC — к router.</strong>
+                    </p>
+
+                    <p>
+                        Это не противоречие.
+                        Просто адреса относятся
+                        к разным уровням
+                        и решают разные задачи.
+                    </p>
+
+
+                    <h3>Что делает router</h3>
+
+                    <p>
+                        Router принимает Ethernet-кадр,
+                        предназначенный его интерфейсу.
+                    </p>
+
+                    <p>
+                        Затем он обрабатывает
+                        находящийся внутри IP-пакет
+                        и определяет,
+                        куда его необходимо
+                        отправить дальше.
+                    </p>
+
+                    <p>
+                        Старый Ethernet-кадр
+                        не пересылается через router
+                        как единое неизменное целое.
+                    </p>
+
+                    <p>
+                        Для следующего канального участка
+                        используется новая L2-оболочка.
+                    </p>
+
+                    <pre class="code-block"><code>Ethernet-кадр 1
+      ↓
+   IP-пакет
+      ↓
+    Router
+      ↓
+   IP-пакет
+      ↓
+ Ethernet-кадр 2</code></pre>
+
+
+                    <h3>Второй Ethernet-кадр</h3>
+
+                    <p>
+                        Если PC2 непосредственно доступен
+                        через следующий Ethernet-сегмент,
+                        новый кадр будет содержать:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC       → MAC выходного интерфейса Router
+ Destination MAC  → MAC PC2</code></pre>
+
+                    <p>
+                        MAC-адреса изменились,
+                        потому что теперь кадр передаётся
+                        на другом L2-участке.
+                    </p>
+
+                    <p>
+                        Но IP-пакет по-прежнему
+                        описывает связь между
+                        исходным и конечным IP-узлами:
+                    </p>
+
+                    <pre class="code-block"><code>Source IP       → IP PC1
+ Destination IP  → IP PC2</code></pre>
+
+
+                    <h3>MAC-адреса работают «по участкам»</h3>
+
+                    <p>
+                        Это одна из ключевых идей,
+                        которую важно понять
+                        перед изучением маршрутизации.
+                    </p>
+
+                    <p>
+                        MAC-адреса используются
+                        для доставки Ethernet-кадра
+                        <strong>на текущем L2-участке</strong>.
+                    </p>
+
+                    <p>
+                        Поэтому при прохождении
+                        через router
+                        L2-адреса меняются.
+                    </p>
+
+                    <pre class="code-block"><code>    участок 1
+PC1 ───────── Router
+MAC PC1   →   MAC Router
+
+
+     участок 2
+Router ────── PC2
+MAC Router →  MAC PC2</code></pre>
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Удобная модель</div>
+
+                        <p>
+                            <strong>IP</strong> помогает определить,
+                            куда пакет должен попасть
+                            через сеть.
+                        </p>
+
+                        <p>
+                            <strong>MAC</strong> помогает определить,
+                            кому передать Ethernet-кадр
+                            на текущем канальном участке.
+                        </p>
+                    </div>
+
+
+                    <h3>Следующий узел не всегда конечный получатель</h3>
+
+                    <p>
+                        Destination MAC
+                        не следует автоматически
+                        воспринимать как MAC-адрес
+                        конечного получателя данных.
+                    </p>
+
+                    <p>
+                        Если получатель находится
+                        в той же локальной сети,
+                        Destination MAC действительно
+                        может быть MAC-адресом
+                        его сетевого интерфейса.
+                    </p>
+
+                    <p>
+                        Если получатель находится
+                        в другой сети,
+                        Destination MAC будет относиться
+                        к следующему L2-адресату —
+                        например, к интерфейсу
+                        default gateway.
+                    </p>
+
+                    <p>
+                        <strong>Default gateway
+                        (шлюз по умолчанию)</strong> —
+                        router, которому устройство
+                        передаёт пакеты,
+                        предназначенные для других сетей,
+                        если более специфический маршрут
+                        не определён.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Куда отправляется пакет</th>
+                                    <th>Destination MAC первого кадра</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        Узел в той же локальной сети
+                                    </td>
+
+                                    <td>
+                                        MAC интерфейса
+                                        конечного узла
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Узел в другой IP-сети
+                                    </td>
+
+                                    <td>
+                                        MAC следующего L2-адресата,
+                                        обычно интерфейса
+                                        default gateway
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Как отправитель узнаёт Destination MAC</h3>
+
+                    <p>
+                        Для создания Ethernet-кадра
+                        компьютеру необходимо знать
+                        Destination MAC.
+                    </p>
+
+                    <p>
+                        В IPv4-сети для определения
+                        MAC-адреса по известному IPv4-адресу
+                        используется
+                        <strong>ARP (Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>.
+                    </p>
+
+                    <p>
+                        Но важно понимать,
+                        <strong>чей MAC-адрес нужно искать</strong>.
+                    </p>
+
+                    <p>
+                        Если адрес назначения находится
+                        в той же IP-сети,
+                        нужен MAC-адрес
+                        самого конечного узла.
+                    </p>
+
+                    <p>
+                        Если адрес назначения находится
+                        в другой IP-сети,
+                        нужен MAC-адрес
+                        default gateway.
+                    </p>
+
+                    <pre class="code-block"><code>получатель в своей сети
+          ↓
+ ищем MAC получателя
+
+
+ получатель в другой сети
+          ↓
+ ищем MAC default gateway</code></pre>
+
+
+                    <h3>Source MAC тоже зависит от участка</h3>
+
+                    <p>
+                        Source MAC —
+                        это не обязательно MAC-адрес
+                        первоначального отправителя данных
+                        на всём пути.
+                    </p>
+
+                    <p>
+                        Он относится к отправителю
+                        <strong>конкретного Ethernet-кадра</strong>.
+                    </p>
+
+                    <p>
+                        Поэтому после router
+                        Source MAC нового кадра
+                        будет принадлежать
+                        соответствующему выходному
+                        Ethernet-интерфейсу router.
+                    </p>
+
+                    <div class="info-box warning">
+                        <div class="info-box-title">⚠️ Не путать</div>
+
+                        <p>
+                            <strong>Source IP</strong>
+                            и <strong>Source MAC</strong>
+                            не обязательно принадлежат
+                            одному и тому же устройству
+                            на каждом участке пути.
+                        </p>
+
+                        <p>
+                            Например,
+                            IP-пакет может по-прежнему
+                            иметь Source IP компьютера PC1,
+                            тогда как новый Ethernet-кадр
+                            после router
+                            имеет Source MAC
+                            выходного интерфейса router.
+                        </p>
+                    </div>
+
+
+                    <h3>MAC и IP — два уровня адресации</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>MAC</th>
+                                    <th>IP</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Уровень</strong>
+                                    </td>
+
+                                    <td>
+                                        L2 — Data Link
+                                    </td>
+
+                                    <td>
+                                        L3 — Network
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Находится в</strong>
+                                    </td>
+
+                                    <td>
+                                        Ethernet-кадре
+                                    </td>
+
+                                    <td>
+                                        IP-пакете
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Source</strong>
+                                    </td>
+
+                                    <td>
+                                        Отправитель текущего кадра
+                                    </td>
+
+                                    <td>
+                                        Исходный IP-узел
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Destination</strong>
+                                    </td>
+
+                                    <td>
+                                        L2-адресат
+                                        на текущем участке
+                                    </td>
+
+                                    <td>
+                                        Конечный IP-адрес
+                                        назначения
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>При прохождении router</strong>
+                                    </td>
+
+                                    <td>
+                                        Меняется
+                                        для нового L2-участка
+                                    </td>
+
+                                    <td>
+                                        Обычно сохраняется
+                                        от отправителя
+                                        до получателя
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Пока рассматриваем обычный случай</div>
+
+                        <p>
+                            Здесь мы рассматриваем
+                            базовую передачу без механизмов,
+                            которые могут изменять
+                            IP-адреса в пути.
+                        </p>
+
+                        <p>
+                            Например,
+                            <strong>NAT (Network Address Translation —
+                            преобразование сетевых адресов)</strong>
+                            может изменять IP-адреса.
+                            Этот механизм разберём позже.
+                        </p>
+                    </div>
+
+
+                    <h3>📝 Что запомнить</h3>
+
+                    <ul>
+                        <li>
+                            <strong>Source MAC</strong> —
+                            MAC-адрес отправителя
+                            текущего Ethernet-кадра.
+                        </li>
+
+                        <li>
+                            <strong>Destination MAC</strong> —
+                            MAC-адрес L2-адресата
+                            текущего Ethernet-кадра.
+                        </li>
+
+                        <li>
+                            Switch изучает
+                            <strong>Source MAC</strong>
+                            и связывает его
+                            с входным портом.
+                        </li>
+
+                        <li>
+                            Switch использует
+                            <strong>Destination MAC</strong>
+                            для принятия решения
+                            о пересылке кадра.
+                        </li>
+
+                        <li>
+                            Обычный L2 switch
+                            не заменяет Source MAC
+                            своим адресом
+                            при пересылке пользовательского кадра.
+                        </li>
+
+                        <li>
+                            Если получатель находится
+                            в той же локальной сети,
+                            Destination MAC может быть
+                            MAC-адресом его интерфейса.
+                        </li>
+
+                        <li>
+                            Если получатель находится
+                            в другой IP-сети,
+                            Destination MAC первого кадра
+                            обычно принадлежит
+                            интерфейсу default gateway.
+                        </li>
+
+                        <li>
+                            Router завершает
+                            один L2-участок
+                            и для следующего участка
+                            используется новая L2-оболочка.
+                        </li>
+
+                        <li>
+                            Поэтому Source MAC
+                            и Destination MAC
+                            могут изменяться
+                            от участка к участку.
+                        </li>
+
+                        <li>
+                            IP-адреса описывают
+                            L3-доставку,
+                            а MAC-адреса —
+                            L2-доставку
+                            на текущем участке.
+                        </li>
+
+                        <li>
+                            В IPv4
+                            нужный MAC-адрес
+                            определяется с помощью
+                            <strong>ARP</strong>.
+                        </li>
+
+                        <li>
+                            Главное:
+                            <strong>Destination IP показывает,
+                            куда должен попасть IP-пакет,
+                            а Destination MAC —
+                            кому передать текущий
+                            Ethernet-кадр.</strong>
+                        </li>
+                    </ul>
+                </article>
             </section>
 
                         
