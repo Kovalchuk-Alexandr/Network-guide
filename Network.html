@@ -37983,8 +37983,8 @@ switch читает MAC-адреса
                     </p>
 
                     <pre class="code-block"><code>кадр от PC0 через Fa0/1 → изучен MAC PC0
-                кадр от PC1 через Fa0/2 → изучен MAC PC1
-                кадр от PC2 через Fa0/3 → изучен MAC PC2</code></pre>
+ кадр от PC1 через Fa0/2 → изучен MAC PC1
+ кадр от PC2 через Fa0/3 → изучен MAC PC2</code></pre>
 
                     <p>
                         В результате таблица может выглядеть так:
@@ -38050,8 +38050,8 @@ switch читает MAC-адреса
                         </p>
 
                         <pre class="code-block"><code>Source MAC + входящий порт
-                            ↓
-                    MAC Address Table</code></pre>
+            ↓
+    MAC Address Table</code></pre>
 
                         <p>
                             <strong>Destination MAC не используется
@@ -38059,6 +38059,1895 @@ switch читает MAC-адреса
                             он нужен switch для принятия решения
                             о дальнейшей пересылке кадра.</strong>
                         </p>
+                    </div>
+                </article>
+
+                <!-- ===== Forwarding ===== -->
+
+                <article id="ch4-forwarding">
+
+                    <h2>📜 Forwarding</h2>
+
+                    <p>
+                        После того как switch изучил
+                        <strong>Source MAC</strong> входящего кадра,
+                        он должен решить,
+                        куда этот кадр передать дальше.
+                    </p>
+
+                    <p>
+                        Этот процесс называется
+                        <strong>forwarding (пересылка)</strong>.
+                        Для принятия решения switch использует
+                        <strong>Destination MAC</strong>
+                        и свою MAC Address Table.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 410"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Forwarding Ethernet-кадра коммутатором по Destination MAC">
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="35" y="165"
+                                width="165" height="65"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="117.5" y="193"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="117.5" y="215"
+                                text-anchor="middle">
+                                MAC: ...01
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -> Switch -->
+                            <!-- ================================================= -->
+
+                            <line x1="200" y1="197"
+                                x2="310" y2="197"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M318 197 L307 191 L307 203 Z"
+                                fill="#1976bd" />
+
+                            <text class="diagram-label"
+                                x="255" y="180"
+                                text-anchor="middle">
+                                Ethernet-кадр
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -->
+                            <!-- ================================================= -->
+
+                            <rect x="318" y="130"
+                                width="190" height="135"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="413" y="163"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <line x1="338" y1="177"
+                                x2="488" y2="177"
+                                stroke="#d9e1e6"
+                                stroke-width="1.5" />
+
+                            <text x="413" y="205"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#ffffff">
+                                Destination MAC
+                            </text>
+
+                            <text x="413" y="230"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#ffffff">
+                                ...03
+                            </text>
+
+                            <text x="413" y="251"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                поиск в MAC-таблице
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- MAC Address Table -->
+                            <!-- ================================================= -->
+
+                            <rect x="315" y="305"
+                                width="195" height="75"
+                                rx="8"
+                                fill="#f7fafc"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <text x="412.5" y="328"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#52606d">
+                                MAC Address Table
+                            </text>
+
+                            <line x1="330" y1="338"
+                                x2="495" y2="338"
+                                stroke="#cbd5dc"
+                                stroke-width="1" />
+
+                            <text x="335" y="361"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                ...03
+                            </text>
+
+                            <text x="445" y="361"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                Fa0/3
+                            </text>
+
+
+                            <!-- Switch -> MAC table -->
+
+                            <line x1="413" y1="265"
+                                x2="413" y2="296"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M413 304 L407 293 L419 293 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -> PC3 -->
+                            <!-- ================================================= -->
+
+                            <line x1="508" y1="197"
+                                x2="625" y2="197"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M633 197 L622 191 L622 203 Z"
+                                fill="#1976bd" />
+
+                            <text class="diagram-label"
+                                x="568" y="180"
+                                text-anchor="middle">
+                                Fa0/3
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC3 -->
+                            <!-- ================================================= -->
+
+                            <rect x="633" y="165"
+                                width="165" height="65"
+                                rx="7"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text class="diagram-device"
+                                x="715.5" y="193"
+                                text-anchor="middle">
+                                PC3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="715.5" y="215"
+                                text-anchor="middle">
+                                MAC: ...03
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Decision -->
+                            <!-- ================================================= -->
+
+                            <rect x="600" y="285"
+                                width="230" height="80"
+                                rx="9"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="715" y="313"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#356b4a">
+                                MAC ...03 найден
+                            </text>
+
+                            <text x="715" y="338"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#34465d">
+                                кадр → только Fa0/3
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Как switch принимает решение</h3>
+
+                    <p>
+                        После получения Ethernet-кадра
+                        switch проверяет его
+                        <strong>Destination MAC</strong>
+                        и ищет этот адрес
+                        в MAC Address Table.
+                    </p>
+
+                    <p>
+                        Если MAC-адрес найден,
+                        switch получает из таблицы
+                        соответствующий выходной порт.
+                    </p>
+
+                    <pre class="code-block"><code>Destination MAC: ...03
+          ↓
+  MAC Address Table
+          ↓
+  ...03 → Fa0/3
+          ↓
+    кадр → Fa0/3</code></pre>
+
+
+                    <h3>Known unicast</h3>
+
+                    <p>
+                        Если Destination MAC является
+                        индивидуальным адресом устройства
+                        и уже присутствует в MAC-таблице,
+                        такой случай называют
+                        <strong>known unicast (известный одноадресный получатель)</strong>.
+                    </p>
+
+                    <p>
+                        Switch пересылает кадр
+                        только через порт,
+                        указанный в соответствующей записи.
+                    </p>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Важно</div>
+
+                        <p>
+                            Switch не изменяет Destination MAC
+                            на MAC-адрес выходного порта.
+                            Он использует Destination MAC
+                            для выбора порта и пересылает
+                            Ethernet-кадр дальше.
+                        </p>
+                    </div>
+
+
+                    <h3>Кадр не возвращается отправителю</h3>
+
+                    <p>
+                        Switch не пересылает кадр обратно
+                        через тот же порт,
+                        на котором он был получен.
+                    </p>
+
+                    <p>
+                        Например, если кадр пришёл через
+                        <code>Fa0/1</code>,
+                        а MAC-таблица показывает,
+                        что Destination MAC также доступен
+                        через <code>Fa0/1</code>,
+                        пересылать этот кадр
+                        через другие порты не требуется.
+                    </p>
+
+
+                    <h3>А если Destination MAC неизвестен?</h3>
+
+                    <p>
+                        MAC Address Table может ещё не содержать
+                        адрес получателя.
+                        В этом случае switch не знает,
+                        через какой порт он доступен.
+                    </p>
+
+                    <p>
+                        Тогда применяется другой механизм —
+                        <strong>flooding (рассылка)</strong>:
+                        кадр передаётся через остальные подходящие порты,
+                        кроме входящего.
+                    </p>
+
+                    <p>
+                        Этот случай подробно рассмотрим
+                        в следующей части.
+                    </p>
+
+
+                    <h3>Learning и forwarding — разные действия</h3>
+
+                    <p>
+                        При обработке одного входящего кадра
+                        switch выполняет две разные задачи:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле кадра</th>
+                                    <th>Что делает switch</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>Source MAC</strong></td>
+                                    <td>
+                                        Изучает или обновляет
+                                        запись MAC ↔ входящий порт
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Destination MAC</strong></td>
+                                    <td>
+                                        Определяет,
+                                        куда переслать кадр
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <pre class="code-block"><code>Source MAC       → learning
+ Destination MAC  → forwarding</code></pre>
+
+                        <p>
+                            Если Destination MAC известен,
+                            switch находит его в MAC Address Table
+                            и пересылает кадр
+                            через соответствующий порт.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ===== Flooding ===== -->
+
+                <article id="ch4-flooding">
+
+                    <h2>📜 Flooding</h2>
+
+                    <p>
+                        Если switch получает Ethernet-кадр,
+                        но не знает, через какой порт
+                        доступен его <strong>Destination MAC</strong>,
+                        он не может выполнить обычный forwarding
+                        на один конкретный порт.
+                    </p>
+
+                    <p>
+                        В этом случае используется
+                        <strong>flooding (рассылка)</strong> —
+                        switch пересылает кадр через все подходящие порты
+                        в пределах той же VLAN,
+                        <strong>кроме порта, на котором кадр был получен</strong>.
+                    </p>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 430"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Flooding неизвестного unicast-кадра через порты коммутатора">
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="365" y="25"
+                                width="170" height="60"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="450" y="51"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="72"
+                                text-anchor="middle">
+                                MAC: ...01
+                            </text>
+
+
+                            <!-- PC1 -> Switch -->
+
+                            <line x1="450" y1="85"
+                                x2="450" y2="137"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M450 145 L444 134 L456 134 Z"
+                                fill="#1976bd" />
+
+                            <text class="diagram-label"
+                                x="472" y="118">
+                                Fa0/1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -->
+                            <!-- ================================================= -->
+
+                            <rect x="350" y="145"
+                                width="200" height="90"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="178"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <text x="450" y="205"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#ffffff">
+                                Destination MAC: ...04
+                            </text>
+
+                            <text x="450" y="222"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                MAC неизвестен
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Flooding -->
+                            <!-- ================================================= -->
+
+                            <!-- Switch -> PC2 -->
+
+                            <line x1="385" y1="235"
+                                x2="210" y2="318"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M202 322 L210 311 L216 323 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- Switch -> PC3 -->
+
+                            <line x1="450" y1="235"
+                                x2="450" y2="310"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M450 318 L444 307 L456 307 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- Switch -> PC4 -->
+
+                            <line x1="515" y1="235"
+                                x2="690" y2="318"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M698 322 L684 323 L690 311 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- Port labels -->
+
+                            <text class="diagram-label"
+                                x="300" y="270"
+                                text-anchor="middle">
+                                Fa0/2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="470" y="278">
+                                Fa0/3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="600" y="270"
+                                text-anchor="middle">
+                                Fa0/4
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PCs -->
+                            <!-- ================================================= -->
+
+                            <!-- PC2 -->
+
+                            <rect class="diagram-node"
+                                x="115" y="325"
+                                width="170" height="60"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="200" y="351"
+                                text-anchor="middle">
+                                PC2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="200" y="372"
+                                text-anchor="middle">
+                                MAC: ...02
+                            </text>
+
+
+                            <!-- PC3 -->
+
+                            <rect class="diagram-node"
+                                x="365" y="325"
+                                width="170" height="60"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="450" y="351"
+                                text-anchor="middle">
+                                PC3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="372"
+                                text-anchor="middle">
+                                MAC: ...03
+                            </text>
+
+
+                            <!-- PC4 -->
+
+                            <rect x="615" y="325"
+                                width="170" height="60"
+                                rx="7"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text class="diagram-device"
+                                x="700" y="351"
+                                text-anchor="middle">
+                                PC4
+                            </text>
+
+                            <text class="diagram-label"
+                                x="700" y="372"
+                                text-anchor="middle">
+                                MAC: ...04
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Caption -->
+                            <!-- ================================================= -->
+
+                            <text x="450" y="415"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                неизвестный Destination MAC → кадр отправляется через Fa0/2, Fa0/3 и Fa0/4
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+                    <h3>Unknown unicast</h3>
+
+                    <p>
+                        Предположим, PC1 отправляет кадр
+                        с Destination MAC <code>...04</code>.
+                        Кадр приходит на switch через <code>Fa0/1</code>.
+                    </p>
+
+                    <p>
+                        Switch сначала изучает Source MAC PC1,
+                        а затем ищет Destination MAC
+                        в MAC Address Table.
+                    </p>
+
+                    <p>
+                        Если записи <code>...04</code> в таблице нет,
+                        это <strong>unknown unicast
+                        (неизвестный одноадресный получатель)</strong>.
+                    </p>
+
+                    <pre class="code-block"><code>кадр пришёл через Fa0/1
+          ↓
+  Destination MAC: ...04
+          ↓
+ поиск в MAC Address Table
+          ↓
+  MAC ...04 не найден
+          ↓
+       flooding
+          ↓
+  Fa0/2 + Fa0/3 + Fa0/4</code></pre>
+
+
+                    <h3>Почему исключается входящий порт</h3>
+
+                    <p>
+                        Switch уже получил кадр через <code>Fa0/1</code>,
+                        поэтому отправлять этот же кадр
+                        обратно через <code>Fa0/1</code> нет смысла.
+                    </p>
+
+                    <p>
+                        Он рассылает кадр через остальные
+                        подходящие порты той же VLAN.
+                    </p>
+
+
+                    <h3>Что делают получившие кадр устройства</h3>
+
+                    <p>
+                        В нашем примере копию кадра получают
+                        PC2, PC3 и PC4.
+                    </p>
+
+                    <p>
+                        Каждый сетевой интерфейс проверяет
+                        <strong>Destination MAC</strong>.
+                        PC2 и PC3 видят, что кадр предназначен
+                        не им, и отбрасывают его.
+                    </p>
+
+                    <p>
+                        MAC-адрес PC4 совпадает
+                        с Destination MAC кадра,
+                        поэтому PC4 принимает кадр
+                        для дальнейшей обработки.
+                    </p>
+
+
+                    <h3>Что произойдёт дальше</h3>
+
+                    <p>
+                        Когда PC4 отправит ответный кадр,
+                        switch получит его и увидит:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC: ...04
+ входящий порт: Fa0/4</code></pre>
+
+                    <p>
+                        Теперь switch сможет добавить
+                        новую запись в MAC Address Table:
+                    </p>
+
+                    <pre class="code-block"><code>...04  →  Fa0/4</code></pre>
+
+                    <p>
+                        После этого последующие кадры
+                        с Destination MAC <code>...04</code>
+                        уже можно будет пересылать
+                        непосредственно через <code>Fa0/4</code>.
+                    </p>
+
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Важно</div>
+
+                        <p>
+                            Flooding не означает,
+                            что switch навсегда отправляет
+                            любой кадр всем устройствам.
+                        </p>
+
+                        <p>
+                            Для unknown unicast это происходит потому,
+                            что switch пока не знает расположение получателя.
+                            После изучения его MAC-адреса
+                            обычный known unicast можно пересылать
+                            только через нужный порт.
+                        </p>
+                    </div>
+
+
+                    <h3>Flooding используется не только для unknown unicast</h3>
+
+                    <p>
+                        Похожая рассылка используется
+                        и для <strong>broadcast</strong> —
+                        кадров, предназначенных всем устройствам
+                        в пределах соответствующего
+                        broadcast domain.
+                    </p>
+
+                    <p>
+                        Однако причина здесь другая:
+                        у unknown unicast switch
+                        <strong>не знает, где находится получатель</strong>,
+                        а broadcast изначально
+                        <strong>предназначен всем</strong>.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Destination</th>
+                                    <th>Действие switch</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Known unicast</strong>
+                                    </td>
+                                    <td>
+                                        Переслать через известный
+                                        выходной порт
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Unknown unicast</strong>
+                                    </td>
+                                    <td>
+                                        Flooding через остальные
+                                        подходящие порты
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Broadcast</strong>
+                                    </td>
+                                    <td>
+                                        Flooding через остальные
+                                        подходящие порты
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            Если Destination MAC неизвестен,
+                            switch не знает конкретный выходной порт
+                            и выполняет <strong>flooding</strong>:
+                            пересылает кадр через остальные
+                            подходящие порты той же VLAN,
+                            кроме входящего.
+                        </p>
+
+                        <pre class="code-block"><code>MAC известен   → forwarding → нужный порт
+ MAC неизвестен → flooding   → остальные порты</code></pre>
+                    </div>
+                </article>
+
+                <!-- ===== Broadcast ===== -->
+
+                <article id="ch4-broadcast">
+
+                    <h2>📜 Broadcast</h2>
+
+                    <p>
+                        <strong>Broadcast (широковещательная передача)</strong> —
+                        передача Ethernet-кадра,
+                        предназначенного всем устройствам
+                        в пределах одной локальной L2-сети.
+                    </p>
+
+                    <p>
+                        Для такого кадра используется специальный
+                        Destination MAC:
+                    </p>
+
+                    <pre class="code-block"><code>FF:FF:FF:FF:FF:FF</code></pre>
+
+                    <p>
+                        Увидев broadcast MAC,
+                        switch пересылает кадр через все остальные
+                        подходящие порты той же VLAN,
+                        кроме порта, на котором кадр был получен.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 430"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Broadcast-кадр пересылается коммутатором всем устройствам локальной сети кроме входящего порта">
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="350" y="25"
+                                width="200" height="65"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="450" y="52"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="75"
+                                text-anchor="middle">
+                                отправитель
+                            </text>
+
+
+                            <!-- PC1 -> Switch -->
+
+                            <line x1="450" y1="90"
+                                x2="450" y2="137"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M450 145 L444 134 L456 134 Z"
+                                fill="#1976bd" />
+
+                            <text class="diagram-label"
+                                x="470" y="120">
+                                Fa0/1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Broadcast frame -->
+                            <!-- ================================================= -->
+
+                            <rect x="45" y="120"
+                                width="235" height="90"
+                                rx="9"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="162.5" y="148"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#725414">
+                                Ethernet-кадр
+                            </text>
+
+                            <text x="162.5" y="174"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                Destination MAC
+                            </text>
+
+                            <text x="162.5" y="196"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#172026">
+                                FF:FF:FF:FF:FF:FF
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -->
+                            <!-- ================================================= -->
+
+                            <rect x="350" y="145"
+                                width="200" height="100"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="178"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <text x="450" y="205"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#ffffff">
+                                Broadcast
+                            </text>
+
+                            <text x="450" y="226"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                → остальные порты
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -> PC2 -->
+                            <!-- ================================================= -->
+
+                            <line x1="385" y1="245"
+                                x2="210" y2="323"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M202 327 L210 316 L216 328 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -> PC3 -->
+                            <!-- ================================================= -->
+
+                            <line x1="450" y1="245"
+                                x2="450" y2="315"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M450 323 L444 312 L456 312 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -> PC4 -->
+                            <!-- ================================================= -->
+
+                            <line x1="515" y1="245"
+                                x2="690" y2="323"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M698 327 L684 328 L690 316 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- Port labels -->
+
+                            <text class="diagram-label"
+                                x="300" y="280"
+                                text-anchor="middle">
+                                Fa0/2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="470" y="285">
+                                Fa0/3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="600" y="280"
+                                text-anchor="middle">
+                                Fa0/4
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC2 -->
+                            <!-- ================================================= -->
+
+                            <rect x="115" y="330"
+                                width="170" height="60"
+                                rx="7"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text class="diagram-device"
+                                x="200" y="357"
+                                text-anchor="middle">
+                                PC2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="200" y="378"
+                                text-anchor="middle">
+                                получает broadcast
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC3 -->
+                            <!-- ================================================= -->
+
+                            <rect x="365" y="330"
+                                width="170" height="60"
+                                rx="7"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text class="diagram-device"
+                                x="450" y="357"
+                                text-anchor="middle">
+                                PC3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="378"
+                                text-anchor="middle">
+                                получает broadcast
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC4 -->
+                            <!-- ================================================= -->
+
+                            <rect x="615" y="330"
+                                width="170" height="60"
+                                rx="7"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text class="diagram-device"
+                                x="700" y="357"
+                                text-anchor="middle">
+                                PC4
+                            </text>
+
+                            <text class="diagram-label"
+                                x="700" y="378"
+                                text-anchor="middle">
+                                получает broadcast
+                            </text>
+
+
+                            <!-- Caption -->
+
+                            <text x="450" y="420"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                FF:FF:FF:FF:FF:FF → всем остальным портам той же VLAN
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Чем broadcast отличается от unknown unicast</h3>
+
+                    <p>
+                        Внешне действия switch похожи:
+                        в обоих случаях кадр может быть
+                        разослан через несколько портов.
+                    </p>
+
+                    <p>
+                        Но причины разные.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Unknown unicast</th>
+                                    <th>Broadcast</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Destination MAC</strong>
+                                    </td>
+                                    <td>
+                                        MAC конкретного устройства
+                                    </td>
+                                    <td>
+                                        <code>FF:FF:FF:FF:FF:FF</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Получатель</strong>
+                                    </td>
+                                    <td>
+                                        Одно конкретное устройство
+                                    </td>
+                                    <td>
+                                        Все устройства
+                                        в broadcast domain
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Почему flooding</strong>
+                                    </td>
+                                    <td>
+                                        Switch пока не знает,
+                                        где находится получатель
+                                    </td>
+                                    <td>
+                                        Кадр изначально предназначен
+                                        всем устройствам
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Broadcast domain</h3>
+
+                    <p>
+                        Область сети, внутри которой распространяются
+                        broadcast-кадры, называется
+                        <strong>broadcast domain (широковещательный домен)</strong>.
+                    </p>
+
+                    <p>
+                        Обычный L2-switch сам по себе
+                        не останавливает broadcast.
+                        Получив такой кадр,
+                        он распространяет его по соответствующей VLAN.
+                    </p>
+
+                    <p>
+                        Границей broadcast domain обычно становится
+                        router или разделение сети с помощью VLAN.
+                        Подробно это разберём позже.
+                    </p>
+
+
+                    <h3>Где используется broadcast</h3>
+
+                    <p>
+                        Broadcast нужен протоколам,
+                        которым необходимо обратиться
+                        сразу ко всем устройствам
+                        локального сегмента.
+                    </p>
+
+                    <p>
+                        Типичный пример —
+                        <strong>ARP (Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>.
+                    </p>
+
+                    <p>
+                        Когда устройство знает IPv4-адрес,
+                        но ещё не знает соответствующий ему MAC-адрес,
+                        ARP Request передаётся в Ethernet broadcast:
+                    </p>
+
+                    <pre class="code-block"><code>Destination MAC: FF:FF:FF:FF:FF:FF
+
+ «Кто имеет IPv4-адрес 192.168.1.20?»</code></pre>
+
+                    <p>
+                        Все устройства соответствующего broadcast domain
+                        получают запрос, но отвечает устройство,
+                        которому принадлежит указанный IPv4-адрес.
+                    </p>
+
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 MAC-таблица здесь не помогает</div>
+
+                        <p>
+                            Даже если switch уже знает MAC-адреса
+                            всех подключённых устройств,
+                            broadcast-кадр всё равно должен быть
+                            передан через остальные подходящие порты.
+                        </p>
+
+                        <p>
+                            Destination MAC
+                            <code>FF:FF:FF:FF:FF:FF</code>
+                            прямо означает, что кадр
+                            предназначен всем устройствам
+                            данного broadcast domain.
+                        </p>
+                    </div>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <pre class="code-block"><code>FF:FF:FF:FF:FF:FF
+        ↓
+      Switch
+  ↙    ↓    ↘
+порты той же VLAN
+кроме входящего</code></pre>
+
+                        <p>
+                            <strong>
+                                Broadcast предназначен всем устройствам
+                                в пределах broadcast domain.
+                                Switch не выбирает одного получателя,
+                                а распространяет такой кадр
+                                через остальные подходящие порты.
+                            </strong>
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ===== Unknown Unicast ===== -->
+
+                <article id="ch4-unknown-unicast">
+
+                    <h2>📜 Unknown Unicast</h2>
+
+                    <p>
+                        <strong>Unknown Unicast (неизвестный одноадресный кадр)</strong> —
+                        это unicast-кадр, Destination MAC которого
+                        switch ещё не знает:
+                        соответствующей записи нет в его MAC Address Table.
+                    </p>
+
+                    <p>
+                        Получатель у такого кадра конкретный,
+                        но switch пока не знает,
+                        через какой порт он доступен.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 440"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Unknown Unicast: switch не знает Destination MAC и выполняет flooding">
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="350" y="20"
+                                width="200" height="65"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="450" y="47"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="70"
+                                text-anchor="middle">
+                                Source MAC: ...01
+                            </text>
+
+
+                            <!-- PC1 -> Switch -->
+
+                            <line x1="450" y1="85"
+                                x2="450" y2="132"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M450 140 L444 129 L456 129 Z"
+                                fill="#1976bd" />
+
+                            <text class="diagram-label"
+                                x="470" y="116">
+                                Fa0/1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Ethernet frame -->
+                            <!-- ================================================= -->
+
+                            <rect x="35" y="105"
+                                width="255" height="105"
+                                rx="9"
+                                fill="#f7fafc"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <text x="162.5" y="133"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#172026">
+                                Ethernet-кадр
+                            </text>
+
+                            <text x="55" y="162"
+                                font-size="12"
+                                fill="#52606d">
+                                Source MAC:
+                            </text>
+
+                            <text x="175" y="162"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                ...01
+                            </text>
+
+                            <text x="55" y="188"
+                                font-size="12"
+                                fill="#52606d">
+                                Destination MAC:
+                            </text>
+
+                            <text x="175" y="188"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                ...04
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -->
+                            <!-- ================================================= -->
+
+                            <rect x="350" y="140"
+                                width="200" height="105"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="173"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <text x="450" y="201"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#ffffff">
+                                Destination MAC: ...04
+                            </text>
+
+                            <text x="450" y="225"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#ffe7a8">
+                                в таблице нет
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- MAC Address Table -->
+                            <!-- ================================================= -->
+
+                            <rect x="625" y="95"
+                                width="240" height="145"
+                                rx="9"
+                                fill="#f7fafc"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <text x="745" y="123"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#52606d">
+                                MAC Address Table
+                            </text>
+
+                            <line x1="645" y1="136"
+                                x2="845" y2="136"
+                                stroke="#cbd5dc"
+                                stroke-width="1" />
+
+                            <text x="650" y="162"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                ...01
+                            </text>
+
+                            <text x="790" y="162"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                Fa0/1
+                            </text>
+
+                            <text x="650" y="190"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                ...02
+                            </text>
+
+                            <text x="790" y="190"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                Fa0/2
+                            </text>
+
+                            <text x="745" y="220"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#9b542c">
+                                ...04 → неизвестен
+                            </text>
+
+
+                            <!-- Switch -> table -->
+
+                            <line x1="550" y1="190"
+                                x2="615" y2="190"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M623 190 L612 184 L612 196 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- Flooding -->
+                            <!-- ================================================= -->
+
+                            <!-- Switch -> PC2 -->
+
+                            <line x1="385" y1="245"
+                                x2="210" y2="328"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M202 332 L210 321 L216 333 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- Switch -> PC3 -->
+
+                            <line x1="450" y1="245"
+                                x2="450" y2="320"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M450 328 L444 317 L456 317 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- Switch -> PC4 -->
+
+                            <line x1="515" y1="245"
+                                x2="690" y2="328"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M698 332 L684 333 L690 321 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- Port labels -->
+
+                            <text class="diagram-label"
+                                x="270" y="282"
+                                text-anchor="middle">
+                                Fa0/2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="460" y="288">
+                                Fa0/3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="620" y="282"
+                                text-anchor="middle">
+                                Fa0/4
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC2 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="115" y="335"
+                                width="170" height="60"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="200" y="361"
+                                text-anchor="middle">
+                                PC2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="200" y="382"
+                                text-anchor="middle">
+                                MAC: ...02
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC3 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="365" y="335"
+                                width="170" height="60"
+                                rx="7" />
+
+                            <text class="diagram-device"
+                                x="450" y="361"
+                                text-anchor="middle">
+                                PC3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="382"
+                                text-anchor="middle">
+                                MAC: ...03
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC4 -->
+                            <!-- ================================================= -->
+
+                            <rect x="615" y="335"
+                                width="170" height="60"
+                                rx="7"
+                                fill="#d9efdc"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <text class="diagram-device"
+                                x="700" y="361"
+                                text-anchor="middle">
+                                PC4
+                            </text>
+
+                            <text class="diagram-label"
+                                x="700" y="382"
+                                text-anchor="middle">
+                                MAC: ...04
+                            </text>
+
+
+                            <!-- Caption -->
+
+                            <text x="450" y="425"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                Destination MAC неизвестен → flooding через остальные порты
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Почему unicast называется unknown</h3>
+
+                    <p>
+                        Важно не путать два понятия.
+                        Слово <strong>unicast</strong> означает,
+                        что кадр предназначен
+                        <strong>одному конкретному получателю</strong>.
+                    </p>
+
+                    <p>
+                        Слово <strong>unknown</strong> относится
+                        не к самому MAC-адресу и не к отправителю,
+                        а к состоянию MAC-таблицы switch:
+                    </p>
+
+                    <pre class="code-block"><code> Destination MAC существует
+              ↓
+кадр предназначен одному устройству
+              ↓
+    но MAC Address Table
+    ещё не содержит этот адрес
+              ↓
+      Unknown Unicast</code></pre>
+
+
+                    <h3>Что делает switch</h3>
+
+                    <p>
+                        Предположим, кадр приходит через
+                        <code>Fa0/1</code>:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC:      ...01
+ Destination MAC: ...04</code></pre>
+
+                    <p>
+                        Switch сначала выполняет уже знакомое
+                        <strong>MAC learning</strong>:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC ...01 → Fa0/1</code></pre>
+
+                    <p>
+                        Затем он ищет <code>...04</code>
+                        в MAC Address Table.
+                        Если такой записи нет,
+                        конкретный выходной порт определить невозможно.
+                    </p>
+
+                    <p>
+                        Поэтому switch выполняет
+                        <strong>flooding</strong> —
+                        отправляет копию кадра
+                        через остальные подходящие порты той же VLAN,
+                        кроме входящего.
+                    </p>
+
+
+                    <h3>Кадр всё равно остаётся unicast</h3>
+
+                    <p>
+                        Это важный момент:
+                        flooding не превращает unknown unicast
+                        в broadcast.
+                    </p>
+
+                    <p>
+                        Во всех копиях кадра
+                        Destination MAC остаётся прежним:
+                    </p>
+
+                    <pre class="code-block"><code>Destination MAC: ...04</code></pre>
+
+                    <p>
+                        Поэтому PC2 и PC3 получат кадр
+                        на своих сетевых интерфейсах,
+                        увидят чужой Destination MAC
+                        и отбросят его.
+                    </p>
+
+                    <p>
+                        PC4 увидит собственный MAC-адрес
+                        и примет кадр.
+                    </p>
+
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Unknown Unicast ≠ Broadcast</div>
+
+                        <p>
+                            При <strong>Unknown Unicast</strong>
+                            получатель один,
+                            но switch пока не знает,
+                            через какой порт он доступен.
+                        </p>
+
+                        <p>
+                            При <strong>Broadcast</strong>
+                            кадр изначально предназначен
+                            всем устройствам broadcast domain.
+                        </p>
+                    </div>
+
+
+                    <h3>Как unknown становится known</h3>
+
+                    <p>
+                        Сам факт получения кадра PC4
+                        ещё не позволяет switch изучить его MAC
+                        как Source MAC.
+                    </p>
+
+                    <p>
+                        Но когда PC4 отправит какой-либо кадр,
+                        switch увидит:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC: ...04
+ входящий порт: Fa0/4</code></pre>
+
+                    <p>
+                        и добавит запись:
+                    </p>
+
+                    <pre class="code-block"><code>...04 → Fa0/4</code></pre>
+
+                    <p>
+                        Теперь Destination MAC <code>...04</code>
+                        уже известен.
+                        Следующий такой unicast-кадр
+                        можно переслать непосредственно
+                        через <code>Fa0/4</code>.
+                    </p>
+
+                    <pre class="code-block"><code>     первый кадр
+   ...04 неизвестен
+           ↓
+    Unknown Unicast
+           ↓
+        Flooding
+           ↓
+   PC4 передаёт кадр
+           ↓
+Source MAC ...04 → Fa0/4
+           ↓
+  ...04 теперь известен
+           ↓
+  Known Unicast → Fa0/4</code></pre>
+
+
+                    <h3>Unknown Unicast и Broadcast — кратко</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Unknown Unicast</th>
+                                    <th>Broadcast</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Получателей</strong>
+                                    </td>
+                                    <td>Один</td>
+                                    <td>Все</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Destination MAC</strong>
+                                    </td>
+                                    <td>
+                                        MAC конкретного устройства
+                                    </td>
+                                    <td>
+                                        <code>FF:FF:FF:FF:FF:FF</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Почему выполняется flooding</strong>
+                                    </td>
+                                    <td>
+                                        Switch не знает
+                                        выходной порт
+                                    </td>
+                                    <td>
+                                        Кадр предназначен всем
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Что происходит после обучения</strong>
+                                    </td>
+                                    <td>
+                                        Возможен forwarding
+                                        только на нужный порт
+                                    </td>
+                                    <td>
+                                        По-прежнему распространяется
+                                        через остальные порты
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            <strong>
+                                Unknown Unicast — это кадр
+                                для одного конкретного MAC-адреса,
+                                которого пока нет в MAC Address Table.
+                            </strong>
+                        </p>
+
+                        <pre class="code-block"><code>Destination MAC известен   → Known Unicast → нужный порт
+ Destination MAC неизвестен → Unknown Unicast → Flooding</code></pre>
+
                     </div>
                 </article>
 
