@@ -39951,6 +39951,1325 @@ Source MAC ...04 → Fa0/4
                     </div>
                 </article>
 
+                <!-- ===== Что происходит при подключении нового устройства ===== -->
+
+                <article id="ch4-new-device">
+
+                    <h2>📜 Что происходит при подключении нового устройства</h2>
+
+                    <p>
+                        Когда новое устройство подключается к switch,
+                        его MAC-адрес не появляется
+                        в MAC Address Table автоматически
+                        только из-за подключения кабеля.
+                    </p>
+
+                    <p>
+                        Switch узнает MAC-адрес устройства,
+                        когда получает от него первый Ethernet-кадр.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 430"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Подключение нового устройства и изучение его MAC-адреса коммутатором">
+
+                            <!-- ================================================= -->
+                            <!-- Новый PC -->
+                            <!-- ================================================= -->
+
+                            <rect x="35" y="155"
+                                width="185" height="70"
+                                rx="7"
+                                fill="#fff4d6"
+                                stroke="#b98922"
+                                stroke-width="3" />
+
+                            <text class="diagram-device"
+                                x="127.5" y="184"
+                                text-anchor="middle">
+                                Новый PC
+                            </text>
+
+                            <text class="diagram-label"
+                                x="127.5" y="207"
+                                text-anchor="middle">
+                                MAC: ...04
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Первый кадр -->
+                            <!-- ================================================= -->
+
+                            <line x1="220" y1="190"
+                                x2="327" y2="190"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M335 190 L324 184 L324 196 Z"
+                                fill="#1976bd" />
+
+                            <text class="diagram-label"
+                                x="277" y="171"
+                                text-anchor="middle">
+                                первый кадр
+                            </text>
+
+                            <text class="diagram-label"
+                                x="277" y="215"
+                                text-anchor="middle">
+                                Source MAC: ...04
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -->
+                            <!-- ================================================= -->
+
+                            <rect x="335" y="130"
+                                width="190" height="120"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="430" y="164"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <line x1="355" y1="179"
+                                x2="505" y2="179"
+                                stroke="#d9e1e6"
+                                stroke-width="1.5" />
+
+                            <text x="430" y="207"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#ffffff">
+                                кадр получен через
+                            </text>
+
+                            <text x="430" y="232"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Fa0/4
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Switch -> learning -->
+                            <!-- ================================================= -->
+
+                            <line x1="525" y1="190"
+                                x2="602" y2="190"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M610 190 L599 184 L599 196 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- Learning -->
+                            <!-- ================================================= -->
+
+                            <rect x="610" y="105"
+                                width="255" height="170"
+                                rx="10"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2.5" />
+
+                            <text x="737.5" y="137"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#245c3b">
+                                MAC learning
+                            </text>
+
+                            <text x="632" y="169"
+                                font-size="13"
+                                fill="#34465d">
+                                Source MAC:
+                            </text>
+
+                            <text x="632" y="192"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                ...04
+                            </text>
+
+                            <text x="632" y="222"
+                                font-size="13"
+                                fill="#34465d">
+                                входящий порт:
+                            </text>
+
+                            <text x="748" y="222"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#172026">
+                                Fa0/4
+                            </text>
+
+                            <text x="737.5" y="253"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                ...04 ↔ Fa0/4
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Down arrow -->
+                            <!-- ================================================= -->
+
+                            <line x1="737.5" y1="275"
+                                x2="737.5" y2="306"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M737.5 314 L731.5 303 L743.5 303 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- MAC Address Table -->
+                            <!-- ================================================= -->
+
+                            <rect x="580" y="314"
+                                width="315" height="90"
+                                rx="9"
+                                fill="#f7fafc"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <text x="737.5" y="339"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#52606d">
+                                MAC Address Table
+                            </text>
+
+                            <line x1="600" y1="350"
+                                x2="875" y2="350"
+                                stroke="#cbd5dc"
+                                stroke-width="1" />
+
+                            <text x="605" y="378"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                ...04
+                            </text>
+
+                            <text x="815" y="378"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                Fa0/4
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Этапы -->
+                            <!-- ================================================= -->
+
+                            <text x="127.5" y="285"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#725414">
+                                1. Подключение
+                            </text>
+
+                            <text x="430" y="285"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#52606d">
+                                2. Первый кадр
+                            </text>
+
+                            <text x="737.5" y="70"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#356b4a">
+                                3. Изучение Source MAC
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Подключение кабеля ещё не означает MAC learning</h3>
+
+                    <p>
+                        После подключения устройства
+                        switch может определить,
+                        что физическое соединение установлено:
+                        соответствующий порт становится активным.
+                    </p>
+
+                    <p>
+                        Но из самого факта появления соединения
+                        switch ещё не узнаёт MAC-адрес
+                        подключённого устройства.
+                    </p>
+
+                    <pre class="code-block"><code>устройство подключено
+          ↓
+    порт активен
+          ↓
+MAC-адрес ещё может быть неизвестен</code></pre>
+
+
+                    <h3>Первый Ethernet-кадр</h3>
+
+                    <p>
+                        Как только новое устройство
+                        начинает передавать данные,
+                        switch получает от него Ethernet-кадр.
+                    </p>
+
+                    <p>
+                        Например:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC: ...04
+ входящий порт: Fa0/4</code></pre>
+
+                    <p>
+                        Switch использует уже знакомый механизм
+                        <strong>MAC learning</strong>
+                        и добавляет или обновляет запись:
+                    </p>
+
+                    <pre class="code-block"><code>...04 → Fa0/4</code></pre>
+
+
+                    <h3>А как передавать кадры новому устройству до этого?</h3>
+
+                    <p>
+                        Пока MAC-адрес нового устройства
+                        отсутствует в MAC Address Table,
+                        unicast-кадр для него будет
+                        <strong>Unknown Unicast</strong>.
+                    </p>
+
+                    <p>
+                        Switch не знает конкретный выходной порт,
+                        поэтому выполняет уже знакомый
+                        <strong>flooding</strong>.
+                    </p>
+
+                    <pre class="code-block"><code>Destination MAC: ...04
+          ↓
+записи ...04 в MAC-таблице нет
+          ↓
+    Unknown Unicast
+          ↓
+       Flooding</code></pre>
+
+                    <p>
+                        После того как новое устройство
+                        само передаст кадр и switch изучит
+                        его Source MAC, дальнейшие unicast-кадры
+                        можно будет отправлять непосредственно
+                        через известный порт.
+                    </p>
+
+
+                    <h3>На практике устройство обычно начинает передавать быстро</h3>
+
+                    <p>
+                        После подключения устройство обычно
+                        довольно быстро генерирует сетевой трафик.
+                        Поэтому switch получает возможность
+                        изучить его MAC-адрес без ручной настройки.
+                    </p>
+
+                    <p>
+                        Например, одним из первых кадров
+                        может оказаться ARP-запрос или другой
+                        служебный Ethernet-трафик.
+                        Для switch конкретный протокол здесь
+                        не принципиален: для обучения ему нужен
+                        <strong>Source MAC входящего кадра</strong>.
+                    </p>
+
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Важно</div>
+
+                        <p>
+                            Switch не «спрашивает» новое устройство
+                            о его MAC-адресе при подключении.
+                        </p>
+
+                        <p>
+                            Он изучает адрес пассивно —
+                            по Source MAC Ethernet-кадров,
+                            которые устройство начинает передавать.
+                        </p>
+                    </div>
+
+
+                    <h3>Вся последовательность</h3>
+
+                    <pre class="code-block"><code>  новый PC подключён к Fa0/4
+               ↓
+    порт становится активным
+               ↓
+     PC передаёт первый кадр
+               ↓
+       Source MAC ...04
+               ↓
+switch получает кадр через Fa0/4
+               ↓
+       ...04 → Fa0/4
+               ↓
+  MAC Address Table обновлена
+               ↓
+  следующий unicast для ...04
+  можно отправить прямо через Fa0/4</code></pre>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            <strong>
+                                Подключение устройства само по себе
+                                не добавляет его MAC-адрес
+                                в MAC Address Table.
+                            </strong>
+                        </p>
+
+                        <p>
+                            Switch изучает новый MAC-адрес,
+                            когда получает Ethernet-кадр
+                            с этим адресом в поле
+                            <strong>Source MAC</strong>.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ===== Просмотр MAC-таблицы Cisco ===== -->
+
+                <article id="ch4-cisco-mac-table">
+
+                    <h2>📜 Просмотр MAC-таблицы Cisco</h2>
+
+                    <p>
+                        На Cisco switch содержимое MAC Address Table
+                        можно посмотреть из CLI
+                        <strong>(Command-Line Interface — интерфейс командной строки)</strong>.
+                    </p>
+
+                    <p>
+                        Основная команда:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# show mac address-table</code></pre>
+
+                    <p>
+                        Она показывает MAC-адреса,
+                        которые известны switch,
+                        и порты, через которые эти адреса доступны.
+                    </p>
+
+
+                    <h3>Пример вывода</h3>
+
+                    <pre class="code-block"><code>Switch# show mac address-table
+
+         Mac Address Table
+ -------------------------------------------
+ Vlan    Mac Address       Type       Ports
+ ----    -----------      --------     -----
+ 1     00aa.0000.0001      DYNAMIC    Fa0/1
+ 1     00aa.0000.0002      DYNAMIC    Fa0/2
+ 1     00aa.0000.0003      DYNAMIC    Fa0/3</code></pre>
+
+
+                    <h3>Как читать таблицу</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле</th>
+                                    <th>Что означает</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><code>Vlan</code></td>
+                                    <td>
+                                        VLAN, к которой относится запись
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>Mac Address</code></td>
+                                    <td>
+                                        MAC-адрес, известный switch
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>Type</code></td>
+                                    <td>
+                                        Тип записи:
+                                        например <code>DYNAMIC</code>
+                                        или <code>STATIC</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>Ports</code></td>
+                                    <td>
+                                        Порт, через который
+                                        доступен данный MAC-адрес
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>DYNAMIC</h3>
+
+                    <p>
+                        Запись типа <code>DYNAMIC</code>
+                        switch изучил автоматически
+                        по <strong>Source MAC</strong>
+                        входящего Ethernet-кадра.
+                    </p>
+
+                    <pre class="code-block"><code>00aa.0000.0001    DYNAMIC    Fa0/1</code></pre>
+
+                    <p>
+                        Это означает:
+                        устройство с MAC-адресом
+                        <code>00:AA:00:00:00:01</code>
+                        было обнаружено через порт <code>Fa0/1</code>.
+                    </p>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Формат MAC-адреса Cisco</div>
+
+                        <p>
+                            В выводе Cisco MAC-адрес часто записывается
+                            группами по четыре шестнадцатеричных символа:
+                        </p>
+
+                        <pre class="code-block"><code>00:AA:00:00:00:01   → обычная запись
+ 00aa.0000.0001      → формат Cisco</code></pre>
+
+                        <p>
+                            Это один и тот же MAC-адрес,
+                            отличается только способ записи.
+                        </p>
+                    </div>
+
+
+                    <h3>Посмотреть динамические записи</h3>
+
+                    <p>
+                        Если нужны только MAC-адреса,
+                        изученные switch автоматически:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# show mac address-table dynamic</code></pre>
+
+
+                    <h3>Поиск конкретного MAC-адреса</h3>
+
+                    <p>
+                        Таблицу можно отфильтровать
+                        по определённому MAC-адресу:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# show mac address-table address 00aa.0000.0001</code></pre>
+
+                    <p>
+                        Это удобно, когда нужно определить,
+                        через какой порт switch видит
+                        конкретное устройство.
+                    </p>
+
+
+                    <h3>Просмотр записей определённого интерфейса</h3>
+
+                    <p>
+                        Можно посмотреть MAC-адреса,
+                        изученные через конкретный интерфейс:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# show mac address-table interface fastEthernet 0/1</code></pre>
+
+                    <p>
+                        На другом оборудовании имя интерфейса
+                        может отличаться, например:
+                    </p>
+
+                    <pre class="code-block"><code>GigabitEthernet0/1
+ GigabitEthernet1/0/1</code></pre>
+
+
+                    <h3>Очистка динамической MAC-таблицы</h3>
+
+                    <p>
+                        Для учебного эксперимента можно удалить
+                        динамически изученные записи:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# clear mac address-table dynamic</code></pre>
+
+                    <p>
+                        После очистки таблица снова начнёт
+                        заполняться по Source MAC
+                        поступающих Ethernet-кадров.
+                    </p>
+
+                    <p>
+                        Это удобно в Packet Tracer:
+                        можно очистить таблицу,
+                        отправить <code>ping</code>
+                        и наблюдать,
+                        как switch заново изучает устройства.
+                    </p>
+
+
+                    <h3>Небольшой эксперимент в Packet Tracer</h3>
+
+                    <pre class="code-block"><code>Switch&gt; enable
+
+ Switch# show mac address-table
+
+ Switch# clear mac address-table dynamic
+
+ Switch# show mac address-table
+
+ PC0&gt; ping 192.168.1.2
+
+ Switch# show mac address-table</code></pre>
+
+                    <p>
+                        До передачи кадров динамических записей
+                        может не быть.
+                        После обмена трафиком switch изучит
+                        Source MAC устройств,
+                        и соответствующие записи появятся
+                        в таблице.
+                    </p>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Основные команды</div>
+
+                        <pre class="code-block"><code>show mac address-table
+ show mac address-table dynamic
+ show mac address-table address &lt;MAC&gt;
+ show mac address-table interface &lt;interface&gt;
+ clear mac address-table dynamic</code></pre>
+
+                        <p>
+                            Для начала самая важная команда —
+                            <code>show mac address-table</code>.
+                            Она позволяет увидеть на практике
+                            результат MAC learning:
+                            <strong>какой MAC-адрес через какой порт доступен.</strong>
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ===== Packet Tracer: исследуем работу switch ===== -->
+
+                <article id="ch4-packet-tracer">
+
+                    <h2>📜 Packet Tracer: исследуем работу switch</h2>
+
+                    <p>
+                        Теперь проверим на практике,
+                        как switch изучает MAC-адреса
+                        и использует MAC Address Table
+                        при пересылке Ethernet-кадров.
+                    </p>
+
+                    <p>
+                        Для эксперимента соберём небольшую сеть
+                        из одного switch и трёх компьютеров.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 390"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Лабораторная схема Packet Tracer: три компьютера подключены к одному switch">
+
+                            <!-- ================================================= -->
+                            <!-- Switch -->
+                            <!-- ================================================= -->
+
+                            <rect x="350" y="45"
+                                width="200" height="75"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="77"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <text x="450" y="101"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#d9e1e6">
+                                Cisco 2960
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Links -->
+                            <!-- ================================================= -->
+
+                            <line class="diagram-link"
+                                x1="385" y1="120"
+                                x2="200" y2="245" />
+
+                            <line class="diagram-link"
+                                x1="450" y1="120"
+                                x2="450" y2="245" />
+
+                            <line class="diagram-link"
+                                x1="515" y1="120"
+                                x2="700" y2="245" />
+
+
+                            <!-- Port labels -->
+
+                            <text class="diagram-label"
+                                x="295" y="170"
+                                text-anchor="middle">
+                                Fa0/1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="470" y="185">
+                                Fa0/2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="605" y="170"
+                                text-anchor="middle">
+                                Fa0/3
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC0 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="110" y="245"
+                                width="180" height="90"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="200" y="273"
+                                text-anchor="middle">
+                                PC0
+                            </text>
+
+                            <text class="diagram-label"
+                                x="200" y="297"
+                                text-anchor="middle">
+                                192.168.1.10
+                            </text>
+
+                            <text class="diagram-label"
+                                x="200" y="319"
+                                text-anchor="middle">
+                                Fa0 → Fa0/1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="360" y="245"
+                                width="180" height="90"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="450" y="273"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="297"
+                                text-anchor="middle">
+                                192.168.1.20
+                            </text>
+
+                            <text class="diagram-label"
+                                x="450" y="319"
+                                text-anchor="middle">
+                                Fa0 → Fa0/2
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC2 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="610" y="245"
+                                width="180" height="90"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="700" y="273"
+                                text-anchor="middle">
+                                PC2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="700" y="297"
+                                text-anchor="middle">
+                                192.168.1.30
+                            </text>
+
+                            <text class="diagram-label"
+                                x="700" y="319"
+                                text-anchor="middle">
+                                Fa0 → Fa0/3
+                            </text>
+
+
+                            <!-- Caption -->
+
+                            <text x="450" y="370"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                одна локальная сеть: 192.168.1.0/24
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>1. Собираем сеть</h3>
+
+                    <p>
+                        В Packet Tracer добавьте:
+                    </p>
+
+                    <ul>
+                        <li>один switch <strong>Cisco 2960</strong>;</li>
+                        <li>три устройства <strong>PC</strong>.</li>
+                    </ul>
+
+                    <p>
+                        Соедините компьютеры со switch:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Устройство</th>
+                                    <th>Интерфейс PC</th>
+                                    <th>Порт switch</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>PC0</td>
+                                    <td><code>FastEthernet0</code></td>
+                                    <td><code>Fa0/1</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC1</td>
+                                    <td><code>FastEthernet0</code></td>
+                                    <td><code>Fa0/2</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC2</td>
+                                    <td><code>FastEthernet0</code></td>
+                                    <td><code>Fa0/3</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Используйте обычное Ethernet-соединение
+                        <strong>Copper Straight-Through</strong>
+                        или автоматический выбор кабеля Packet Tracer.
+                    </p>
+
+
+                    <h3>2. Настраиваем IPv4-адреса</h3>
+
+                    <p>
+                        На каждом PC откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → IP Configuration</code></pre>
+
+                    <p>
+                        Укажите адреса:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>PC</th>
+                                    <th>IPv4 Address</th>
+                                    <th>Subnet Mask</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>PC0</td>
+                                    <td><code>192.168.1.10</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC1</td>
+                                    <td><code>192.168.1.20</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC2</td>
+                                    <td><code>192.168.1.30</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Default Gateway для этого эксперимента
+                        не требуется:
+                        все три компьютера находятся
+                        в одной IP-сети.
+                    </p>
+
+
+                    <h3>3. Смотрим MAC-адреса компьютеров</h3>
+
+                    <p>
+                        На PC0 откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → Command Prompt</code></pre>
+
+                    <p>
+                        Выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ipconfig /all</code></pre>
+
+                    <p>
+                        Найдите физический адрес интерфейса
+                        <code>FastEthernet0</code>.
+                    </p>
+
+                    <p>
+                        То же самое можно сделать
+                        на PC1 и PC2.
+                        Эти адреса пригодятся при сравнении
+                        с MAC Address Table switch.
+                    </p>
+
+
+                    <h3>4. Проверяем MAC Address Table</h3>
+
+                    <p>
+                        Откройте Switch0:
+                    </p>
+
+                    <pre class="code-block"><code>Switch0 → CLI</code></pre>
+
+                    <p>
+                        Перейдите в привилегированный режим
+                        и посмотрите таблицу:
+                    </p>
+
+                    <pre class="code-block"><code>Switch&gt; enable
+                Switch# show mac address-table</code></pre>
+
+                    <p>
+                        Чтобы начать эксперимент
+                        с чистой динамической таблицей,
+                        выполните:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# clear mac address-table dynamic
+                Switch# show mac address-table</code></pre>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Что проверяем</div>
+
+                        <p>
+                            Само подключение PC к активному порту
+                            ещё не означает,
+                            что switch изучил MAC-адрес этого PC.
+                        </p>
+
+                        <p>
+                            Для MAC learning switch должен получить
+                            Ethernet-кадр от устройства.
+                        </p>
+                    </div>
+
+
+                    <h3>5. Переходим в Simulation Mode</h3>
+
+                    <p>
+                        В правом нижнем углу Packet Tracer
+                        переключитесь:
+                    </p>
+
+                    <pre class="code-block"><code>Realtime → Simulation</code></pre>
+
+                    <p>
+                        Теперь можно наблюдать передачу кадров
+                        пошагово.
+                    </p>
+
+                    <p>
+                        Для чистоты эксперимента
+                        при необходимости очистите список событий,
+                        а затем снова очистите динамическую
+                        MAC-таблицу switch.
+                    </p>
+
+
+                    <h3>6. Отправляем первый ping</h3>
+
+                    <p>
+                        На PC0 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.20</code></pre>
+
+                    <p>
+                        Первый обмен особенно интересен,
+                        потому что PC0 может ещё не знать
+                        MAC-адрес PC1.
+                    </p>
+
+                    <p>
+                        Поэтому перед ICMP
+                        <strong>(Internet Control Message Protocol —
+                        протокол управляющих сообщений Internet)</strong>
+                        может появиться ARP
+                        <strong>(Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>.
+                    </p>
+
+
+                    <h3>7. Наблюдаем ARP Request</h3>
+
+                    <p>
+                        Если PC0 ещё не знает MAC-адрес PC1,
+                        он отправляет ARP Request:
+                    </p>
+
+                    <pre class="code-block"><code>«Кто имеет IPv4-адрес 192.168.1.20?»</code></pre>
+
+                    <p>
+                        Ethernet Destination MAC этого кадра:
+                    </p>
+
+                    <pre class="code-block"><code>FF:FF:FF:FF:FF:FF</code></pre>
+
+                    <p>
+                        Это broadcast.
+                        Когда кадр приходит через <code>Fa0/1</code>,
+                        switch выполняет сразу две важные операции:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC PC0
+                        ↓
+                MAC learning
+                        ↓
+                MAC PC0 → Fa0/1
+
+
+                Destination MAC
+                FF:FF:FF:FF:FF:FF
+                        ↓
+                Broadcast
+                        ↓
+                Flooding → Fa0/2 + Fa0/3</code></pre>
+
+                    <p>
+                        Таким образом, на одном кадре
+                        можно увидеть сразу два разных механизма:
+                        <strong>learning</strong> по Source MAC
+                        и <strong>flooding</strong>
+                        по Destination MAC.
+                    </p>
+
+
+                    <h3>8. Наблюдаем ARP Reply</h3>
+
+                    <p>
+                        PC1 получает ARP Request
+                        и отвечает PC0.
+                    </p>
+
+                    <p>
+                        Ответ приходит на switch через
+                        <code>Fa0/2</code>.
+                        Теперь Source MAC принадлежит PC1:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC PC1
+                входящий порт Fa0/2
+                        ↓
+                MAC PC1 → Fa0/2</code></pre>
+
+                    <p>
+                        После этого switch уже знает
+                        расположение как минимум двух устройств:
+                    </p>
+
+                    <pre class="code-block"><code>MAC PC0 → Fa0/1
+                MAC PC1 → Fa0/2</code></pre>
+
+
+                    <h3>9. Наблюдаем ICMP Echo</h3>
+
+                    <p>
+                        После разрешения MAC-адреса
+                        PC0 может отправить ICMP Echo Request
+                        непосредственно PC1.
+                    </p>
+
+                    <p>
+                        Теперь Destination MAC PC1
+                        уже известен switch:
+                    </p>
+
+                    <pre class="code-block"><code>Destination MAC PC1
+                        ↓
+                MAC Address Table
+                        ↓
+                MAC PC1 → Fa0/2
+                        ↓
+                Forwarding → только Fa0/2</code></pre>
+
+                    <p>
+                        PC2 этот unicast-кадр
+                        уже не получает.
+                    </p>
+
+
+                    <h3>10. Проверяем результат</h3>
+
+                    <p>
+                        Вернитесь в CLI Switch0:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# show mac address-table dynamic</code></pre>
+
+                    <p>
+                        В таблице должны появиться
+                        динамически изученные MAC-адреса
+                        участвовавших в обмене устройств.
+                    </p>
+
+                    <p>
+                        Сравните их с физическими адресами,
+                        которые ранее получили через:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ipconfig /all</code></pre>
+
+
+                    <h3>11. Подключаем PC2 к обмену</h3>
+
+                    <p>
+                        Теперь с PC0 отправьте:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.30</code></pre>
+
+                    <p>
+                        После обмена трафиком снова выполните:
+                    </p>
+
+                    <pre class="code-block"><code>Switch# show mac address-table dynamic</code></pre>
+
+                    <p>
+                        В таблице должна появиться
+                        запись для MAC-адреса PC2,
+                        связанная с <code>Fa0/3</code>.
+                    </p>
+
+
+                    <h3>Что мы увидели</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Событие</th>
+                                    <th>Действие switch</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        Получен любой кадр
+                                    </td>
+                                    <td>
+                                        Изучает Source MAC
+                                        и входящий порт
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Known Unicast
+                                    </td>
+                                    <td>
+                                        Forwarding через известный порт
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Unknown Unicast
+                                    </td>
+                                    <td>
+                                        Flooding через остальные
+                                        подходящие порты
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Broadcast
+                                    </td>
+                                    <td>
+                                        Flooding через остальные
+                                        подходящие порты
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            Этот эксперимент связывает вместе
+                            основные механизмы работы switch:
+                        </p>
+
+                        <pre class="code-block"><code>Source MAC
+                    ↓
+                MAC learning
+                    ↓
+                MAC Address Table
+
+
+                Destination MAC
+                    ↓
+                поиск в MAC Address Table
+                    ↓
+                ┌─────────────────┬──────────────────┐
+                │ MAC известен    │ MAC неизвестен   │
+                │       ↓         │        ↓         │
+                │  Forwarding     │    Flooding      │
+                └─────────────────┴──────────────────┘</code></pre>
+
+                        <p>
+                            После этого MAC Address Table —
+                            уже не просто таблица из CLI:
+                            можно увидеть,
+                            <strong>откуда в ней появляются записи
+                            и как switch использует их
+                            при передаче реальных кадров.</strong>
+                        </p>
+                    </div>
+                </article>
+
             </section>
                         
         </main>
