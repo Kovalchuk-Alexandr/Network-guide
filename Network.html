@@ -45938,6 +45938,637 @@ ARP broadcast     │
                     </div>
                 </article>
 
+                <!-- ===== Что происходит при первом ping ===== -->
+
+                <article id="ch5-first-ping">
+
+                    <h2>📜 Что происходит при первом ping</h2>
+
+                    <p>
+                        Первый <code>ping</code> хорошо показывает,
+                        как вместе работают уже знакомые механизмы:
+                        <strong>ARP, Ethernet, MAC learning и ICMP</strong>.
+                    </p>
+
+                    <p>
+                        Если MAC-адрес получателя ещё неизвестен,
+                        перед первым ICMP Echo Request
+                        компьютеру сначала приходится выполнить ARP-разрешение.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 540"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Первый ping между двумя компьютерами через switch">
+
+                            <!-- ================================================= -->
+                            <!-- Devices -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="55" y="35"
+                                width="190" height="75"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="150" y="64"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="150" y="88"
+                                text-anchor="middle">
+                                192.168.1.10
+                            </text>
+
+
+                            <rect x="355" y="35"
+                                width="190" height="75"
+                                rx="9"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="66"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <text x="450" y="90"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                Ethernet
+                            </text>
+
+
+                            <rect class="diagram-node"
+                                x="655" y="35"
+                                width="190" height="75"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="750" y="64"
+                                text-anchor="middle">
+                                PC2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="750" y="88"
+                                text-anchor="middle">
+                                192.168.1.20
+                            </text>
+
+
+                            <!-- Vertical timelines -->
+
+                            <line x1="150" y1="110"
+                                x2="150" y2="505"
+                                stroke="#aab5bd"
+                                stroke-width="2"
+                                stroke-dasharray="6 6" />
+
+                            <line x1="450" y1="110"
+                                x2="450" y2="505"
+                                stroke="#aab5bd"
+                                stroke-width="2"
+                                stroke-dasharray="6 6" />
+
+                            <line x1="750" y1="110"
+                                x2="750" y2="505"
+                                stroke="#aab5bd"
+                                stroke-width="2"
+                                stroke-dasharray="6 6" />
+
+
+                            <!-- ================================================= -->
+                            <!-- 1. ping -->
+                            <!-- ================================================= -->
+
+                            <rect x="55" y="135"
+                                width="190" height="48"
+                                rx="7"
+                                fill="#f7fafc"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <text x="150" y="156"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#172026">
+                                ping 192.168.1.20
+                            </text>
+
+                            <text x="150" y="174"
+                                text-anchor="middle"
+                                font-size="11"
+                                fill="#52606d">
+                                MAC неизвестен
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- 2. ARP Request -->
+                            <!-- ================================================= -->
+
+                            <line x1="150" y1="215"
+                                x2="442" y2="215"
+                                stroke="#b98922"
+                                stroke-width="3" />
+
+                            <path d="M450 215 L439 209 L439 221 Z"
+                                fill="#b98922" />
+
+                            <text x="300" y="202"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP Request
+                            </text>
+
+
+                            <line x1="450" y1="235"
+                                x2="742" y2="235"
+                                stroke="#b98922"
+                                stroke-width="3" />
+
+                            <path d="M750 235 L739 229 L739 241 Z"
+                                fill="#b98922" />
+
+                            <text x="600" y="222"
+                                text-anchor="middle"
+                                font-size="11"
+                                fill="#725414">
+                                Flooding
+                            </text>
+
+                            <text x="450" y="261"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="11"
+                                fill="#52606d">
+                                FF:FF:FF:FF:FF:FF
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- 3. ARP Reply -->
+                            <!-- ================================================= -->
+
+                            <line x1="750" y1="305"
+                                x2="458" y2="305"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <path d="M450 305 L461 299 L461 311 Z"
+                                fill="#4d8b64" />
+
+
+                            <line x1="450" y1="325"
+                                x2="158" y2="325"
+                                stroke="#4d8b64"
+                                stroke-width="3" />
+
+                            <path d="M150 325 L161 319 L161 331 Z"
+                                fill="#4d8b64" />
+
+                            <text x="600" y="292"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#356b4a">
+                                ARP Reply
+                            </text>
+
+                            <text x="300" y="312"
+                                text-anchor="middle"
+                                font-size="11"
+                                fill="#356b4a">
+                                Forwarding
+                            </text>
+
+                            <text x="450" y="351"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="11"
+                                fill="#356b4a">
+                                192.168.1.20 → MAC PC2
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- 4. ICMP Echo Request -->
+                            <!-- ================================================= -->
+
+                            <line x1="150" y1="400"
+                                x2="742" y2="400"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M750 400 L739 394 L739 406 Z"
+                                fill="#1976bd" />
+
+                            <text x="450" y="386"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#195b8c">
+                                ICMP Echo Request
+                            </text>
+
+                            <text x="450" y="421"
+                                text-anchor="middle"
+                                font-size="11"
+                                fill="#52606d">
+                                обычный unicast Ethernet-кадр
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- 5. ICMP Echo Reply -->
+                            <!-- ================================================= -->
+
+                            <line x1="750" y1="465"
+                                x2="158" y2="465"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M150 465 L161 459 L161 471 Z"
+                                fill="#1976bd" />
+
+                            <text x="450" y="452"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#195b8c">
+                                ICMP Echo Reply
+                            </text>
+
+
+                            <!-- Footer -->
+
+                            <text x="450" y="525"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#52606d">
+                                ARP сначала узнаёт MAC → затем начинается ICMP-обмен
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Исходная ситуация</h3>
+
+                    <p>
+                        Возьмём два компьютера
+                        в одной локальной сети:
+                    </p>
+
+                    <pre class="code-block"><code>PC1
+IPv4: 192.168.1.10
+MAC:  ...01
+
+PC2
+IPv4: 192.168.1.20
+MAC:  ...02</code></pre>
+
+                    <p>
+                        На PC1 выполняем:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.20</code></pre>
+
+                    <p>
+                        Предположим, что перед этим
+                        ARP-кэш PC1 пуст
+                        и MAC-адрес PC2 ему неизвестен.
+                    </p>
+
+
+                    <h3>1. PC1 определяет: адрес локальный</h3>
+
+                    <p>
+                        Перед отправкой PC1 сравнивает
+                        Destination IPv4 со своей сетью,
+                        используя собственный IPv4-адрес
+                        и маску подсети.
+                    </p>
+
+                    <pre class="code-block"><code>PC1:         192.168.1.10/24
+ Destination: 192.168.1.20
+
+ оба адреса → 192.168.1.0/24
+                   ↓
+           получатель находится
+           в локальной сети</code></pre>
+
+                    <p>
+                        Значит, Ethernet-кадр можно отправить
+                        непосредственно PC2,
+                        но для этого нужен его MAC-адрес.
+                    </p>
+
+
+                    <h3>2. PC1 проверяет ARP-кэш</h3>
+
+                    <pre class="code-block"><code>нужен MAC для
+ 192.168.1.20
+      ↓
+  ARP Cache
+      ↓
+  записи нет</code></pre>
+
+                    <p>
+                        PC1 пока не может сформировать
+                        обычный unicast Ethernet-кадр для PC2.
+                        Сначала необходимо выполнить ARP-разрешение.
+                    </p>
+
+
+                    <h3>3. PC1 отправляет ARP Request</h3>
+
+                    <p>
+                        Формируется запрос:
+                    </p>
+
+                    <pre class="code-block"><code>«Кто имеет 192.168.1.20?
+ Сообщите 192.168.1.10»</code></pre>
+
+                    <p>
+                        Он помещается в broadcast Ethernet-кадр:
+                    </p>
+
+                    <pre class="code-block"><code>Source MAC:      MAC PC1
+ Destination MAC: FF:FF:FF:FF:FF:FF</code></pre>
+
+                    <p>
+                        Switch получает кадр,
+                        изучает Source MAC PC1
+                        и выполняет flooding
+                        через остальные подходящие порты VLAN.
+                    </p>
+
+
+                    <h3>4. PC2 отправляет ARP Reply</h3>
+
+                    <p>
+                        PC2 видит в ARP Request
+                        свой IPv4-адрес и отвечает:
+                    </p>
+
+                    <pre class="code-block"><code>192.168.1.20 → MAC ...02</code></pre>
+
+                    <p>
+                        ARP Reply обычно передаётся
+                        как unicast на MAC PC1.
+                    </p>
+
+                    <p>
+                        Получив ответ, PC1 сохраняет
+                        соответствие в ARP-кэше:
+                    </p>
+
+                    <pre class="code-block"><code>ARP Cache
+ 192.168.1.20 → MAC ...02</code></pre>
+
+
+                    <h3>5. Теперь отправляется ICMP Echo Request</h3>
+
+                    <p>
+                        Только теперь PC1 располагает
+                        всей информацией для обычной
+                        локальной Ethernet-передачи.
+                    </p>
+
+                    <p>
+                        Он формирует IP-пакет с сообщением
+                        <strong>ICMP (Internet Control Message Protocol —
+                        протокол управляющих сообщений Internet)</strong>
+                        Echo Request:
+                    </p>
+
+                    <pre class="code-block"><code>IP
+ Source IP:      192.168.1.10
+ Destination IP: 192.168.1.20
+
+ ICMP
+ Echo Request</code></pre>
+
+                    <p>
+                        IP-пакет помещается
+                        в Ethernet-кадр:
+                    </p>
+
+                    <pre class="code-block"><code>Ethernet
+ Source MAC:      ...01
+ Destination MAC: ...02
+         │
+         └── IP
+             192.168.1.10 → 192.168.1.20
+                 │
+                 └── ICMP Echo Request</code></pre>
+
+                    <p>
+                        Switch уже может переслать кадр
+                        через порт PC2.
+                    </p>
+
+
+                    <h3>6. PC2 отвечает ICMP Echo Reply</h3>
+
+                    <p>
+                        PC2 получает Echo Request
+                        и формирует ответ:
+                    </p>
+
+                    <pre class="code-block"><code>ICMP Echo Reply
+
+ 192.168.1.20 → 192.168.1.10</code></pre>
+
+                    <p>
+                        Ответ возвращается PC1,
+                        и <code>ping</code> фиксирует
+                        успешный обмен.
+                    </p>
+
+
+                    <h3>Почему первый ping иногда отличается от следующих</h3>
+
+                    <p>
+                        При первом обращении может потребоваться
+                        дополнительный ARP-обмен.
+                    </p>
+
+                    <pre class="code-block"><code>  ПЕРВЫЙ PING
+
+    ARP Cache
+       ↓
+ MAC неизвестен
+       ↓
+  ARP Request
+       ↓
+   ARP Reply
+       ↓
+  MAC известен
+       ↓
+ICMP Echo Request
+       ↓
+ ICMP Echo Reply
+
+
+  СЛЕДУЮЩИЙ PING
+
+   ARP Cache
+       ↓
+MAC уже известен
+       ↓
+ICMP Echo Request
+       ↓
+ ICMP Echo Reply</code></pre>
+
+                    <p>
+                        Пока соответствующая запись
+                        остаётся в ARP-кэше,
+                        повторный ARP Request
+                        перед каждым <code>ping</code> не нужен.
+                    </p>
+
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Ping и ARP — не одно и то же</div>
+
+                        <p>
+                            Команда <code>ping</code>
+                            использует ICMP.
+                            ARP не является частью ICMP
+                            и не выполняет сам <code>ping</code>.
+                        </p>
+
+                        <p>
+                            ARP появляется раньше,
+                            если для локальной Ethernet-передачи
+                            сначала необходимо определить MAC-адрес.
+                        </p>
+
+                        <pre class="code-block"><code>         ping
+           ↓
+    нужно передать ICMP
+           ↓
+    нужен Ethernet-кадр
+           ↓
+Destination MAC неизвестен?
+           ↓
+    да → сначала ARP</code></pre>
+                    </div>
+
+
+                    <h3>Что одновременно изучает switch</h3>
+
+                    <p>
+                        Пока компьютеры выполняют ARP
+                        и ICMP-обмен,
+                        switch получает кадры
+                        с обеих сторон и изучает их Source MAC.
+                    </p>
+
+                    <pre class="code-block"><code>ARP Request от PC1
+         ↓
+  MAC PC1 → Fa0/1
+
+ ARP Reply от PC2
+         ↓
+  MAC PC2 → Fa0/2</code></pre>
+
+                    <p>
+                        Поэтому после первого обмена
+                        можно увидеть сразу два результата:
+                    </p>
+
+                    <pre class="code-block"><code>PC1 ARP Cache
+ 192.168.1.20 → MAC PC2
+
+ Switch MAC Address Table
+ MAC PC1 → Fa0/1
+ MAC PC2 → Fa0/2</code></pre>
+
+                    <p>
+                        Это две разные таблицы:
+                        <strong>ARP Cache хранит IPv4 → MAC</strong>,
+                        а <strong>MAC Address Table хранит MAC → порт</strong>.
+                    </p>
+
+
+                    <h3>Первый ping — вся цепочка</h3>
+
+                    <pre class="code-block"><code>      ping 192.168.1.20
+               ↓
+Destination находится в локальной сети
+               ↓
+       нужен MAC PC2
+               ↓
+     ARP Cache → записи нет
+               ↓
+     ARP Request → Broadcast
+               ↓
+       Switch → Flooding
+               ↓
+    PC2 → ARP Reply → Unicast
+               ↓
+     PC1 сохраняет IPv4 → MAC
+               ↓
+   ICMP Echo Request → Unicast
+               ↓
+              PC2
+               ↓
+     ICMP Echo Reply → Unicast
+               ↓
+              PC1
+               ↓
+          ping успешен</code></pre>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            Первый <code>ping</code> удобно запомнить
+                            как две последовательные стадии:
+                        </p>
+
+                        <pre class="code-block"><code>1. ARP
+ IPv4 → MAC
+     ↓
+
+ 2. ICMP
+ Echo Request
+     ↓
+ Echo Reply</code></pre>
+
+                        <p>
+                            <strong>
+                                Если MAC назначения ещё неизвестен,
+                                сначала выполняется ARP-разрешение,
+                                и только после этого может быть отправлен
+                                ICMP Echo Request в обычном
+                                unicast Ethernet-кадре.
+                            </strong>
+                        </p>
+                    </div>
+                </article>
+
             </section>
                         
         </main>
