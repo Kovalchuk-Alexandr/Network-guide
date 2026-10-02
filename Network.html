@@ -44846,6 +44846,558 @@ IPv4 известен → MAC неизвестен
                     </div>
                 </article>
 
+                <!-- ===== ARP Table / ARP Cache ===== -->
+
+                <article id="ch5-arp-cache">
+
+                    <h2>📜 ARP Table / ARP Cache</h2>
+
+                    <p>
+                        После получения ARP Reply
+                        устройство уже знает соответствие
+                        между IPv4-адресом и MAC-адресом.
+                    </p>
+
+                    <p>
+                        Чтобы не выполнять ARP Request
+                        перед каждой передачей,
+                        найденное соответствие временно сохраняется
+                        в <strong>ARP Table / ARP Cache
+                        (ARP-таблице / ARP-кэше)</strong>.
+                    </p>
+
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 410"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Использование ARP-кэша перед отправкой Ethernet-кадра">
+
+                            <!-- ================================================= -->
+                            <!-- Destination IP -->
+                            <!-- ================================================= -->
+
+                            <rect x="40" y="145"
+                                width="190" height="80"
+                                rx="8"
+                                fill="#eaf3fb"
+                                stroke="#1976bd"
+                                stroke-width="2" />
+
+                            <text x="135" y="174"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#195b8c">
+                                Destination IPv4
+                            </text>
+
+                            <text x="135" y="202"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="13"
+                                fill="#172026">
+                                192.168.1.20
+                            </text>
+
+
+                            <!-- Arrow -->
+
+                            <line x1="230" y1="185"
+                                x2="312" y2="185"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M320 185 L309 179 L309 191 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- ARP Cache -->
+                            <!-- ================================================= -->
+
+                            <rect x="320" y="95"
+                                width="260" height="180"
+                                rx="10"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="450" y="127"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP Cache
+                            </text>
+
+                            <line x1="345" y1="143"
+                                x2="555" y2="143"
+                                stroke="#c7a34c"
+                                stroke-width="1.5" />
+
+                            <text x="350" y="169"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#52606d">
+                                IPv4
+                            </text>
+
+                            <text x="490" y="169"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#52606d">
+                                MAC
+                            </text>
+
+                            <text x="350" y="198"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                192.168.1.20
+                            </text>
+
+                            <text x="490" y="198"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                ...02
+                            </text>
+
+                            <rect x="340" y="216"
+                                width="220" height="40"
+                                rx="6"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="1.5" />
+
+                            <text x="450" y="241"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#356b4a">
+                                запись найдена
+                            </text>
+
+
+                            <!-- Arrow -->
+
+                            <line x1="580" y1="185"
+                                x2="662" y2="185"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M670 185 L659 179 L659 191 Z"
+                                fill="#1976bd" />
+
+
+                            <!-- ================================================= -->
+                            <!-- Ethernet frame -->
+                            <!-- ================================================= -->
+
+                            <rect x="670" y="135"
+                                width="195" height="100"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="767.5" y="164"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                Ethernet-кадр
+                            </text>
+
+                            <text x="767.5" y="190"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                Destination MAC
+                            </text>
+
+                            <text x="767.5" y="215"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#172026">
+                                ...02
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- No entry -->
+                            <!-- ================================================= -->
+
+                            <line x1="450" y1="275"
+                                x2="450" y2="312"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M450 320 L444 309 L456 309 Z"
+                                fill="#1976bd" />
+
+                            <rect x="310" y="320"
+                                width="280" height="60"
+                                rx="8"
+                                fill="#f7fafc"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <text x="450" y="345"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#172026">
+                                записи нет?
+                            </text>
+
+                            <text x="450" y="367"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#52606d">
+                                ARP Request → узнать MAC
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Что хранится в ARP-кэше</h3>
+
+                    <p>
+                        Основная информация —
+                        соответствие между IPv4-адресом
+                        и MAC-адресом устройства
+                        на локальном участке сети.
+                    </p>
+
+                    <pre class="code-block"><code> IPv4 Address        MAC Address
+ ---------------    -----------------
+  192.168.1.20      00:AA:00:00:00:02
+  192.168.1.30      00:AA:00:00:00:03</code></pre>
+
+                    <p>
+                        Благодаря такой записи устройство
+                        уже знает, какой Destination MAC
+                        использовать для следующего
+                        Ethernet-кадра.
+                    </p>
+
+
+                    <h3>Сначала проверяется ARP-кэш</h3>
+
+                    <p>
+                        Перед выполнением нового ARP-запроса
+                        устройство может проверить,
+                        есть ли нужное соответствие
+                        в ARP-кэше.
+                    </p>
+
+                    <pre class="code-block"><code>      нужен MAC для 192.168.1.20
+                   ↓
+           проверяем ARP-кэш
+                   ↓
+┌──────────────────┬──────────────────┐
+│ запись есть      │ записи нет       │
+│       ↓          │       ↓          │
+│ используем MAC   │ ARP Request      │
+└──────────────────┴──────────────────┘</code></pre>
+
+                    <p>
+                        Если запись существует и пригодна
+                        для использования,
+                        дополнительный broadcast ARP Request
+                        не требуется.
+                    </p>
+
+
+                    <h3>ARP-кэш и MAC-таблица switch — разные вещи</h3>
+
+                    <p>
+                        Эти две таблицы легко перепутать,
+                        поскольку обе содержат MAC-адреса.
+                        Но задачи у них совершенно разные.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ARP Cache</th>
+                                    <th>MAC Address Table</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <strong>Где находится</strong>
+                                    </td>
+                                    <td>
+                                        На IP-устройстве
+                                    </td>
+                                    <td>
+                                        На switch
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Связывает</strong>
+                                    </td>
+                                    <td>
+                                        IPv4 ↔ MAC
+                                    </td>
+                                    <td>
+                                        MAC ↔ порт
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Для чего нужна</strong>
+                                    </td>
+                                    <td>
+                                        Узнать MAC для локальной
+                                        Ethernet-передачи
+                                    </td>
+                                    <td>
+                                        Определить,
+                                        через какой порт
+                                        переслать кадр
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Связанный механизм</strong>
+                                    </td>
+                                    <td>
+                                        ARP
+                                    </td>
+                                    <td>
+                                        MAC learning
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Удобно запомнить двумя строками:
+                    </p>
+
+                    <pre class="code-block"><code>ARP Cache          IPv4 → MAC
+MAC Address  Table  MAC  → порт</code></pre>
+
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Таблицы существуют независимо</div>
+
+                        <p>
+                            PC может уже знать MAC-адрес назначения
+                            из своего ARP-кэша,
+                            а switch при этом может не иметь
+                            этого MAC в своей MAC Address Table.
+                        </p>
+
+                        <p>
+                            В таком случае PC сформирует
+                            обычный unicast-кадр,
+                            а switch обработает его
+                            как <strong>Unknown Unicast</strong>
+                            и выполнит flooding.
+                        </p>
+
+                        <p>
+                            ARP-кэш отвечает на вопрос
+                            <strong>«какой MAC использовать?»</strong>,
+                            а MAC-таблица switch —
+                            <strong>«через какой порт его искать?»</strong>.
+                        </p>
+                    </div>
+
+
+                    <h3>Просмотр ARP-кэша в Windows</h3>
+
+                    <p>
+                        ARP-кэш можно посмотреть
+                        из командной строки Windows:
+                    </p>
+
+                    <pre class="code-block"><code>C:\&gt; arp -a</code></pre>
+
+                    <p>
+                        Упрощённый пример вывода:
+                    </p>
+
+                    <pre class="code-block"><code>Interface: 192.168.1.10
+
+ Internet Address      Physical Address      Type
+ 192.168.1.1           00-aa-00-00-00-01     dynamic
+ 192.168.1.20          00-aa-00-00-00-02     dynamic</code></pre>
+
+                    <p>
+                        Здесь:
+                    </p>
+
+                    <pre class="code-block"><code>Internet Address  → IPv4-адрес
+ Physical Address  → MAC-адрес
+ Type              → тип записи</code></pre>
+
+
+                    <h3>ARP-кэш можно увидеть в Packet Tracer</h3>
+
+                    <p>
+                        На PC откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → Command Prompt</code></pre>
+
+                    <p>
+                        Затем выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        Если нужной записи ещё нет,
+                        создайте трафик:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.20</code></pre>
+
+                    <p>
+                        После ARP-обмена снова выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        Теперь можно сравнить состояние таблицы
+                        <strong>до и после</strong> первого обмена.
+                    </p>
+
+
+                    <h3>Динамические записи не хранятся вечно</h3>
+
+                    <p>
+                        Динамически полученные ARP-записи
+                        имеют ограниченное время жизни.
+                    </p>
+
+                    <p>
+                        Это необходимо потому,
+                        что состояние сети может измениться:
+                        устройство может отключиться,
+                        получить другой адрес
+                        или быть заменено.
+                    </p>
+
+                    <pre class="code-block"><code>     ARP Reply
+          ↓
+      IPv4 ↔ MAC
+          ↓
+   запись в ARP-кэше
+          ↓
+временное использование
+          ↓
+   запись со временем
+бновляется или удаляется</code></pre>
+
+                    <p>
+                        Конкретное время жизни
+                        и правила обновления записей
+                        зависят от операционной системы
+                        и реализации сетевого стека.
+                    </p>
+
+
+                    <h3>Очистка ARP-кэша</h3>
+
+                    <p>
+                        При диагностике сети иногда полезно
+                        удалить старые динамические ARP-записи
+                        и заставить устройство получить их заново.
+                    </p>
+
+                    <p>
+                        В Windows для этого можно использовать:
+                    </p>
+
+                    <pre class="code-block"><code>C:\&gt; arp -d *</code></pre>
+
+                    <p>
+                        Для выполнения такой операции
+                        могут потребоваться повышенные права.
+                    </p>
+
+                    <p>
+                        После очистки при следующей необходимости
+                        устройство снова выполнит ARP-разрешение.
+                    </p>
+
+
+                    <h3>Вся цепочка</h3>
+
+                    <pre class="code-block"><code>  нужно отправить пакет
+          ↓
+  известен IPv4 следующего узла
+          ↓
+  проверяем ARP-кэш
+          ↓
+      есть запись?
+      ↙       ↘
+    да         нет
+    ↓           ↓
+берём MAC   ARP Request
+    │           ↓
+    │       ARP Reply
+    │           ↓
+    │      сохраняем
+    │       IPv4 → MAC
+    └─────┬─────┘
+          ↓
+  формируем Ethernet-кадр
+          ↓
+  Destination MAC известен</code></pre>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <pre class="code-block"><code>ARP Request / Reply
+         ↓
+     IPv4 ↔ MAC
+         ↓
+      ARP Cache
+         ↓
+ повторный ARP Request
+ пока не требуется</code></pre>
+
+                        <p>
+                            <strong>
+                                ARP-кэш хранит уже найденные соответствия
+                                IPv4 ↔ MAC и позволяет использовать их
+                                повторно без нового ARP Request
+                                перед каждой передачей.
+                            </strong>
+                        </p>
+                    </div>
+                </article>
+
             </section>
                         
         </main>
