@@ -744,6 +744,7 @@ Emoji Guide
                                 <li class="nav-subitem" data-target="ch5-first-ping">📜 Что происходит при первом ping</li>
                                 <li class="nav-subitem" data-target="ch5-repeat-ping">📜 Что происходит при повторном ping</li>
                                 <li class="nav-subitem" data-target="ch5-default-gateway">📜 ARP и default gateway</li>
+                                <li class="nav-subitem" data-target="ch5-router-setup">📜 Практика: настройка router и двух сетей в Packet Tracer</li>
                                 <li class="nav-subitem" data-target="ch5-view-arp-table">📜 Просмотр ARP-таблицы в Windows и Cisco</li>
                                 <li class="nav-subitem" data-target="ch5-packet-tracer">📜 Packet Tracer: наблюдаем ARP</li>
                                 <li class="nav-subitem" data-target="ch5-summary">📜 Итоги главы</li>
@@ -46568,6 +46569,2340 @@ Destination находится в локальной сети
                         </p>
                     </div>
                 </article>
+
+                
+                <!-- ===== Что происходит при повторном ping ===== -->
+
+                <article id="ch5-repeat-ping">
+
+                    <h2>📜 Что происходит при повторном ping</h2>
+
+                    <p>
+                        После первого успешного <code>ping</code>
+                        компьютер обычно уже знает MAC-адрес
+                        получателя. Это соответствие хранится
+                        в <strong>ARP Cache (ARP-кэше)</strong>.
+                    </p>
+
+                    <p>
+                        Поэтому при повторном обращении
+                        устройство может сразу отправить
+                        <strong>ICMP (Internet Control Message Protocol —
+                        протокол управляющих сообщений Internet)</strong>
+                        Echo Request, не выполняя новый ARP Request.
+                    </p>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 450"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Сравнение первого и повторного ping: ARP-разрешение и использование ARP-кэша">
+
+                            <!-- Заголовки -->
+
+                            <text x="225" y="30"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#172026">
+                                Первый ping
+                            </text>
+
+                            <text x="675" y="30"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#172026">
+                                Повторный ping
+                            </text>
+
+                            <line x1="450" y1="45"
+                                x2="450" y2="430"
+                                stroke="#b7c4ce"
+                                stroke-width="2"
+                                stroke-dasharray="6 6" />
+
+                            <!-- Первый ping -->
+
+                            <rect x="95" y="55"
+                                width="260" height="55"
+                                rx="8"
+                                fill="#eaf3fb"
+                                stroke="#1976bd"
+                                stroke-width="2" />
+
+                            <text x="225" y="78"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#195b8c">
+                                ARP Cache
+                            </text>
+
+                            <text x="225" y="97"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                записи нет
+                            </text>
+
+                            <path d="M225 110 V137"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M225 143 L220 135 L230 135 Z"
+                                fill="#1976bd" />
+
+                            <rect x="95" y="143"
+                                width="260" height="55"
+                                rx="8"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="225" y="165"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP Request
+                            </text>
+
+                            <text x="225" y="185"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                Broadcast
+                            </text>
+
+                            <path d="M225 198 V225"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M225 231 L220 223 L230 223 Z"
+                                fill="#1976bd" />
+
+                            <rect x="95" y="231"
+                                width="260" height="55"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="225" y="253"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                ARP Reply
+                            </text>
+
+                            <text x="225" y="273"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                IPv4 → MAC
+                            </text>
+
+                            <path d="M225 286 V313"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M225 319 L220 311 L230 311 Z"
+                                fill="#1976bd" />
+
+                            <rect x="95" y="319"
+                                width="260" height="70"
+                                rx="8"
+                                fill="#eaf3fb"
+                                stroke="#1976bd"
+                                stroke-width="2" />
+
+                            <text x="225" y="344"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#195b8c">
+                                ICMP Echo Request
+                            </text>
+
+                            <text x="225" y="367"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#52606d">
+                                ICMP Echo Reply
+                            </text>
+
+                            <!-- Повторный ping -->
+
+                            <rect x="545" y="55"
+                                width="260" height="55"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="675" y="78"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                ARP Cache
+                            </text>
+
+                            <text x="675" y="97"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                MAC уже известен
+                            </text>
+
+                            <path d="M675 110 V166"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M675 172 L670 164 L680 164 Z"
+                                fill="#1976bd" />
+
+                            <rect x="545" y="172"
+                                width="260" height="70"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="675" y="200"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#356b4a">
+                                ARP Request не нужен
+                            </text>
+
+                            <text x="675" y="222"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                используется сохранённый MAC
+                            </text>
+
+                            <path d="M675 242 V313"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M675 319 L670 311 L680 311 Z"
+                                fill="#1976bd" />
+
+                            <rect x="545" y="319"
+                                width="260" height="70"
+                                rx="8"
+                                fill="#eaf3fb"
+                                stroke="#1976bd"
+                                stroke-width="2" />
+
+                            <text x="675" y="344"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#195b8c">
+                                ICMP Echo Request
+                            </text>
+
+                            <text x="675" y="367"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#52606d">
+                                ICMP Echo Reply
+                            </text>
+
+                            <!-- Подпись -->
+
+                            <text x="450" y="426"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#52606d">
+                                Главное отличие — повторное ARP-разрешение не требуется
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>Что изменилось после первого ping</h3>
+
+                    <p>
+                        Предположим, PC1 уже выполнил
+                        успешный обмен с PC2:
+                    </p>
+
+                    <pre class="code-block"><code>PC1: 192.168.1.10
+ PC2: 192.168.1.20</code></pre>
+
+                    <p>
+                        После ARP Reply на PC1 появилась запись:
+                    </p>
+
+                    <pre class="code-block"><code>ARP Cache
+ 192.168.1.20 → MAC PC2</code></pre>
+
+                    <p>
+                        Теперь при повторном <code>ping</code>
+                        PC1 использует эту запись
+                        и сразу формирует Ethernet-кадр
+                        с ICMP Echo Request.
+                    </p>
+
+
+                    <h3>Сравнение двух обращений</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Этап</th>
+                                    <th>Первый ping</th>
+                                    <th>Повторный ping</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>ARP-кэш</td>
+                                    <td>Записи ещё нет</td>
+                                    <td>Запись существует</td>
+                                </tr>
+
+                                <tr>
+                                    <td>ARP Request</td>
+                                    <td>Необходим</td>
+                                    <td>Не требуется</td>
+                                </tr>
+
+                                <tr>
+                                    <td>ARP Reply</td>
+                                    <td>Получаем MAC</td>
+                                    <td>Не требуется</td>
+                                </tr>
+
+                                <tr>
+                                    <td>ICMP Echo Request</td>
+                                    <td>После ARP</td>
+                                    <td>Сразу</td>
+                                </tr>
+
+                                <tr>
+                                    <td>ICMP Echo Reply</td>
+                                    <td>Ответ получателя</td>
+                                    <td>Ответ получателя</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>Что происходит со switch</h3>
+
+                    <p>
+                        После первого обмена switch обычно
+                        уже изучил MAC-адреса обоих компьютеров.
+                    </p>
+
+                    <pre class="code-block"><code>MAC Address Table
+
+ MAC PC1 → Fa0/1
+ MAC PC2 → Fa0/2</code></pre>
+
+                    <p>
+                        Поэтому повторные unicast-кадры
+                        пересылаются через известные порты,
+                        без Unknown Unicast Flooding.
+                    </p>
+
+                    <p>
+                        Однако важно помнить:
+                        <strong>ARP-кэш компьютера и MAC-таблица switch
+                        существуют независимо</strong>.
+                        Запись в одной таблице
+                        не гарантирует наличия записи в другой.
+                    </p>
+
+
+                    <h3>Проверяем в Packet Tracer</h3>
+
+                    <p>
+                        Используем сеть из предыдущего эксперимента:
+                        два PC и один switch.
+                    </p>
+
+                    <p>
+                        На PC1 откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → Command Prompt</code></pre>
+
+                    <p>
+                        Проверьте ARP-кэш:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        Затем выполните повторный ping:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.20</code></pre>
+
+                    <p>
+                        Переключитесь в <strong>Simulation Mode</strong>,
+                        оставьте в фильтрах события ARP и ICMP
+                        и повторите команду.
+                    </p>
+
+                    <p>
+                        Если ARP-запись ещё действительна,
+                        вы увидите ICMP-обмен
+                        без предварительного ARP Request.
+                    </p>
+
+
+                    <h3>Когда ARP Request появится снова</h3>
+
+                    <p>
+                        ARP-кэш не хранит динамические записи вечно.
+                        Если запись удалена, устарела
+                        или больше не пригодна для использования,
+                        устройство может снова выполнить ARP-разрешение.
+                    </p>
+
+                    <pre class="code-block"><code>     ARP Cache
+          ↓
+   запись отсутствует
+          ↓
+     ARP Request
+          ↓
+      ARP Reply
+          ↓
+новая запись IPv4 → MAC</code></pre>
+
+                    <div class="info-box note">
+                        <div class="info-box-title">💡 Важный нюанс</div>
+
+                        <p>
+                            Повторный <code>ping</code>
+                            не обязательно всегда быстрее первого.
+                            На результат влияют обработка пакетов,
+                            загрузка устройств, задержки сети
+                            и другие факторы.
+                        </p>
+
+                        <p>
+                            Главное отличие в нашем эксперименте —
+                            <strong>отсутствие дополнительного ARP-обмена
+                            при наличии пригодной записи в ARP-кэше</strong>.
+                        </p>
+                    </div>
+
+
+                    <div class="info-box success">
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <pre class="code-block"><code> Повторный ping
+        ↓
+    ARP Cache
+        ↓
+   MAC известен
+        ↓
+ICMP Echo Request
+        ↓
+ ICMP Echo Reply</code></pre>
+
+                        <p>
+                            <strong>
+                                Повторный ping обычно не требует
+                                нового ARP Request, поскольку
+                                MAC-адрес следующего локального узла
+                                уже сохранён в ARP-кэше.
+                            </strong>
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ===== ARP и default gateway ===== -->
+
+                <article id="ch5-default-gateway">
+
+                    <h2>📜 ARP и default gateway</h2>
+
+                    <p>
+                        До этого мы рассматривали ARP-обмен между устройствами
+                        одной локальной сети. Но что происходит, если компьютер
+                        хочет отправить пакет в <strong>другую IP-сеть</strong>?
+                    </p>
+
+                    <p>
+                        В таком случае компьютер обычно передаёт пакет через
+                        <strong>default gateway (шлюз по умолчанию)</strong> —
+                        маршрутизатор, который обеспечивает выход
+                        за пределы локальной сети.
+                    </p>
+
+                    <p>
+                        Здесь действует важное правило:
+                        <strong>ARP определяет MAC-адрес следующего узла,
+                        а не обязательно конечного получателя IP-пакета.</strong>
+                    </p>
+
+
+                    <h3>Пример: две сети и один router</h3>
+
+                    <p>
+                        Рассмотрим следующую схему:
+                    </p>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 410"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="PC1 отправляет IP-пакет в другую сеть через router, используя ARP для определения MAC-адреса шлюза">
+
+                            <!-- ================================================= -->
+                            <!-- Network backgrounds -->
+                            <!-- ================================================= -->
+
+                            <rect x="20" y="60"
+                                width="355" height="255"
+                                rx="12"
+                                fill="#f1f7fc"
+                                stroke="#a7c8e2"
+                                stroke-width="2"
+                                stroke-dasharray="7 5" />
+
+                            <rect x="525" y="60"
+                                width="355" height="255"
+                                rx="12"
+                                fill="#edf9f3"
+                                stroke="#a3c9ae"
+                                stroke-width="2"
+                                stroke-dasharray="7 5" />
+
+                            <text x="197" y="90"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="700"
+                                fill="#195b8c">
+                                LAN 1 — 192.168.1.0/24
+                            </text>
+
+                            <text x="702" y="90"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="700"
+                                fill="#356b4a">
+                                LAN 2 — 192.168.2.0/24
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect x="45" y="145"
+                                width="190" height="100"
+                                rx="8"
+                                fill="#ffffff"
+                                stroke="#60798d"
+                                stroke-width="2.5" />
+
+                            <text class="diagram-device"
+                                x="140" y="174"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="140" y="199"
+                                text-anchor="middle">
+                                IP: 192.168.1.10
+                            </text>
+
+                            <text class="diagram-label"
+                                x="140" y="222"
+                                text-anchor="middle">
+                                MAC: ...01
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Router -->
+                            <!-- ================================================= -->
+
+                            <rect x="310" y="135"
+                                width="280" height="120"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="164"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Router0
+                            </text>
+
+                            <line x1="450" y1="178"
+                                x2="450" y2="237"
+                                stroke="#b7c6d0"
+                                stroke-width="1.5" />
+
+                            <text x="380" y="193"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#ffffff">
+                                LAN 1
+                            </text>
+
+                            <text x="380" y="213"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#ffffff">
+                                192.168.1.1
+                            </text>
+
+                            <text x="380" y="233"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                MAC: ...A1
+                            </text>
+
+                            <text x="520" y="193"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#ffffff">
+                                LAN 2
+                            </text>
+
+                            <text x="520" y="213"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#ffffff">
+                                192.168.2.1
+                            </text>
+
+                            <text x="520" y="233"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                MAC: ...B1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC2 -->
+                            <!-- ================================================= -->
+
+                            <rect x="665" y="145"
+                                width="190" height="100"
+                                rx="8"
+                                fill="#ffffff"
+                                stroke="#60798d"
+                                stroke-width="2.5" />
+
+                            <text class="diagram-device"
+                                x="760" y="174"
+                                text-anchor="middle">
+                                PC2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="760" y="199"
+                                text-anchor="middle">
+                                IP: 192.168.2.20
+                            </text>
+
+                            <text class="diagram-label"
+                                x="760" y="222"
+                                text-anchor="middle">
+                                MAC: ...02
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Physical connections -->
+                            <!-- ================================================= -->
+
+                            <line x1="235" y1="195"
+                                x2="310" y2="195"
+                                stroke="#526777"
+                                stroke-width="3" />
+
+                            <line x1="590" y1="195"
+                                x2="665" y2="195"
+                                stroke="#526777"
+                                stroke-width="3" />
+
+
+                            <!-- ================================================= -->
+                            <!-- ARP annotation -->
+                            <!-- ================================================= -->
+
+                            <rect x="60" y="270"
+                                width="295" height="64"
+                                rx="8"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="207" y="295"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP: кто имеет 192.168.1.1?
+                            </text>
+
+                            <text x="207" y="318"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#725414">
+                                Ответ: MAC шлюза ...A1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Destination annotation -->
+                            <!-- ================================================= -->
+
+                            <rect x="545" y="270"
+                                width="295" height="64"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="692" y="295"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#356b4a">
+                                Router доставляет пакет
+                            </text>
+
+                            <text x="692" y="318"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#356b4a">
+                                в сеть 192.168.2.0/24
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Footer -->
+                            <!-- ================================================= -->
+
+                            <text x="450" y="379"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#526777">
+                                IP назначения — PC2, MAC назначения первого кадра — Router0
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+                    <p>
+                        В этой схеме PC1 и PC2 находятся
+                        в разных IP-сетях. Для простоты
+                        промежуточные коммутаторы не показаны.
+                    </p>
+
+
+                    <h3>1. PC1 определяет, что получатель находится в другой сети</h3>
+
+                    <p>
+                        На PC1 настроены:
+                    </p>
+
+                    <pre class="code-block"><code>IPv4 Address:     192.168.1.10
+ Subnet Mask:      255.255.255.0
+ Default Gateway:  192.168.1.1</code></pre>
+
+                    <p>
+                        PC1 хочет выполнить:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.2.20</code></pre>
+
+                    <p>
+                        Компьютер определяет, что адрес
+                        <code>192.168.2.20</code> не принадлежит
+                        локальной сети <code>192.168.1.0/24</code>.
+                    </p>
+
+                    <pre class="code-block"><code>PC1:         192.168.1.10/24
+ Destination: 192.168.2.20
+
+локальная сеть:  192.168.1.0/24
+сеть назначения: 192.168.2.0/24
+         ↓
+   разные IP-сети
+         ↓
+    нужен router
+         ↓
+Default Gateway: 192.168.1.1</code></pre>
+
+                    <p>
+                        Предположим, что для этой удалённой сети
+                        у PC1 нет более специфического маршрута,
+                        поэтому используется маршрут по умолчанию.
+                    </p>
+
+
+                    <h3>2. PC1 ищет MAC-адрес шлюза</h3>
+
+                    <p>
+                        Для передачи Ethernet-кадра
+                        PC1 должен знать MAC-адрес интерфейса router,
+                        находящегося в его локальной сети.
+                    </p>
+
+                    <p>
+                        Поэтому PC1 проверяет ARP-кэш
+                        для адреса <code>192.168.1.1</code>,
+                        а не для <code>192.168.2.20</code>.
+                    </p>
+
+                    <pre class="code-block"><code>Destination IP: 192.168.2.20
+
+ Next Hop IP:     192.168.1.1
+
+ ARP Cache:
+ 192.168.1.1 → ?
+         ↓
+ ARP Request:
+
+ «Кто имеет 192.168.1.1?»</code></pre>
+
+                    <p>
+                        Интерфейс router с адресом
+                        <code>192.168.1.1</code> отвечает
+                        своим MAC-адресом:
+                    </p>
+
+                    <pre class="code-block"><code>ARP Reply:
+ 192.168.1.1 → MAC ...A1</code></pre>
+
+                    <p>
+                        PC1 сохраняет соответствие:
+                    </p>
+
+                    <pre class="code-block"><code>ARP Cache PC1
+ 192.168.1.1 → MAC ...A1</code></pre>
+
+
+                    <h3>3. PC1 формирует Ethernet-кадр</h3>
+
+                    <p>
+                        Теперь PC1 может отправить
+                        IP-пакет через шлюз.
+                    </p>
+
+                    <p>
+                        Обратите внимание на адреса:
+                    </p>
+
+                    <pre class="code-block"><code>Ethernet
+ Source MAC:      ...01   (PC1)
+ Destination MAC: ...A1   (Router0)
+
+ IP
+ Source IP:       192.168.1.10
+ Destination IP:  192.168.2.20</code></pre>
+
+                    <p>
+                        <strong>Destination MAC указывает на router,
+                        а Destination IP — на конечный PC2.</strong>
+                    </p>
+
+                    <p>
+                        Это не ошибка: MAC-адрес нужен
+                        для доставки кадра на текущем участке Ethernet,
+                        а IP-адрес определяет конечное назначение пакета.
+                    </p>
+
+
+                    <h3>4. Router пересылает пакет в другую сеть</h3>
+
+                    <p>
+                        Router получает Ethernet-кадр,
+                        адресованный его локальному интерфейсу,
+                        извлекает IP-пакет и проверяет
+                        Destination IP.
+                    </p>
+
+                    <p>
+                        Затем router выбирает выходной интерфейс
+                        по своей таблице маршрутизации.
+                    </p>
+
+                    <p>
+                        В нашем примере сеть
+                        <code>192.168.2.0/24</code>
+                        непосредственно подключена ко второму
+                        интерфейсу Router0.
+                    </p>
+
+                    <p>
+                        Если MAC-адрес PC2 ещё неизвестен,
+                        router выполняет ARP уже в сети LAN 2:
+                    </p>
+
+                    <pre class="code-block"><code>Router0 (LAN 2)
+   192.168.2.1
+        ↓
+  ARP Request
+«Кто имеет 192.168.2.20?»
+        ↓
+PC2 → ARP Reply
+192.168.2.20 → MAC ...02</code></pre>
+
+                    <p>
+                        После этого router формирует
+                        <strong>новый Ethernet-кадр</strong>
+                        для доставки IP-пакета к PC2.
+                    </p>
+
+
+                    <h3>5. Как изменяются MAC-адреса</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Адрес</th>
+                                    <th>PC1 → Router</th>
+                                    <th>Router → PC2</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>Source MAC</strong></td>
+                                    <td><code>...01</code> (PC1)</td>
+                                    <td><code>...B1</code> (Router)</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Destination MAC</strong></td>
+                                    <td><code>...A1</code> (Router)</td>
+                                    <td><code>...02</code> (PC2)</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Source IP</strong></td>
+                                    <td><code>192.168.1.10</code></td>
+                                    <td><code>192.168.1.10</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Destination IP</strong></td>
+                                    <td><code>192.168.2.20</code></td>
+                                    <td><code>192.168.2.20</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        В обычной маршрутизации без NAT
+                        исходный и конечный IP-адреса
+                        остаются прежними, но Ethernet-заголовок
+                        создаётся заново на каждом маршрутизируемом участке.
+                    </p>
+
+                    <p>
+                        При этом router также уменьшает
+                        <strong>TTL (Time To Live — время жизни пакета)</strong>
+                        на единицу.
+                    </p>
+
+
+                    <div class="info-box note">
+
+                        <div class="info-box-title">💡 ARP не ищет MAC удалённого PC</div>
+
+                        <p>
+                            PC1 не отправляет ARP Request
+                            с вопросом о MAC-адресе
+                            <code>192.168.2.20</code>.
+                        </p>
+
+                        <p>
+                            Он ищет MAC своего следующего узла:
+                        </p>
+
+                        <pre class="code-block"><code>       PC1
+         ↓
+ ARP для 192.168.1.1
+         ↓
+      Router0
+         ↓
+ARP для 192.168.2.20
+         ↓
+        PC2</code></pre>
+
+                        <p>
+                            Каждый ARP-обмен выполняется
+                            в пределах соответствующей
+                            локальной сети.
+                        </p>
+
+                    </div>
+
+
+                    <h3>Что будет, если default gateway не настроен</h3>
+
+                    <p>
+                        Если PC1 знает только свою локальную сеть
+                        и не имеет подходящего маршрута
+                        к <code>192.168.2.0/24</code>,
+                        он не сможет определить следующий узел
+                        для отправки пакета.
+                    </p>
+
+                    <pre class="code-block"><code>PC1: 192.168.1.10/24
+
+ Destination: 192.168.2.20
+
+ Default Gateway: отсутствует
+ Другой маршрут:  отсутствует
+         ↓
+  маршрут не найден
+         ↓
+ пакет не отправляется</code></pre>
+
+                    <p>
+                        При этом связь PC1 с другими устройствами
+                        своей локальной сети может продолжать работать.
+                    </p>
+
+
+                    <h3>Практика в Cisco Packet Tracer</h3>
+
+                    <p>
+                        Для проверки соберите простую сеть:
+                    </p>
+
+                    <pre class="code-block"><code>PC1 ─── Router0 ─── PC2</code></pre>
+
+                    <p>
+                        Назначьте следующие адреса:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Устройство</th>
+                                    <th>IPv4</th>
+                                    <th>Маска</th>
+                                    <th>Gateway</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>PC1</td>
+                                    <td><code>192.168.1.10</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                    <td><code>192.168.1.1</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Router0 — LAN 1</td>
+                                    <td><code>192.168.1.1</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                    <td>—</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Router0 — LAN 2</td>
+                                    <td><code>192.168.2.1</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                    <td>—</td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC2</td>
+                                    <td><code>192.168.2.20</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                    <td><code>192.168.2.1</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        На router настройте IP-адреса
+                        соответствующих интерфейсов
+                        и включите их командой <code>no shutdown</code>.
+                        Названия интерфейсов зависят от модели router.
+                    </p>
+
+                    <p>
+                        На PC1 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.2.20</code></pre>
+
+                    <p>
+                        Затем проверьте ARP-кэш:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        Среди записей должен появиться
+                        MAC-адрес шлюза <code>192.168.1.1</code>,
+                        если PC1 выполнял ARP-разрешение
+                        и запись ещё сохранилась.
+                    </p>
+
+                    <p>
+                        Для просмотра ARP-таблицы router
+                        в Cisco IOS используйте:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip arp</code></pre>
+
+                    <p>
+                        В <strong>Simulation Mode</strong>
+                        оставьте фильтры ARP и ICMP.
+                        Проследите, как ARP-запросы выполняются
+                        отдельно в каждой локальной сети.
+                    </p>
+
+
+                    <h3>Вся последовательность</h3>
+
+                    <pre class="code-block"><code>PC1 хочет отправить пакет PC2
+ 192.168.1.10 → 192.168.2.20
+         ↓
+ PC2 находится в другой сети
+         ↓
+ используем default gateway
+ 192.168.1.1
+         ↓
+ ARP Cache → MAC шлюза известен?
+         ↓
+ нет → ARP Request / Reply
+         ↓
+ MAC шлюза: ...A1
+         ↓
+ Ethernet:
+ PC1 MAC → Router MAC
+         ↓
+ Router получает IP-пакет
+         ↓
+ выбирает интерфейс LAN 2
+         ↓
+ ARP для PC2 (если необходимо)
+         ↓
+ Ethernet:
+ Router MAC → PC2 MAC
+         ↓
+ PC2 получает IP-пакет</code></pre>
+
+
+                    <div class="info-box success">
+
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            Если получатель находится в другой IP-сети,
+                            компьютер использует ARP
+                            для определения MAC-адреса
+                            <strong>следующего локального узла</strong> —
+                            обычно default gateway.
+                        </p>
+
+                        <pre class="code-block"><code>Destination IP:
+ 192.168.2.20
+
+ Next Hop IP:
+ 192.168.1.1
+
+ ARP:
+ 192.168.1.1 → MAC Router
+
+ Ethernet Destination MAC:
+ MAC Router
+
+ IP Destination:
+ 192.168.2.20</code></pre>
+
+                        <p>
+                            <strong>
+                                IP-адрес указывает конечное назначение пакета,
+                                а MAC-адрес — получателя Ethernet-кадра
+                                на текущем участке сети.
+                            </strong>
+                        </p>
+
+                    </div>
+                </article>
+
+                
+                <!-- ===== Практика: настройка router и двух сетей в Packet Tracer ===== -->
+
+                <article id="ch5-router-setup">
+
+                    <h2>📜 Практика: настройка router и двух сетей в Packet Tracer</h2>
+
+                    <p>
+                        В предыдущем разделе мы разобрали,
+                        как ARP используется при отправке пакетов
+                        через default gateway.
+                    </p>
+
+                    <p>
+                        Теперь соберём такую сеть самостоятельно
+                        в <strong>Cisco Packet Tracer</strong>,
+                        настроим маршрутизатор и проверим,
+                        какие MAC-адреса определяются при обмене
+                        между двумя разными IP-сетями.
+                    </p>
+
+                    <p>
+                        Для эксперимента используем
+                        <strong>Cisco 2911</strong> —
+                        маршрутизатор с несколькими
+                        GigabitEthernet-интерфейсами.
+                        Это позволяет подключить две сети
+                        без дополнительных модулей.
+                    </p>
+
+
+                    <h3>1. Схема сети</h3>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 420"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Две локальные сети с PC0 и PC1, соединённые через Cisco 2911">
+
+                            <!-- ================================================= -->
+                            <!-- Network backgrounds -->
+                            <!-- ================================================= -->
+
+                            <rect x="20" y="35"
+                                width="340" height="285"
+                                rx="12"
+                                fill="#f1f7fc"
+                                stroke="#a7c8e2"
+                                stroke-width="2"
+                                stroke-dasharray="7 5" />
+
+                            <rect x="540" y="35"
+                                width="340" height="285"
+                                rx="12"
+                                fill="#edf9f3"
+                                stroke="#a3c9ae"
+                                stroke-width="2"
+                                stroke-dasharray="7 5" />
+
+                            <text x="190" y="68"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#195b8c">
+                                LAN 1
+                            </text>
+
+                            <text x="190" y="91"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#195b8c">
+                                192.168.1.0/24
+                            </text>
+
+                            <text x="710" y="68"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#356b4a">
+                                LAN 2
+                            </text>
+
+                            <text x="710" y="91"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#356b4a">
+                                192.168.2.0/24
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC0 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="45" y="145"
+                                width="190" height="105"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="140" y="174"
+                                text-anchor="middle">
+                                PC0
+                            </text>
+
+                            <text class="diagram-label"
+                                x="140" y="198"
+                                text-anchor="middle">
+                                IP: 192.168.1.10
+                            </text>
+
+                            <text class="diagram-label"
+                                x="140" y="221"
+                                text-anchor="middle">
+                                Gateway: 192.168.1.1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Router -->
+                            <!-- ================================================= -->
+
+                            <rect x="335" y="135"
+                                width="230" height="125"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="166"
+                                text-anchor="middle"
+                                font-size="18"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Router0
+                            </text>
+
+                            <text x="450" y="190"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#ffffff">
+                                Cisco 2911
+                            </text>
+
+                            <line x1="450" y1="202"
+                                x2="450" y2="247"
+                                stroke="#b7c6d0"
+                                stroke-width="1.5" />
+
+                            <text x="393" y="220"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#ffffff">
+                                G0/0
+                            </text>
+
+                            <text x="393" y="240"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                192.168.1.1
+                            </text>
+
+                            <text x="507" y="220"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#ffffff">
+                                G0/1
+                            </text>
+
+                            <text x="507" y="240"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                192.168.2.1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="665" y="145"
+                                width="190" height="105"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="760" y="174"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="760" y="198"
+                                text-anchor="middle">
+                                IP: 192.168.2.20
+                            </text>
+
+                            <text class="diagram-label"
+                                x="760" y="221"
+                                text-anchor="middle">
+                                Gateway: 192.168.2.1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Connections -->
+                            <!-- ================================================= -->
+
+                            <line x1="235" y1="197"
+                                x2="335" y2="197"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <line x1="565" y1="197"
+                                x2="665" y2="197"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <text x="285" y="175"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#195b8c">
+                                Fa0 ↔ G0/0
+                            </text>
+
+                            <text x="615" y="175"
+                                text-anchor="middle"
+                                font-size="12"
+                                font-weight="700"
+                                fill="#356b4a">
+                                G0/1 ↔ Fa0
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- ARP explanations -->
+                            <!-- ================================================= -->
+
+                            <rect x="45" y="272"
+                                width="275" height="65"
+                                rx="8"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="182" y="297"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP для 192.168.1.1
+                            </text>
+
+                            <text x="182" y="320"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#725414">
+                                MAC интерфейса G0/0
+                            </text>
+
+                            <rect x="580" y="272"
+                                width="275" height="65"
+                                rx="8"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="717" y="297"
+                                text-anchor="middle"
+                                font-size="13"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP для 192.168.2.20
+                            </text>
+
+                            <text x="717" y="320"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#725414">
+                                MAC компьютера PC1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Footer -->
+                            <!-- ================================================= -->
+
+                            <text x="450" y="383"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#526777">
+                                PC0 → Router0 → PC1
+                            </text>
+
+                            <text x="450" y="405"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#526777">
+                                Два Ethernet-сегмента, две IP-сети, один маршрутизатор
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>2. Добавляем устройства</h3>
+
+                    <p>
+                        В Cisco Packet Tracer откройте
+                        новый проект и добавьте:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Устройство</th>
+                                    <th>Модель</th>
+                                    <th>Количество</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Router</td>
+                                    <td><code>2911</code></td>
+                                    <td>1</td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC</td>
+                                    <td><code>PC-PT</code></td>
+                                    <td>2</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Маршрутизатор находится в категории
+                        <strong>Network Devices → Routers</strong>,
+                        компьютеры —
+                        <strong>End Devices</strong>.
+                    </p>
+
+                    <p>
+                        Разместите устройства слева направо:
+                    </p>
+
+                    <pre class="code-block"><code>PC0 ─── Router0 ─── PC1</code></pre>
+
+
+                    <h3>3. Подключаем кабели</h3>
+
+                    <p>
+                        Используйте
+                        <strong>Copper Straight-Through</strong>
+                        или автоматический выбор кабеля
+                        в Packet Tracer.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Устройство 1</th>
+                                    <th>Интерфейс</th>
+                                    <th>Устройство 2</th>
+                                    <th>Интерфейс</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>PC0</td>
+                                    <td><code>FastEthernet0</code></td>
+                                    <td>Router0</td>
+                                    <td><code>GigabitEthernet0/0</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC1</td>
+                                    <td><code>FastEthernet0</code></td>
+                                    <td>Router0</td>
+                                    <td><code>GigabitEthernet0/1</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        На этом этапе индикаторы интерфейсов
+                        маршрутизатора могут быть красными.
+                        Это нормально: интерфейсы Cisco router
+                        часто находятся в административно
+                        выключенном состоянии.
+                    </p>
+
+
+                    <h3>4. Настраиваем IPv4 на компьютерах</h3>
+
+                    <p>
+                        На каждом компьютере откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → IP Configuration</code></pre>
+
+                    <p>
+                        Выберите статическую настройку IPv4
+                        и укажите следующие значения:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>PC0</th>
+                                    <th>PC1</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>IPv4 Address</strong></td>
+                                    <td><code>192.168.1.10</code></td>
+                                    <td><code>192.168.2.20</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Subnet Mask</strong></td>
+                                    <td><code>255.255.255.0</code></td>
+                                    <td><code>255.255.255.0</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Default Gateway</strong></td>
+                                    <td><code>192.168.1.1</code></td>
+                                    <td><code>192.168.2.1</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Обратите внимание:
+                        у каждого PC свой default gateway,
+                        поскольку компьютеры находятся
+                        в разных IP-сетях.
+                    </p>
+
+
+                    <h3>5. Настраиваем Router0 через CLI</h3>
+
+                    <p>
+                        Откройте маршрутизатор
+                        и перейдите на вкладку:
+                    </p>
+
+                    <pre class="code-block"><code>Router0 → CLI</code></pre>
+
+                    <p>
+                        <strong>CLI (Command Line Interface —
+                        интерфейс командной строки)</strong> —
+                        основной способ управления Cisco IOS
+                        с помощью команд.
+                    </p>
+
+                    <p>
+                        Если при первом запуске появится вопрос:
+                    </p>
+
+                    <pre class="code-block"><code>Would you like to enter the initial configuration dialog? [yes/no]:</code></pre>
+
+                    <p>
+                        Введите <code>no</code>
+                        и нажмите Enter.
+                    </p>
+
+                    <h4>Настройка первого интерфейса</h4>
+
+                    <p>
+                        Интерфейс <code>GigabitEthernet0/0</code>
+                        будет подключён к сети
+                        <code>192.168.1.0/24</code>.
+                    </p>
+
+                    <pre class="code-block"><code>enable
+ configure terminal
+ interface gigabitEthernet 0/0
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+ exit</code></pre>
+
+                    <h4>Настройка второго интерфейса</h4>
+
+                    <p>
+                        Интерфейс <code>GigabitEthernet0/1</code>
+                        будет подключён к сети
+                        <code>192.168.2.0/24</code>.
+                    </p>
+
+                    <pre class="code-block"><code>interface gigabitEthernet 0/1
+ ip address 192.168.2.1 255.255.255.0
+ no shutdown
+ exit
+ end
+ write memory</code></pre>
+
+
+                    <h3>6. Что означают команды Cisco IOS</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Команда</th>
+                                    <th>Назначение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><code>enable</code></td>
+                                    <td>
+                                        Переход в привилегированный режим
+                                        EXEC
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>configure terminal</code></td>
+                                    <td>
+                                        Переход в режим
+                                        глобальной конфигурации
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>interface gigabitEthernet 0/0</code></td>
+                                    <td>
+                                        Выбор интерфейса G0/0
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>ip address 192.168.1.1 255.255.255.0</code></td>
+                                    <td>
+                                        Назначение IPv4-адреса
+                                        и маски подсети
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>no shutdown</code></td>
+                                    <td>
+                                        Административное включение
+                                        интерфейса
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>exit</code></td>
+                                    <td>
+                                        Выход на один уровень
+                                        командного режима
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>end</code></td>
+                                    <td>
+                                        Возврат в привилегированный
+                                        EXEC-режим
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>write memory</code></td>
+                                    <td>
+                                        Сохранение текущей конфигурации
+                                        в startup-config
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="info-box note">
+
+                        <div class="info-box-title">💡 Почему важна команда no shutdown</div>
+
+                        <p>
+                            На маршрутизаторах Cisco интерфейс
+                            может быть выключен административно,
+                            даже если кабель подключён правильно.
+                        </p>
+
+                        <p>
+                            Команда <code>no shutdown</code>
+                            снимает это ограничение.
+                        </p>
+
+                        <pre class="code-block"><code> shutdown
+      ↓
+ интерфейс выключен
+
+ no shutdown
+      ↓
+ интерфейс разрешён к работе</code></pre>
+
+                        <p>
+                            Для состояния <code>up/up</code>
+                            также необходимо исправное
+                            физическое соединение
+                            и работающий интерфейс
+                            на противоположной стороне.
+                        </p>
+
+                    </div>
+
+
+                    <h3>7. Проверяем состояние интерфейсов</h3>
+
+                    <p>
+                        На Router0 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip interface brief</code></pre>
+
+                    <p>
+                        В выводе должны присутствовать строки,
+                        подобные следующим:
+                    </p>
+
+                    <pre class="code-block"><code>  Interface            IP-Address      Status  Protocol
+ GigabitEthernet0/0     192.168.1.1     up      up
+ GigabitEthernet0/1     192.168.2.1     up      up</code></pre>
+
+                    <p>
+                        Значения <code>up/up</code> означают,
+                        что интерфейс работает
+                        и его канальный протокол активен.
+                    </p>
+
+                    <p>
+                        Если указано <code>administratively down</code>,
+                        проверьте наличие команды
+                        <code>no shutdown</code>.
+                    </p>
+
+
+                    <h3>8. Проверяем маршрутизацию</h3>
+
+                    <p>
+                        В нашем примере не требуется
+                        вручную создавать статические маршруты.
+                    </p>
+
+                    <p>
+                        Обе сети непосредственно подключены
+                        к Router0. Когда интерфейсы работают,
+                        Cisco IOS автоматически добавляет
+                        соответствующие connected routes
+                        в таблицу маршрутизации.
+                    </p>
+
+                    <p>
+                        Проверим:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip route</code></pre>
+
+                    <p>
+                        Среди маршрутов должны присутствовать:
+                    </p>
+
+                    <pre class="code-block"><code>C 192.168.1.0/24 is directly connected, GigabitEthernet0/0
+ C 192.168.2.0/24 is directly connected, GigabitEthernet0/1</code></pre>
+
+                    <p>
+                        Буква <code>C</code> означает
+                        <strong>Connected</strong> —
+                        непосредственно подключённую сеть.
+                    </p>
+
+
+                    <h3>9. Проверяем связь с default gateway</h3>
+
+                    <p>
+                        На PC0 откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → Command Prompt</code></pre>
+
+                    <p>
+                        Выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.1</code></pre>
+
+                    <p>
+                        Так мы проверяем связь PC0
+                        с локальным интерфейсом маршрутизатора.
+                    </p>
+
+                    <p>
+                        Затем на PC1 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.2.1</code></pre>
+
+                    <p>
+                        Если оба теста успешны,
+                        можно переходить к проверке связи
+                        между разными сетями.
+                    </p>
+
+
+                    <h3>10. Проверяем ping между сетями</h3>
+
+                    <p>
+                        На PC0 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.2.20</code></pre>
+
+                    <p>
+                        PC0 должен отправить пакет
+                        через Router0 к PC1.
+                    </p>
+
+                    <p>
+                        При первом обращении возможна
+                        потеря одного из ICMP Echo Request,
+                        пока устройства выполняют
+                        ARP-разрешение.
+                    </p>
+
+                    <p>
+                        Повторите команду, чтобы убедиться,
+                        что связь работает устойчиво.
+                    </p>
+
+
+                    <h3>11. Исследуем ARP-кэш PC0</h3>
+
+                    <p>
+                        После успешного ping на PC0 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        В ARP-кэше должна появиться
+                        запись для default gateway:
+                    </p>
+
+                    <pre class="code-block"><code>192.168.1.1 → MAC интерфейса Router0 G0/0</code></pre>
+
+                    <p>
+                        Обратите внимание:
+                        PC0 не требуется знать MAC-адрес PC1,
+                        поскольку PC1 находится в другой IP-сети.
+                    </p>
+
+                    <p>
+                        PC0 знает только MAC следующего узла —
+                        локального интерфейса Router0.
+                    </p>
+
+
+                    <h3>12. Исследуем ARP-таблицу Router0</h3>
+
+                    <p>
+                        На маршрутизаторе выполните:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip arp</code></pre>
+
+                    <p>
+                        После успешного обмена Router0
+                        обычно имеет ARP-записи
+                        для обоих компьютеров:
+                    </p>
+
+                    <pre class="code-block"><code>192.168.1.10 → MAC PC0
+ 192.168.2.20 → MAC PC1</code></pre>
+
+                    <p>
+                        Каждая запись относится
+                        к соответствующему интерфейсу
+                        маршрутизатора.
+                    </p>
+
+
+                    <h3>13. Исследуем передачу в Simulation Mode</h3>
+
+                    <p>
+                        Чтобы увидеть работу протоколов,
+                        переключите Packet Tracer
+                        из <strong>Realtime</strong>
+                        в <strong>Simulation</strong>.
+                    </p>
+
+                    <p>
+                        В фильтрах событий оставьте:
+                    </p>
+
+                    <pre class="code-block"><code>ARP
+ ICMP</code></pre>
+
+                    <p>
+                        Для наглядности желательно начать
+                        с отсутствующих динамических ARP-записей.
+                        Если они уже существуют,
+                        можно очистить их поддерживаемыми
+                        командами устройства или дождаться
+                        истечения времени их жизни.
+                    </p>
+
+                    <p>
+                        Затем выполните с PC0:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.2.20</code></pre>
+
+                    <p>
+                        Используйте <strong>Capture/Forward</strong>,
+                        чтобы проследить последовательность событий:
+                    </p>
+
+                    <pre class="code-block"><code>  PC0
+    ↓
+ARP Request:
+кто имеет 192.168.1.1?
+    ↓
+Router0 G0/0
+    ↓
+ARP Reply:
+192.168.1.1 → MAC Router0
+    ↓
+PC0 отправляет ICMP Echo Request
+    ↓
+Router0
+    ↓
+ARP Request:
+кто имеет 192.168.2.20?
+    ↓
+   PC1
+    ↓
+ARP Reply:
+192.168.2.20 → MAC PC1
+    ↓
+Router0 пересылает IP-пакет
+    ↓
+   PC1</code></pre>
+
+                    <p>
+                        Это типичная последовательность,
+                        когда необходимые ARP-записи
+                        первоначально отсутствуют.
+                        Конкретный порядок событий
+                        в симуляции может зависеть
+                        от текущего состояния таблиц.
+                    </p>
+
+
+                    <h3>14. Что происходит с Ethernet-кадром</h3>
+
+                    <p>
+                        Router0 не пересылает исходный
+                        Ethernet-кадр из LAN 1 в LAN 2
+                        без изменений.
+                    </p>
+
+                    <p>
+                        Он получает IP-пакет,
+                        выбирает выходной интерфейс
+                        и создаёт новый Ethernet-кадр.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле</th>
+                                    <th>PC0 → Router0</th>
+                                    <th>Router0 → PC1</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>Source MAC</strong></td>
+                                    <td>MAC PC0</td>
+                                    <td>MAC Router0 G0/1</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Destination MAC</strong></td>
+                                    <td>MAC Router0 G0/0</td>
+                                    <td>MAC PC1</td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Source IP</strong></td>
+                                    <td><code>192.168.1.10</code></td>
+                                    <td><code>192.168.1.10</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Destination IP</strong></td>
+                                    <td><code>192.168.2.20</code></td>
+                                    <td><code>192.168.2.20</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        В данном примере NAT не используется,
+                        поэтому IP-адреса источника
+                        и назначения не изменяются.
+                        При маршрутизации уменьшается TTL
+                        и пересчитываются необходимые
+                        поля IPv4-заголовка.
+                    </p>
+
+
+                    <h3>15. Частые ошибки при настройке</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Проблема</th>
+                                    <th>Что проверить</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        Интерфейс router выключен
+                                    </td>
+                                    <td>
+                                        Команда <code>no shutdown</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        PC не отвечает на ping шлюза
+                                    </td>
+                                    <td>
+                                        Кабель, IP, маску,
+                                        состояние интерфейса
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Ping шлюза работает,
+                                        но удалённого PC — нет
+                                    </td>
+                                    <td>
+                                        Default gateway удалённого PC,
+                                        второй интерфейс router,
+                                        адресацию и маршруты
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Интерфейс имеет неправильный IP
+                                    </td>
+                                    <td>
+                                        <code>show ip interface brief</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Нет маршрута к сети
+                                    </td>
+                                    <td>
+                                        <code>show ip route</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        ARP Request не появляется
+                                        при повторном ping
+                                    </td>
+                                    <td>
+                                        Возможно, запись уже есть
+                                        в ARP-кэше
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>16. Полезные команды для проверки</h3>
+
+                    <p>
+                        На маршрутизаторе Cisco:
+                    </p>
+
+                    <pre class="code-block"><code>show ip interface brief
+ show ip route
+ show ip arp
+ show running-config</code></pre>
+
+                    <p>
+                        На компьютерах Packet Tracer:
+                    </p>
+
+                    <pre class="code-block"><code>ipconfig
+ arp -a
+ ping 192.168.1.1
+ ping 192.168.2.20</code></pre>
+
+                    <p>
+                        Адрес в команде <code>ping</code>
+                        выбирается в зависимости
+                        от проверяемого устройства.
+                    </p>
+
+
+                    <div class="info-box success">
+
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            В этом эксперименте мы настроили
+                            две IP-сети и обеспечили маршрутизацию
+                            между ними через Cisco 2911.
+                        </p>
+
+                        <pre class="code-block"><code>   PC0
+ 192.168.1.10
+     ↓
+ ARP для default gateway
+ 192.168.1.1
+     ↓
+   Router0
+     ↓
+ ARP для PC1
+ 192.168.2.20
+     ↓
+    PC1
+ 192.168.2.20</code></pre>
+
+                        <p>
+                            <strong>
+                                Каждый узел использует ARP
+                                для определения MAC-адреса
+                                следующего устройства
+                                на своём локальном Ethernet-участке.
+                                Router соединяет IP-сети,
+                                но не пересылает ARP broadcast
+                                из одной сети в другую.
+                            </strong>
+                        </p>
+
+                    </div>
+                </article>
+
+
 
             </section>
                         
