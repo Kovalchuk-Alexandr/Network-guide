@@ -48421,9 +48421,9 @@ ARP для 192.168.2.20
                             снимает это ограничение.
                         </p>
 
-                        <pre class="code-block"><code> shutdown
+                        <pre class="code-block"><code>  shutdown
       ↓
- интерфейс выключен
+интерфейс выключен
 
  no shutdown
       ↓
@@ -48898,9 +48898,1111 @@ Router0 пересылает IP-пакет
                                 из одной сети в другую.
                             </strong>
                         </p>
+                    </div>
+                </article>
+
+                
+                <!-- ===== Просмотр ARP-таблицы в Windows и Cisco ===== -->
+
+                <article id="ch5-view-arp-table">
+
+                    <h2>📜 Просмотр ARP-таблицы в Windows и Cisco</h2>
+
+                    <p>
+                        Мы уже знаем, что
+                        <strong>ARP (Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>
+                        позволяет определить MAC-адрес
+                        по известному IPv4-адресу.
+                    </p>
+
+                    <p>
+                        Теперь посмотрим, как увидеть
+                        результаты работы ARP на реальных устройствах:
+                        в <strong>Windows</strong>,
+                        на маршрутизаторах <strong>Cisco IOS</strong>
+                        и в <strong>Cisco Packet Tracer</strong>.
+                    </p>
+
+                    <p>
+                        Главная задача этого раздела —
+                        научиться читать ARP-таблицу,
+                        находить нужные записи и понимать,
+                        почему одни адреса в ней присутствуют,
+                        а другие отсутствуют.
+                    </p>
+
+
+                    <h3>1. Где находится ARP-таблица</h3>
+
+                    <p>
+                        ARP-таблица существует у устройств,
+                        использующих IPv4 и выполняющих
+                        ARP-разрешение на соответствующих
+                        сетевых интерфейсах.
+                    </p>
+
+                    <p>
+                        Например, собственные ARP-таблицы
+                        могут иметь компьютер и маршрутизатор.
+                    </p>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 390"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="ARP-таблицы компьютера и маршрутизатора Cisco в сети с двумя подсетями">
+
+                            <!-- ================================================= -->
+                            <!-- PC0 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="35" y="45"
+                                width="190" height="80"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="130" y="74"
+                                text-anchor="middle">
+                                PC0 — Windows
+                            </text>
+
+                            <text class="diagram-label"
+                                x="130" y="101"
+                                text-anchor="middle">
+                                192.168.1.10
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Router -->
+                            <!-- ================================================= -->
+
+                            <rect x="350" y="45"
+                                width="200" height="80"
+                                rx="10"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="450" y="75"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Router0 — Cisco
+                            </text>
+
+                            <text x="450" y="102"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#d9e1e6">
+                                192.168.1.1 / 192.168.2.1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC1 -->
+                            <!-- ================================================= -->
+
+                            <rect class="diagram-node"
+                                x="675" y="45"
+                                width="190" height="80"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="770" y="74"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="770" y="101"
+                                text-anchor="middle">
+                                192.168.2.20
+                            </text>
+
+
+                            <!-- Connections -->
+
+                            <line x1="225" y1="85"
+                                x2="350" y2="85"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <line x1="550" y1="85"
+                                x2="675" y2="85"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+
+                            <!-- ================================================= -->
+                            <!-- PC0 ARP table -->
+                            <!-- ================================================= -->
+
+                            <line x1="130" y1="125"
+                                x2="130" y2="163"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <rect x="30" y="163"
+                                width="260" height="135"
+                                rx="8"
+                                fill="#eaf3fb"
+                                stroke="#1976bd"
+                                stroke-width="2" />
+
+                            <text x="160" y="190"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#195b8c">
+                                ARP Cache PC0
+                            </text>
+
+                            <line x1="50" y1="204"
+                                x2="270" y2="204"
+                                stroke="#a7c8e2"
+                                stroke-width="1.5" />
+
+                            <text x="160" y="232"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                192.168.1.1 → MAC Router
+                            </text>
+
+                            <text x="160" y="264"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                MAC следующего узла
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- Router ARP table -->
+                            <!-- ================================================= -->
+
+                            <line x1="450" y1="125"
+                                x2="450" y2="163"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <rect x="320" y="163"
+                                width="260" height="135"
+                                rx="8"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="450" y="190"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP Table Router0
+                            </text>
+
+                            <line x1="340" y1="204"
+                                x2="560" y2="204"
+                                stroke="#c7a34c"
+                                stroke-width="1.5" />
+
+                            <text x="450" y="232"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                192.168.1.10 → MAC PC0
+                            </text>
+
+                            <text x="450" y="260"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                192.168.2.20 → MAC PC1
+                            </text>
+
+
+                            <!-- ================================================= -->
+                            <!-- PC1 ARP table -->
+                            <!-- ================================================= -->
+
+                            <line x1="770" y1="125"
+                                x2="770" y2="163"
+                                stroke="#526777"
+                                stroke-width="2" />
+
+                            <rect x="610" y="163"
+                                width="260" height="135"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="740" y="190"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#356b4a">
+                                ARP Cache PC1
+                            </text>
+
+                            <line x1="630" y1="204"
+                                x2="850" y2="204"
+                                stroke="#a3c9ae"
+                                stroke-width="1.5" />
+
+                            <text x="740" y="232"
+                                text-anchor="middle"
+                                font-family="monospace"
+                                font-size="12"
+                                fill="#172026">
+                                192.168.2.1 → MAC Router
+                            </text>
+
+                            <text x="740" y="264"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#52606d">
+                                MAC своего шлюза
+                            </text>
+
+
+                            <!-- Footer -->
+
+                            <text x="450" y="345"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#526777">
+                                Каждое устройство хранит собственную ARP-таблицу
+                            </text>
+
+                            <text x="450" y="369"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#526777">
+                                Показаны типичные динамические записи после обмена пакетами
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+                    <p>
+                        ARP-таблицы этих устройств
+                        не являются копиями друг друга.
+                        Каждое устройство сохраняет
+                        соответствия, необходимые
+                        для собственной передачи данных.
+                    </p>
+
+
+                    <h3>2. Просмотр ARP-таблицы в Windows</h3>
+
+                    <p>
+                        В Windows можно использовать
+                        стандартную команду:
+                    </p>
+
+                    <pre class="code-block"><code>arp -a</code></pre>
+
+                    <p>
+                        Откройте <strong>Command Prompt (CMD)</strong>
+                        или PowerShell и выполните:
+                    </p>
+
+                    <pre class="code-block"><code>C:\&gt; arp -a</code></pre>
+
+                    <p>
+                        Пример вывода:
+                    </p>
+
+                    <pre class="code-block"><code>Interface: 192.168.1.10 --- 0x6
+                Internet Address      Physical Address      Type
+                192.168.1.1           00-aa-00-00-00-01     dynamic
+                192.168.1.20          00-aa-00-00-00-02     dynamic
+                192.168.1.30          00-aa-00-00-00-03     dynamic</code></pre>
+
+                    <p>
+                        Это пример динамических записей.
+                        Реальный вывод может также содержать
+                        статические записи и адреса multicast
+                        или broadcast.
+                    </p>
+
+
+                    <h3>3. Как читать вывод arp -a</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле</th>
+                                    <th>Значение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>Interface</strong></td>
+                                    <td>
+                                        IPv4-адрес локального интерфейса,
+                                        для которого отображаются записи
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Internet Address</strong></td>
+                                    <td>
+                                        IPv4-адрес соседнего устройства
+                                        или специальный IPv4-адрес
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Physical Address</strong></td>
+                                    <td>
+                                        Соответствующий Ethernet MAC-адрес
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Type</strong></td>
+                                    <td>
+                                        Тип записи:
+                                        <code>dynamic</code>
+                                        или <code>static</code>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Например, строка:
+                    </p>
+
+                    <pre class="code-block"><code>192.168.1.20    00-aa-00-00-00-02    dynamic</code></pre>
+
+                    <p>
+                        означает, что для IPv4-адреса
+                        <code>192.168.1.20</code>
+                        сохранён MAC-адрес
+                        <code>00-AA-00-00-00-02</code>.
+                    </p>
+
+                    <p>
+                        Тип <code>dynamic</code>
+                        указывает на динамическую запись,
+                        которая может обновляться
+                        или удаляться системой.
+                    </p>
+
+
+                    <h3>4. Dynamic и Static записи</h3>
+
+                    <p>
+                        В ARP-таблице могут встречаться
+                        два основных типа записей.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Тип</th>
+                                    <th>Особенности</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>Dynamic</strong></td>
+                                    <td>
+                                        Создаётся автоматически,
+                                        имеет ограниченный срок жизни,
+                                        может обновляться
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Static</strong></td>
+                                    <td>
+                                        Задаётся вручную
+                                        или создаётся системой
+                                        для специальных адресов;
+                                        обычно не стареет
+                                        как динамическая запись
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Для обычной работы локальной сети
+                        большинство соответствий IPv4 ↔ MAC
+                        определяется динамически.
+                    </p>
+
+
+                    <h3>5. Просмотр ARP-записей конкретного интерфейса</h3>
+
+                    <p>
+                        Если у компьютера несколько
+                        сетевых интерфейсов, команда
+                        <code>arp -a</code> может вывести
+                        несколько отдельных таблиц.
+                    </p>
+
+                    <p>
+                        В Windows можно указать IPv4-адрес
+                        нужного локального интерфейса:
+                    </p>
+
+                    <pre class="code-block"><code>arp -a -N 192.168.1.10</code></pre>
+
+                    <p>
+                        Тогда будут показаны записи
+                        для интерфейса с адресом
+                        <code>192.168.1.10</code>.
+                    </p>
+
+                    <p>
+                        Этот вариант особенно полезен
+                        на компьютерах с Ethernet,
+                        Wi-Fi, VPN и несколькими
+                        виртуальными адаптерами.
+                    </p>
+
+
+                    <h3>6. Создаём новую ARP-запись в Windows</h3>
+
+                    <p>
+                        Предположим, в локальной сети
+                        находится устройство:
+                    </p>
+
+                    <pre class="code-block"><code>192.168.1.20</code></pre>
+
+                    <p>
+                        Сначала проверим ARP-кэш:
+                    </p>
+
+                    <pre class="code-block"><code>arp -a</code></pre>
+
+                    <p>
+                        Затем отправим ping:
+                    </p>
+
+                    <pre class="code-block"><code>ping 192.168.1.20</code></pre>
+
+                    <p>
+                        После этого снова выполним:
+                    </p>
+
+                    <pre class="code-block"><code>arp -a</code></pre>
+
+                    <p>
+                        Если устройство находится
+                        в непосредственно подключённой сети,
+                        отвечает на ARP и запись сохраняется,
+                        в таблице появится его MAC-адрес.
+                    </p>
+
+                    <pre class="code-block"><code>До ping:
+
+                192.168.1.20 → записи нет
+
+
+                После ping:
+
+                192.168.1.20 → 00-AA-00-00-00-02</code></pre>
+
+                    <p>
+                        При этом успешный ICMP-ответ
+                        не является обязательным условием
+                        для появления ARP-записи:
+                        устройство может отвечать на ARP,
+                        но блокировать ICMP.
+                    </p>
+
+
+                    <h3>7. Очистка ARP-кэша в Windows</h3>
+
+                    <p>
+                        Для удаления конкретной записи
+                        можно использовать:
+                    </p>
+
+                    <pre class="code-block"><code>arp -d 192.168.1.20</code></pre>
+
+                    <p>
+                        Для удаления динамических записей
+                        всех интерфейсов:
+                    </p>
+
+                    <pre class="code-block"><code>arp -d *</code></pre>
+
+                    <p>
+                        Обычно для этих операций
+                        необходимо открыть командную строку
+                        с правами администратора.
+                    </p>
+
+                    <div class="info-box note">
+
+                        <div class="info-box-title">💡 Осторожно с очисткой ARP-кэша</div>
+
+                        <p>
+                            После удаления динамических записей
+                            устройству придётся заново определять
+                            MAC-адреса необходимых соседей.
+                        </p>
+
+                        <p>
+                            Это может вызвать кратковременные
+                            задержки при сетевом обмене.
+                            Поэтому на рабочем компьютере
+                            очистку лучше выполнять
+                            только при необходимости.
+                        </p>
+
+                    </div>
+
+
+                    <h3>8. Просмотр ARP-таблицы в Cisco IOS</h3>
+
+                    <p>
+                        На маршрутизаторах Cisco
+                        используется команда:
+                    </p>
+
+                    <pre class="code-block"><code>show ip arp</code></pre>
+
+                    <p>
+                        Она выполняется
+                        в привилегированном EXEC-режиме.
+                    </p>
+
+                    <pre class="code-block"><code>Router&gt; enable
+                Router# show ip arp</code></pre>
+
+                    <p>
+                        Пример вывода:
+                    </p>
+
+                    <pre class="code-block"><code>Protocol  Address        Age (min)  Hardware Addr   Type   Interface
+                Internet  192.168.1.1    -          00aa.0000.0001  ARPA   GigabitEthernet0/0
+                Internet  192.168.1.10   2          00aa.0000.0010  ARPA   GigabitEthernet0/0
+                Internet  192.168.2.1    -          00bb.0000.0001  ARPA   GigabitEthernet0/1
+                Internet  192.168.2.20   1          00bb.0000.0020  ARPA   GigabitEthernet0/1</code></pre>
+
+                    <p>
+                        Значения MAC-адресов здесь условные.
+                        В вашей сети они будут другими.
+                    </p>
+
+
+                    <h3>9. Как читать таблицу Cisco</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле</th>
+                                    <th>Описание</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>Protocol</strong></td>
+                                    <td>
+                                        Протокол сетевого уровня;
+                                        для IPv4 обычно
+                                        <code>Internet</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Address</strong></td>
+                                    <td>
+                                        IPv4-адрес устройства
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Age (min)</strong></td>
+                                    <td>
+                                        Возраст динамической записи
+                                        в минутах
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Hardware Addr</strong></td>
+                                    <td>
+                                        MAC-адрес устройства
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Type</strong></td>
+                                    <td>
+                                        Тип канального протокола;
+                                        <code>ARPA</code>
+                                        для Ethernet
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Interface</strong></td>
+                                    <td>
+                                        Интерфейс Cisco,
+                                        с которым связана запись
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Обратите внимание на поле
+                        <code>Age (min)</code>.
+                        Для записей собственных интерфейсов
+                        маршрутизатора часто отображается
+                        символ <code>-</code>.
+                    </p>
+
+                    <p>
+                        Для динамических записей соседних
+                        устройств указывается возраст
+                        в минутах.
+                    </p>
+
+
+                    <h3>10. Почему MAC-адреса Cisco выглядят иначе</h3>
+
+                    <p>
+                        В Windows MAC-адрес обычно записывается
+                        через дефисы:
+                    </p>
+
+                    <pre class="code-block"><code>00-aa-00-00-00-10</code></pre>
+
+                    <p>
+                        В Cisco IOS часто используется
+                        формат из трёх групп
+                        по четыре шестнадцатеричных символа:
+                    </p>
+
+                    <pre class="code-block"><code>00aa.0000.0010</code></pre>
+
+                    <p>
+                        Это один и тот же MAC-адрес,
+                        записанный в разных форматах:
+                    </p>
+
+                    <pre class="code-block"><code>Windows:  00-aa-00-00-00-10
+                Cisco:    00aa.0000.0010
+                Ethernet: 00:AA:00:00:00:10</code></pre>
+
+                    <p>
+                        Формат записи не изменяет
+                        само значение MAC-адреса.
+                    </p>
+
+
+                    <h3>11. Просмотр отдельной записи Cisco</h3>
+
+                    <p>
+                        Если необходимо найти
+                        определённый IPv4-адрес,
+                        можно использовать:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip arp 192.168.1.10</code></pre>
+
+                    <p>
+                        В поддерживаемых версиях Cisco IOS
+                        команда позволяет отобразить
+                        ARP-информацию для указанного адреса.
+                    </p>
+
+                    <p>
+                        Ещё один вариант —
+                        фильтрация вывода:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip arp | include 192.168.1.10</code></pre>
+
+                    <p>
+                        Команда <code>include</code>
+                        оставляет строки, содержащие
+                        указанное значение.
+                    </p>
+
+
+                    <h3>12. ARP-таблица Cisco и MAC Address Table</h3>
+
+                    <p>
+                        Важно не перепутать две команды:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip arp
+
+                Switch# show mac address-table</code></pre>
+
+                    <p>
+                        Они показывают разные сведения:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Команда</th>
+                                    <th>Что показывает</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><code>show ip arp</code></td>
+                                    <td>
+                                        Соответствия IPv4 → MAC
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>show mac address-table</code></td>
+                                    <td>
+                                        Соответствия MAC → порт
+                                        с учётом VLAN
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Первая команда нужна
+                        для анализа ARP-разрешения,
+                        вторая — для исследования
+                        коммутации Ethernet-кадров.
+                    </p>
+
+
+                    <h3>13. Практика в Cisco Packet Tracer</h3>
+
+                    <p>
+                        Используем сеть,
+                        которую собрали в предыдущем разделе:
+                    </p>
+
+                    <pre class="code-block"><code>PC0 ─── Router0 ─── PC1
+
+                PC0:     192.168.1.10/24
+                Router0: 192.168.1.1/24
+                        192.168.2.1/24
+                PC1:     192.168.2.20/24</code></pre>
+
+                    <p>
+                        На PC0 откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → Command Prompt</code></pre>
+
+                    <p>
+                        Выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        Затем отправьте ping
+                        на удалённый компьютер:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.2.20</code></pre>
+
+                    <p>
+                        Снова посмотрите таблицу:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        Теперь найдите запись
+                        для <code>192.168.1.1</code> —
+                        default gateway PC0.
+                    </p>
+
+                    <p>
+                        На Router0 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>Router# show ip arp</code></pre>
+
+                    <p>
+                        Найдите записи
+                        <code>192.168.1.10</code>
+                        и <code>192.168.2.20</code>.
+                    </p>
+
+                    <p>
+                        Сравните, какие IPv4-адреса
+                        присутствуют в ARP-таблице PC0,
+                        а какие — в таблице Router0.
+                    </p>
+
+
+                    <h3>14. Что должно получиться</h3>
+
+                    <p>
+                        После успешного обмена
+                        типичная картина будет следующей:
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Устройство</th>
+                                    <th>ARP-запись</th>
+                                    <th>Почему</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>PC0</td>
+                                    <td>
+                                        <code>192.168.1.1 → MAC Router0</code>
+                                    </td>
+                                    <td>
+                                        Router0 — следующий узел
+                                        для удалённой сети
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Router0</td>
+                                    <td>
+                                        <code>192.168.1.10 → MAC PC0</code>
+                                    </td>
+                                    <td>
+                                        PC0 находится в LAN 1
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Router0</td>
+                                    <td>
+                                        <code>192.168.2.20 → MAC PC1</code>
+                                    </td>
+                                    <td>
+                                        PC1 находится в LAN 2
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>PC1</td>
+                                    <td>
+                                        <code>192.168.2.1 → MAC Router0</code>
+                                    </td>
+                                    <td>
+                                        Router0 — шлюз PC1
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Это ожидаемые динамические записи,
+                        если устройства выполняли ARP-разрешение
+                        и записи ещё не устарели.
+                    </p>
+
+
+                    <h3>15. Если нужной записи нет</h3>
+
+                    <p>
+                        Отсутствие записи не всегда означает
+                        неисправность сети.
+                    </p>
+
+                    <p>
+                        Возможные причины:
+                    </p>
+
+                    <ul>
+                        <li>
+                            Устройство ещё не обращалось
+                            к соответствующему IPv4-адресу.
+                        </li>
+
+                        <li>
+                            Динамическая запись уже устарела
+                            и была удалена.
+                        </li>
+
+                        <li>
+                            Для удалённого назначения
+                            используется MAC-адрес шлюза,
+                            а не конечного устройства.
+                        </li>
+
+                        <li>
+                            ARP Request не получил ответа.
+                        </li>
+
+                        <li>
+                            Просматривается не тот сетевой интерфейс.
+                        </li>
+                    </ul>
+
+                    <p>
+                        Поэтому при диагностике
+                        сначала нужно определить,
+                        <strong>какой именно MAC-адрес
+                        устройство должно искать</strong>.
+                    </p>
+
+
+                    <h3>16. Краткая шпаргалка команд</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Задача</th>
+                                    <th>Команда</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Windows: показать ARP-кэш</td>
+                                    <td><code>arp -a</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Windows: удалить одну запись</td>
+                                    <td><code>arp -d 192.168.1.20</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Windows: удалить динамические записи</td>
+                                    <td><code>arp -d *</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Cisco: показать ARP-таблицу</td>
+                                    <td><code>show ip arp</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Cisco: найти запись по IPv4</td>
+                                    <td><code>show ip arp 192.168.1.10</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Cisco: фильтрация вывода</td>
+                                    <td><code>show ip arp | include 192.168.1.10</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Cisco switch: MAC-таблица</td>
+                                    <td><code>show mac address-table</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="info-box success">
+
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            Для просмотра ARP-таблицы
+                            достаточно запомнить две команды:
+                        </p>
+
+                        <pre class="code-block"><code>Windows:
+                arp -a
+
+                Cisco IOS:
+                show ip arp</code></pre>
+
+                        <p>
+                            <strong>
+                                ARP-таблица показывает,
+                                какой MAC-адрес соответствует
+                                определённому IPv4-адресу
+                                на локальном участке сети.
+                            </strong>
+                        </p>
+
+                        <p>
+                            При передаче в другую IP-сеть
+                            компьютер обычно хранит
+                            MAC-адрес своего default gateway,
+                            а маршрутизатор использует
+                            собственные ARP-записи
+                            для доставки пакетов
+                            в непосредственно подключённые сети.
+                        </p>
 
                     </div>
                 </article>
+
 
 
 
