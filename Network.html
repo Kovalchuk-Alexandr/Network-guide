@@ -750,11 +750,83 @@ Emoji Guide
                                 <li class="nav-subitem" data-target="ch5-summary">📜 Итоги главы</li>
                                 <li class="nav-subitem" data-target="ch5-cheatsheet">📜 Шпаргалка главы</li>
                             </ul>
-                
                         </li>
                 
                     </ul>
                 </div>
+
+                
+                <!-- ====================================================================== -->
+                <!-- ЧАСТЬ III. IPv4 и подсети -->
+                <!-- ====================================================================== -->
+
+                <div class="nav-section">
+
+                    <div class="nav-title">📘 Часть III. IPv4 и подсети</div>
+
+                    <ul class="nav-list">
+
+                        <li class="nav-item has-subitems" data-target="ch6">
+
+                            <span class="nav-link">Глава 6. IPv4-адресация</span>
+
+                            <ul class="nav-sublist">
+
+                                <li class="nav-item" data-target="ch6-what-is-ip">📜 Что такое IP-адрес</li>
+                                <li class="nav-item" data-target="ch6-ipv4">📜 IPv4</li>
+                                <li class="nav-item" data-target="ch6-binary-decimal">📜 Двоичная и десятичная запись</li>
+                                <li class="nav-item" data-target="ch6-octets">📜 Октеты</li>
+                                <li class="nav-item" data-target="ch6-network-host">📜 Network part и Host part</li>
+                                <li class="nav-item" data-target="ch6-private-public">📜 Private и Public IPv4</li>
+                                <li class="nav-item" data-target="ch6-static-dynamic">
+                                    📜 Static и Dynamic IP
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-network-address">
+                                    📜 Network Address
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-broadcast-address">
+                                    📜 Broadcast Address
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-loopback">
+                                    📜 Loopback
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-link-local">
+                                    📜 Link-local / APIPA
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-default-gateway">
+                                    📜 Default Gateway
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-local-or-remote">
+                                    📜 Как компьютер определяет: адрес локальный или удалённый
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-windows-commands">
+                                    📜 Основные команды Windows: ipconfig и ping
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-packet-tracer">
+                                    📜 Packet Tracer: настройка IPv4 вручную
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-summary">
+                                    📜 Итоги главы
+                                </li>
+
+                                <li class="nav-item" data-target="ch6-cheatsheet">
+                                    📜 Шпаргалка главы
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
 
                 <!-- DOM и события 📁📂📖📜 📃📑-->
             </nav>
@@ -23921,13 +23993,10 @@ Router → маршрутизирует IP-пакеты
             <!-- ЧАСТЬ II. Ethernet и локальная сеть -->
             <!-- ====================================================================== -->
 
-
             <section class="chapter" id="ch3">
 
                 <h1>Глава 3. Ethernet и локальная сеть</h1>
 
-
-                <!-- ===== Что такое Ethernet ===== -->
 
                 <!-- ===== Что такое Ethernet ===== -->
 
@@ -49225,10 +49294,10 @@ Router0 пересылает IP-пакет
                     </p>
 
                     <pre class="code-block"><code>Interface: 192.168.1.10 --- 0x6
-                Internet Address      Physical Address      Type
-                192.168.1.1           00-aa-00-00-00-01     dynamic
-                192.168.1.20          00-aa-00-00-00-02     dynamic
-                192.168.1.30          00-aa-00-00-00-03     dynamic</code></pre>
+ Internet Address      Physical Address      Type
+ 192.168.1.1           00-aa-00-00-00-01     dynamic
+ 192.168.1.20          00-aa-00-00-00-02     dynamic
+ 192.168.1.30          00-aa-00-00-00-03     dynamic</code></pre>
 
                     <p>
                         Это пример динамических записей.
@@ -49430,13 +49499,10 @@ Router0 пересылает IP-пакет
                     </p>
 
                     <pre class="code-block"><code>До ping:
+ 192.168.1.20 → записи нет
 
-                192.168.1.20 → записи нет
-
-
-                После ping:
-
-                192.168.1.20 → 00-AA-00-00-00-02</code></pre>
+ После ping:
+ 192.168.1.20 → 00-AA-00-00-00-02</code></pre>
 
                     <p>
                         При этом успешный ICMP-ответ
@@ -49505,17 +49571,17 @@ Router0 пересылает IP-пакет
                     </p>
 
                     <pre class="code-block"><code>Router&gt; enable
-                Router# show ip arp</code></pre>
+ Router# show ip arp</code></pre>
 
                     <p>
                         Пример вывода:
                     </p>
 
                     <pre class="code-block"><code>Protocol  Address        Age (min)  Hardware Addr   Type   Interface
-                Internet  192.168.1.1    -          00aa.0000.0001  ARPA   GigabitEthernet0/0
-                Internet  192.168.1.10   2          00aa.0000.0010  ARPA   GigabitEthernet0/0
-                Internet  192.168.2.1    -          00bb.0000.0001  ARPA   GigabitEthernet0/1
-                Internet  192.168.2.20   1          00bb.0000.0020  ARPA   GigabitEthernet0/1</code></pre>
+ Internet  192.168.1.1    -          00aa.0000.0001  ARPA   GigabitEthernet0/0
+ Internet  192.168.1.10   2          00aa.0000.0010  ARPA   GigabitEthernet0/0
+ Internet  192.168.2.1    -          00bb.0000.0001  ARPA   GigabitEthernet0/1
+ Internet  192.168.2.20   1          00bb.0000.0020  ARPA   GigabitEthernet0/1</code></pre>
 
                     <p>
                         Значения MAC-адресов здесь условные.
@@ -49630,8 +49696,8 @@ Router0 пересылает IP-пакет
                     </p>
 
                     <pre class="code-block"><code>Windows:  00-aa-00-00-00-10
-                Cisco:    00aa.0000.0010
-                Ethernet: 00:AA:00:00:00:10</code></pre>
+ Cisco:    00aa.0000.0010
+ Ethernet: 00:AA:00:00:00:10</code></pre>
 
                     <p>
                         Формат записи не изменяет
@@ -49677,7 +49743,7 @@ Router0 пересылает IP-пакет
 
                     <pre class="code-block"><code>Router# show ip arp
 
-                Switch# show mac address-table</code></pre>
+ Switch# show mac address-table</code></pre>
 
                     <p>
                         Они показывают разные сведения:
@@ -49734,10 +49800,10 @@ Router0 пересылает IP-пакет
 
                     <pre class="code-block"><code>PC0 ─── Router0 ─── PC1
 
-                PC0:     192.168.1.10/24
-                Router0: 192.168.1.1/24
-                        192.168.2.1/24
-                PC1:     192.168.2.20/24</code></pre>
+ PC0:     192.168.1.10/24
+ Router0: 192.168.1.1/24
+          192.168.2.1/24
+ PC1:     192.168.2.20/24</code></pre>
 
                     <p>
                         На PC0 откройте:
@@ -49976,10 +50042,10 @@ Router0 пересылает IP-пакет
                         </p>
 
                         <pre class="code-block"><code>Windows:
-                arp -a
+ arp -a
 
-                Cisco IOS:
-                show ip arp</code></pre>
+ Cisco IOS:
+ show ip arp</code></pre>
 
                         <p>
                             <strong>
@@ -50003,9 +50069,1922 @@ Router0 пересылает IP-пакет
                     </div>
                 </article>
 
+                
+                <!-- ===== Packet Tracer: наблюдаем ARP ===== -->
+
+                <article id="ch5-packet-tracer">
+
+                    <h2>📜 Packet Tracer: наблюдаем ARP</h2>
+
+                    <p>
+                        В предыдущих разделах мы научились
+                        настраивать устройства, выполнять ping
+                        и просматривать ARP-таблицы.
+                    </p>
+
+                    <p>
+                        Теперь воспользуемся
+                        <strong>Simulation Mode</strong>
+                        в Cisco Packet Tracer, чтобы исследовать
+                        содержимое ARP Request и ARP Reply,
+                        а также увидеть, как эти сообщения
+                        передаются внутри Ethernet-кадров.
+                    </p>
+
+                    <p>
+                        <strong>Цель эксперимента:</strong>
+                        проследить ARP-обмен на уровне отдельных
+                        событий и самостоятельно проверить
+                        значения адресных полей.
+                    </p>
 
 
+                    <h3>1. Исходная схема</h3>
 
+                    <p>
+                        Для эксперимента используем простую
+                        локальную сеть из двух компьютеров
+                        и одного коммутатора.
+                    </p>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 800 260"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="PC0 и PC1 подключены к Switch0 для наблюдения ARP-обмена">
+
+                            <!-- PC0 -->
+
+                            <rect class="diagram-node"
+                                x="35" y="65"
+                                width="190" height="105"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="130" y="96"
+                                text-anchor="middle">
+                                PC0
+                            </text>
+
+                            <text class="diagram-label"
+                                x="130" y="122"
+                                text-anchor="middle">
+                                192.168.1.10/24
+                            </text>
+
+                            <text class="diagram-label"
+                                x="130" y="145"
+                                text-anchor="middle">
+                                MAC: ...01
+                            </text>
+
+
+                            <!-- Switch0 -->
+
+                            <rect x="305" y="75"
+                                width="190" height="85"
+                                rx="9"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="3" />
+
+                            <text x="400" y="109"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Switch0
+                            </text>
+
+                            <text x="400" y="135"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#d9e1e6">
+                                Cisco 2960
+                            </text>
+
+
+                            <!-- PC1 -->
+
+                            <rect class="diagram-node"
+                                x="575" y="65"
+                                width="190" height="105"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="670" y="96"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="670" y="122"
+                                text-anchor="middle">
+                                192.168.1.20/24
+                            </text>
+
+                            <text class="diagram-label"
+                                x="670" y="145"
+                                text-anchor="middle">
+                                MAC: ...02
+                            </text>
+
+
+                            <!-- Connections -->
+
+                            <line x1="225" y1="117"
+                                x2="305" y2="117"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <line x1="495" y1="117"
+                                x2="575" y2="117"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+
+                            <!-- Port labels -->
+
+                            <text x="265" y="100"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#526777">
+                                Fa0/1
+                            </text>
+
+                            <text x="535" y="100"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#526777">
+                                Fa0/2
+                            </text>
+
+
+                            <!-- Footer -->
+
+                            <text x="400" y="210"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#526777">
+                                Одна локальная сеть: 192.168.1.0/24
+                            </text>
+
+                            <text x="400" y="235"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#526777">
+                                MAC-адреса условные — в Packet Tracer будут свои значения
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+                    <p>
+                        Используем устройства
+                        <code>PC-PT</code> и <code>2960</code>.
+                        Подключаем их обычными Ethernet-кабелями.
+                    </p>
+
+                    <p>
+                        Адреса компьютеров:
+                    </p>
+
+                    <pre class="code-block"><code>PC0: 192.168.1.10
+ PC1: 192.168.1.20
+
+ Subnet Mask:
+ 255.255.255.0</code></pre>
+
+                    <p>
+                        Default gateway для этого эксперимента
+                        не требуется: оба компьютера
+                        находятся в одной IP-сети.
+                    </p>
+
+
+                    <h3>2. Подготавливаем Simulation Mode</h3>
+
+                    <p>
+                        Переключитесь в режим:
+                    </p>
+
+                    <pre class="code-block"><code>Realtime → Simulation</code></pre>
+
+                    <p>
+                        Откройте <strong>Edit Filters</strong>
+                        и оставьте только:
+                    </p>
+
+                    <pre class="code-block"><code>ARP
+ ICMP</code></pre>
+
+                    <p>
+                        Если в списке событий остались
+                        сообщения от предыдущих экспериментов,
+                        очистите их с помощью
+                        <strong>Reset Simulation</strong>.
+                    </p>
+
+                    <p>
+                        Учтите, что очистка списка событий
+                        сама по себе не гарантирует удаления
+                        ARP-записей с устройств.
+                        Для наблюдения нового ARP Request
+                        необходима ситуация, когда соответствующий
+                        MAC-адрес ещё неизвестен отправителю.
+                    </p>
+
+
+                    <h3>3. Запускаем первый ping</h3>
+
+                    <p>
+                        На PC0 откройте:
+                    </p>
+
+                    <pre class="code-block"><code>Desktop → Command Prompt</code></pre>
+
+                    <p>
+                        Выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.20</code></pre>
+
+                    <p>
+                        В окне Simulation появятся события
+                        ARP и ICMP, если PC0 необходимо
+                        выполнить ARP-разрешение.
+                    </p>
+
+                    <p>
+                        Нажимайте <strong>Capture/Forward</strong>,
+                        чтобы переходить от одного события
+                        к следующему.
+                    </p>
+
+
+                    <h3>4. Исследуем ARP Request</h3>
+
+                    <p>
+                        Когда появится событие
+                        <strong>ARP Request</strong>,
+                        щёлкните по соответствующему
+                        цветному конверту в рабочей области
+                        или по событию в списке симуляции.
+                    </p>
+
+                    <p>
+                        Откроется окно
+                        <strong>PDU Information</strong>
+                        (Protocol Data Unit — единица данных протокола).
+                    </p>
+
+                    <p>
+                        Перейдите на вкладку
+                        <strong>Outbound PDU Details</strong>.
+                        Здесь можно исследовать поля
+                        отправляемого сообщения.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле</th>
+                                    <th>Ожидаемое значение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Ethernet Destination MAC</td>
+                                    <td><code>FFFF.FFFF.FFFF</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Ethernet Source MAC</td>
+                                    <td>MAC PC0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>EtherType</td>
+                                    <td><code>0x0806</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>ARP Operation</td>
+                                    <td><code>1 — Request</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Sender IP</td>
+                                    <td><code>192.168.1.10</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Target IP</td>
+                                    <td><code>192.168.1.20</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Target MAC</td>
+                                    <td>Неизвестен (нулевое поле)</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Названия отдельных полей
+                        могут немного отличаться
+                        в зависимости от версии Packet Tracer.
+                    </p>
+
+                    <p>
+                        Обратите внимание на различие:
+                        <strong>Ethernet Destination MAC</strong>
+                        содержит broadcast-адрес,
+                        а <strong>ARP Target MAC</strong>
+                        ещё неизвестен.
+                    </p>
+
+
+                    <h3>5. Наблюдаем работу switch</h3>
+
+                    <p>
+                        Продолжите симуляцию.
+                        Switch0 получит ARP Request
+                        от PC0 и передаст broadcast-кадр
+                        через другие порты соответствующей VLAN.
+                    </p>
+
+                    <p>
+                        В нашей схеме другой подключённый
+                        компьютер только один — PC1.
+                    </p>
+
+                    <p>
+                        При этом Switch0 изучает
+                        Source MAC компьютера PC0
+                        по входящему Ethernet-кадру.
+                    </p>
+
+                    <p>
+                        Это позволяет одновременно увидеть
+                        два механизма:
+                    </p>
+
+                    <ul>
+                        <li>
+                            ARP определяет соответствие IPv4 → MAC.
+                        </li>
+                        <li>
+                            Switch изучает соответствие MAC → порт.
+                        </li>
+                    </ul>
+
+
+                    <h3>6. Исследуем ARP Reply</h3>
+
+                    <p>
+                        Когда PC1 получит ARP Request
+                        и обнаружит в нём собственный IPv4-адрес,
+                        он сформирует ARP Reply.
+                    </p>
+
+                    <p>
+                        Откройте событие ARP Reply
+                        и посмотрите его поля
+                        в <strong>Outbound PDU Details</strong>.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Поле</th>
+                                    <th>Ожидаемое значение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Ethernet Destination MAC</td>
+                                    <td>MAC PC0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Ethernet Source MAC</td>
+                                    <td>MAC PC1</td>
+                                </tr>
+
+                                <tr>
+                                    <td>EtherType</td>
+                                    <td><code>0x0806</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>ARP Operation</td>
+                                    <td><code>2 — Reply</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Sender IP</td>
+                                    <td><code>192.168.1.20</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Sender MAC</td>
+                                    <td>MAC PC1</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Target IP</td>
+                                    <td><code>192.168.1.10</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        В отличие от ARP Request,
+                        обычный ARP Reply отправляется
+                        непосредственно компьютеру,
+                        который сделал запрос.
+                    </p>
+
+
+                    <h3>7. Проверяем переход к ICMP</h3>
+
+                    <p>
+                        Продолжите симуляцию до появления
+                        <strong>ICMP Echo Request</strong>.
+                    </p>
+
+                    <p>
+                        Откройте его PDU Information
+                        и обратите внимание на структуру:
+                    </p>
+
+                    <pre class="code-block"><code>  Ethernet
+       ↓
+     IPv4
+       ↓
+ICMP Echo Request</code></pre>
+
+                    <p>
+                        Сравните с ARP-сообщением:
+                    </p>
+
+                    <pre class="code-block"><code>Ethernet
+    ↓
+   ARP</code></pre>
+
+                    <p>
+                        Здесь важно увидеть,
+                        что <strong>ARP не находится
+                        внутри IPv4-пакета</strong>.
+                        Он передаётся непосредственно
+                        в Ethernet-кадре.
+                    </p>
+
+
+                    <h3>8. Проверяем результат в ARP-кэше</h3>
+
+                    <p>
+                        После завершения обмена
+                        на PC0 выполните:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; arp -a</code></pre>
+
+                    <p>
+                        Найдите запись для
+                        <code>192.168.1.20</code>
+                        и сравните MAC-адрес
+                        с тем, который наблюдали
+                        в ARP Reply.
+                    </p>
+
+                    <p>
+                        Значения должны совпадать,
+                        если запись ещё действительна.
+                    </p>
+
+
+                    <h3>9. Повторяем эксперимент</h3>
+
+                    <p>
+                        Не удаляя ARP-запись,
+                        выполните на PC0 повторный ping:
+                    </p>
+
+                    <pre class="code-block"><code>PC&gt; ping 192.168.1.20</code></pre>
+
+                    <p>
+                        Наблюдайте за событиями
+                        в Simulation Mode.
+                    </p>
+
+                    <p>
+                        Если запись в ARP-кэше
+                        остаётся пригодной,
+                        новый ARP Request
+                        для PC1 не потребуется.
+                    </p>
+
+                    <p>
+                        В этом случае симуляция покажет
+                        ICMP-обмен без предварительного
+                        ARP-разрешения.
+                    </p>
+
+
+                    <h3>10. Контрольные вопросы</h3>
+
+                    <p>
+                        После выполнения эксперимента
+                        попробуйте самостоятельно ответить:
+                    </p>
+
+                    <ol>
+                        <li>
+                            Почему ARP Request отправляется
+                            на broadcast MAC-адрес?
+                        </li>
+
+                        <li>
+                            Почему поле Target MAC
+                            в ARP Request неизвестно?
+                        </li>
+
+                        <li>
+                            Чем отличается Destination MAC
+                            в ARP Request и ARP Reply?
+                        </li>
+
+                        <li>
+                            Какой EtherType используется
+                            для ARP?
+                        </li>
+
+                        <li>
+                            Почему ARP-сообщение
+                            не содержит IPv4-заголовок?
+                        </li>
+
+                        <li>
+                            Почему при повторном ping
+                            ARP Request может отсутствовать?
+                        </li>
+                    </ol>
+
+
+                    <div class="info-box success">
+
+                        <div class="info-box-title">✅ Главное</div>
+
+                        <p>
+                            В этом эксперименте мы не просто
+                            выполнили ping, а исследовали
+                            реальные поля ARP-сообщений
+                            в симуляторе.
+                        </p>
+
+                        <p>
+                            Теперь вы можете самостоятельно
+                            найти в Packet Tracer:
+                            <strong>Ethernet Destination MAC,
+                            EtherType, ARP Operation,
+                            Sender IP, Sender MAC,
+                            Target IP и Target MAC</strong>.
+                        </p>
+
+                        <p>
+                            Это позволяет проверять работу ARP
+                            не только по результату команды
+                            <code>arp -a</code>,
+                            но и непосредственно
+                            по передаваемым кадрам.
+                        </p>
+
+                    </div>
+                </article>
+
+                
+                <!-- ===== Итоги главы ===== -->
+
+                <article id="ch5-summary">
+
+                    <h2>📜 Итоги главы</h2>
+
+                    <p>
+                        В этой главе мы изучили
+                        <strong>ARP (Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>
+                        и разобрались, как устройства определяют
+                        MAC-адреса для передачи IPv4-пакетов
+                        по локальной сети.
+                    </p>
+
+                    <p>
+                        Мы также проследили работу ARP
+                        в Cisco Packet Tracer, научились
+                        просматривать ARP-таблицы
+                        в Windows и Cisco IOS
+                        и рассмотрели передачу данных
+                        через default gateway.
+                    </p>
+
+
+                    <h3>1. Основная идея ARP</h3>
+
+                    <p>
+                        IP-адрес определяет сетевой адрес
+                        устройства, а MAC-адрес используется
+                        для доставки Ethernet-кадра
+                        на текущем участке сети.
+                    </p>
+
+                    <p>
+                        Если устройство знает IPv4-адрес
+                        следующего узла, но не знает
+                        соответствующий MAC-адрес,
+                        оно может использовать ARP.
+                    </p>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 900 360"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Итоговая схема ARP: локальная доставка напрямую и доставка в удалённую сеть через шлюз">
+
+                            <!-- Local network -->
+
+                            <rect x="20" y="35"
+                                width="410" height="265"
+                                rx="12"
+                                fill="#f1f7fc"
+                                stroke="#a7c8e2"
+                                stroke-width="2"
+                                stroke-dasharray="7 5" />
+
+                            <text x="225" y="65"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#195b8c">
+                                Локальная сеть
+                            </text>
+
+                            <rect class="diagram-node"
+                                x="45" y="105"
+                                width="155" height="75"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="122" y="135"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="122" y="158"
+                                text-anchor="middle">
+                                192.168.1.10
+                            </text>
+
+                            <rect class="diagram-node"
+                                x="250" y="105"
+                                width="155" height="75"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="327" y="135"
+                                text-anchor="middle">
+                                PC2
+                            </text>
+
+                            <text class="diagram-label"
+                                x="327" y="158"
+                                text-anchor="middle">
+                                192.168.1.20
+                            </text>
+
+                            <line x1="200" y1="143"
+                                x2="241" y2="143"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M249 143 L238 137 L238 149 Z"
+                                fill="#1976bd" />
+
+                            <rect x="65" y="210"
+                                width="320" height="65"
+                                rx="8"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="225" y="235"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP для IP получателя
+                            </text>
+
+                            <text x="225" y="258"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#725414">
+                                192.168.1.20 → MAC PC2
+                            </text>
+
+
+                            <!-- Remote network -->
+
+                            <rect x="470" y="35"
+                                width="410" height="265"
+                                rx="12"
+                                fill="#edf9f3"
+                                stroke="#a3c9ae"
+                                stroke-width="2"
+                                stroke-dasharray="7 5" />
+
+                            <text x="675" y="65"
+                                text-anchor="middle"
+                                font-size="17"
+                                font-weight="700"
+                                fill="#356b4a">
+                                Удалённая сеть
+                            </text>
+
+                            <rect class="diagram-node"
+                                x="490" y="105"
+                                width="110" height="75"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="545" y="135"
+                                text-anchor="middle">
+                                PC1
+                            </text>
+
+                            <text class="diagram-label"
+                                x="545" y="158"
+                                text-anchor="middle">
+                                .1.10
+                            </text>
+
+                            <rect x="630" y="105"
+                                width="110" height="75"
+                                rx="8"
+                                fill="#60798d"
+                                stroke="#263746"
+                                stroke-width="2.5" />
+
+                            <text x="685" y="135"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#ffffff">
+                                Router
+                            </text>
+
+                            <text x="685" y="158"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#ffffff">
+                                .1.1
+                            </text>
+
+                            <rect class="diagram-node"
+                                x="770" y="105"
+                                width="90" height="75"
+                                rx="8" />
+
+                            <text class="diagram-device"
+                                x="815" y="135"
+                                text-anchor="middle">
+                                PC3
+                            </text>
+
+                            <text class="diagram-label"
+                                x="815" y="158"
+                                text-anchor="middle">
+                                .2.20
+                            </text>
+
+                            <line x1="600" y1="143"
+                                x2="621" y2="143"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M629 143 L618 137 L618 149 Z"
+                                fill="#1976bd" />
+
+                            <line x1="740" y1="143"
+                                x2="761" y2="143"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M769 143 L758 137 L758 149 Z"
+                                fill="#1976bd" />
+
+                            <rect x="490" y="210"
+                                width="370" height="65"
+                                rx="8"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2" />
+
+                            <text x="675" y="235"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#725414">
+                                ARP для следующего узла
+                            </text>
+
+                            <text x="675" y="258"
+                                text-anchor="middle"
+                                font-size="12"
+                                fill="#725414">
+                                192.168.1.1 → MAC Router
+                            </text>
+
+
+                            <!-- Footer -->
+
+                            <text x="450" y="336"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#526777">
+                                ARP определяет MAC-адрес следующего узла на локальном участке
+                            </text>
+
+                        </svg>
+
+                    </div>
+
+                    <p>
+                        Таким образом, при передаче
+                        внутри одной IP-сети ARP обычно
+                        определяет MAC конечного получателя.
+                        При передаче в другую сеть —
+                        MAC следующего узла, например шлюза.
+                    </p>
+
+
+                    <h3>2. Что мы изучили</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Тема</th>
+                                    <th>Главный вывод</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>ARP</strong></td>
+                                    <td>
+                                        Определяет соответствие
+                                        IPv4-адреса и MAC-адреса
+                                        следующего узла
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>IP и MAC</strong></td>
+                                    <td>
+                                        IP используется для сетевой
+                                        адресации, MAC — для доставки
+                                        кадра на Ethernet-участке
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>ARP Request</strong></td>
+                                    <td>
+                                        Обычно отправляется
+                                        как Ethernet broadcast
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>ARP Reply</strong></td>
+                                    <td>
+                                        Обычно отправляется
+                                        непосредственно
+                                        инициатору запроса
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>ARP Cache</strong></td>
+                                    <td>
+                                        Сохраняет соответствия
+                                        IPv4 → MAC
+                                        для повторного использования
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Первый ping</strong></td>
+                                    <td>
+                                        Может потребовать ARP-разрешения
+                                        перед отправкой ICMP
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Повторный ping</strong></td>
+                                    <td>
+                                        Использует существующую
+                                        ARP-запись, если она пригодна
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Default gateway</strong></td>
+                                    <td>
+                                        Обычно выступает следующим
+                                        узлом для удалённых сетей
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Cisco IOS</strong></td>
+                                    <td>
+                                        Позволяет просматривать
+                                        ARP-таблицу командой
+                                        <code>show ip arp</code>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Packet Tracer</strong></td>
+                                    <td>
+                                        Позволяет наблюдать
+                                        ARP Request и ARP Reply
+                                        в Simulation Mode
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>3. ARP Request и ARP Reply — основные различия</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>ARP Request</th>
+                                    <th>ARP Reply</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Назначение</td>
+                                    <td>Узнать MAC</td>
+                                    <td>Сообщить MAC</td>
+                                </tr>
+
+                                <tr>
+                                    <td>ARP Opcode</td>
+                                    <td><code>1</code></td>
+                                    <td><code>2</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Ethernet Destination</td>
+                                    <td>Обычно broadcast</td>
+                                    <td>Обычно unicast</td>
+                                </tr>
+
+                                <tr>
+                                    <td>EtherType</td>
+                                    <td><code>0x0806</code></td>
+                                    <td><code>0x0806</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        ARP передаётся непосредственно
+                        в Ethernet-кадре, а не внутри
+                        IPv4-пакета.
+                    </p>
+
+
+                    <h3>4. ARP Cache и MAC Address Table — не одно и то же</h3>
+
+                    <p>
+                        В главах 4 и 5 мы познакомились
+                        с двумя таблицами, которые легко
+                        перепутать.
+                    </p>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>ARP Cache</th>
+                                    <th>MAC Address Table</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>IPv4 → MAC</td>
+                                    <td>MAC → порт switch</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Используется для определения
+                                        канального адреса следующего узла
+                                    </td>
+                                    <td>
+                                        Используется для выбора
+                                        выходного порта Ethernet-кадра
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Есть у IPv4-узлов,
+                                        использующих ARP
+                                    </td>
+                                    <td>
+                                        Есть у Ethernet-коммутаторов
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Эти таблицы выполняют разные задачи
+                        и обновляются независимо друг от друга.
+                    </p>
+
+
+                    <h3>5. Основные команды главы</h3>
+
+                    <p>
+                        <strong>Windows и PC в Packet Tracer:</strong>
+                    </p>
+
+                    <pre class="code-block"><code>arp -a
+ ping 192.168.1.20
+ ipconfig</code></pre>
+
+                    <p>
+                        <strong>Cisco IOS:</strong>
+                    </p>
+
+                    <pre class="code-block"><code>show ip arp
+ show ip interface brief
+ show ip route</code></pre>
+
+                    <p>
+                        Эти команды помогают проверить
+                        адресацию, состояние интерфейсов,
+                        маршруты и сохранённые
+                        соответствия IPv4 → MAC.
+                    </p>
+
+
+                    <h3>6. Что важно не перепутать</h3>
+
+                    <div class="info-box note">
+
+                        <div class="info-box-title">💡 Типичные ошибки новичков</div>
+
+                        <ul>
+                            <li>
+                                ARP не ищет MAC-адрес конечного
+                                удалённого компьютера через router.
+                                Он определяет MAC следующего узла
+                                в локальном сегменте.
+                            </li>
+
+                            <li>
+                                ARP Request не пересылается
+                                обычным маршрутизатором
+                                из одной IP-сети в другую.
+                            </li>
+
+                            <li>
+                                Первый ping не обязательно
+                                теряет пакет: это зависит
+                                от реализации и состояния сети.
+                            </li>
+
+                            <li>
+                                Отсутствие ARP Request
+                                при повторном ping не означает,
+                                что ARP перестал использоваться:
+                                устройство может обращаться
+                                к сохранённой записи.
+                            </li>
+
+                            <li>
+                                ARP Cache и MAC Address Table
+                                нельзя считать одной таблицей.
+                            </li>
+
+                            <li>
+                                ARP используется для IPv4.
+                                В IPv6 аналогичные задачи
+                                решает Neighbor Discovery (ND).
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                    <h3>7. Проверьте себя</h3>
+
+                    <p>
+                        После изучения главы попробуйте
+                        ответить на следующие вопросы
+                        без обращения к предыдущим разделам.
+                    </p>
+
+                    <ol>
+                        <li>
+                            Зачем нужен ARP, если устройство
+                            уже знает IPv4-адрес получателя?
+                        </li>
+
+                        <li>
+                            Почему обычный ARP Request
+                            отправляется на broadcast MAC?
+                        </li>
+
+                        <li>
+                            В чём разница между
+                            ARP Request и ARP Reply?
+                        </li>
+
+                        <li>
+                            Почему повторный ping
+                            может обходиться без нового
+                            ARP Request?
+                        </li>
+
+                        <li>
+                            MAC-адрес какого устройства
+                            ищет компьютер при отправке
+                            пакета в другую IP-сеть?
+                        </li>
+
+                        <li>
+                            Чем ARP Cache отличается
+                            от MAC Address Table?
+                        </li>
+
+                        <li>
+                            Какими командами можно посмотреть
+                            ARP-таблицу в Windows и Cisco IOS?
+                        </li>
+
+                        <li>
+                            Почему MAC-адреса Ethernet-кадра
+                            изменяются при прохождении
+                            через маршрутизатор?
+                        </li>
+                    </ol>
+
+
+                    <h3>8. Чему мы научились на практике</h3>
+
+                    <p>
+                        После выполнения лабораторных работ
+                        вы должны уметь:
+                    </p>
+
+                    <ul>
+                        <li>
+                            Создать небольшую локальную сеть
+                            в Cisco Packet Tracer.
+                        </li>
+
+                        <li>
+                            Настроить IPv4-адреса,
+                            маски подсетей и default gateway.
+                        </li>
+
+                        <li>
+                            Настроить Ethernet-интерфейсы
+                            маршрутизатора Cisco через CLI.
+                        </li>
+
+                        <li>
+                            Проверить доступность устройств
+                            с помощью <code>ping</code>.
+                        </li>
+
+                        <li>
+                            Просмотреть ARP-таблицы
+                            компьютера и маршрутизатора.
+                        </li>
+
+                        <li>
+                            Найти ARP Request и ARP Reply
+                            в Simulation Mode.
+                        </li>
+
+                        <li>
+                            Определить значения Source MAC,
+                            Destination MAC и ARP Opcode
+                            в передаваемых сообщениях.
+                        </li>
+                    </ul>
+
+
+                    <div class="info-box success">
+
+                        <div class="info-box-title">✅ Главное из главы 5</div>
+
+                        <p>
+                            <strong>
+                                ARP связывает IPv4-адрес
+                                следующего узла с его MAC-адресом,
+                                позволяя устройству отправить
+                                Ethernet-кадр по локальному участку сети.
+                            </strong>
+                        </p>
+
+                        <p>
+                            При передаче внутри одной сети
+                            следующим узлом обычно является
+                            сам получатель. При передаче
+                            в другую сеть — маршрутизатор,
+                            выбранный таблицей маршрутизации.
+                        </p>
+
+                        <p>
+                            ARP Cache позволяет использовать
+                            уже найденные соответствия,
+                            а команды диагностики и Simulation Mode
+                            помогают наблюдать этот механизм
+                            на практике.
+                        </p>
+
+                    </div>
+                </article>
+
+                
+                <!-- ===== Шпаргалка главы ===== -->
+
+                <article id="ch5-cheatsheet">
+
+                    <h2>📜 Шпаргалка главы</h2>
+
+                    <p>
+                        Краткий справочник по
+                        <strong>ARP (Address Resolution Protocol —
+                        протокол разрешения адресов)</strong>:
+                        основные правила, адреса, команды
+                        и практические проверки.
+                    </p>
+
+
+                    <h3>1. ARP — главное правило</h3>
+
+                    <div class="info-box note">
+
+                        <div class="info-box-title">💡 Запомнить</div>
+
+                        <p>
+                            <strong>
+                                ARP определяет MAC-адрес
+                                следующего узла по его IPv4-адресу.
+                            </strong>
+                        </p>
+
+                        <pre class="code-block"><code>IPv4 следующего узла
+         ↓
+        ARP
+         ↓
+ MAC следующего узла
+         ↓
+  Ethernet-кадр</code></pre>
+
+                    </div>
+
+
+                    <h3>2. Какой MAC-адрес искать</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Ситуация</th>
+                                    <th>Для какого IPv4 выполняется ARP</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Получатель в локальной сети</td>
+                                    <td>IPv4 получателя</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Получатель в другой сети</td>
+                                    <td>IPv4 следующего узла (обычно шлюза)</td>
+                                </tr>
+
+                                <tr>
+                                    <td>MAC уже есть в ARP Cache</td>
+                                    <td>Новый запрос обычно не нужен</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Запись отсутствует</td>
+                                    <td>Требуется ARP-разрешение</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>3. ARP Request и ARP Reply</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Параметр</th>
+                                    <th>ARP Request</th>
+                                    <th>ARP Reply</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Назначение</td>
+                                    <td>Запросить MAC</td>
+                                    <td>Сообщить MAC</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Opcode</td>
+                                    <td><code>1</code></td>
+                                    <td><code>2</code></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Ethernet Destination</td>
+                                    <td>Обычно broadcast</td>
+                                    <td>Обычно unicast</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Target Hardware Address</td>
+                                    <td>Обычно нулевой</td>
+                                    <td>MAC инициатора запроса</td>
+                                </tr>
+
+                                <tr>
+                                    <td>EtherType</td>
+                                    <td><code>0x0806</code></td>
+                                    <td><code>0x0806</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>4. Важные адреса и значения</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Значение</th>
+                                    <th>Назначение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><code>FF:FF:FF:FF:FF:FF</code></td>
+                                    <td>Ethernet broadcast MAC</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>0x0806</code></td>
+                                    <td>EtherType для ARP</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>0x0800</code></td>
+                                    <td>EtherType для IPv4</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>1</code></td>
+                                    <td>ARP Request Opcode</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>2</code></td>
+                                    <td>ARP Reply Opcode</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>00:00:00:00:00:00</code></td>
+                                    <td>
+                                        Типичное значение неизвестного
+                                        Target MAC в ARP Request
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>5. ARP Cache и MAC Address Table</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>ARP Cache</th>
+                                    <th>MAC Address Table</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><strong>IPv4 → MAC</strong></td>
+                                    <td><strong>MAC → порт / VLAN</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Используется IPv4-узлом</td>
+                                    <td>Используется Ethernet-switch</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Определяет MAC следующего узла
+                                    </td>
+                                    <td>
+                                        Определяет выходной порт кадра
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>arp -a</code></td>
+                                    <td><code>show mac address-table</code></td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>6. Команды Windows</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Команда</th>
+                                    <th>Назначение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><code>arp -a</code></td>
+                                    <td>Показать ARP-кэш</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>arp -a -N 192.168.1.10</code></td>
+                                    <td>Записи указанного интерфейса</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>arp -d 192.168.1.20</code></td>
+                                    <td>Удалить указанную запись</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>arp -d *</code></td>
+                                    <td>Удалить динамические ARP-записи</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>ipconfig</code></td>
+                                    <td>Проверить IPv4-настройки</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>ping 192.168.1.20</code></td>
+                                    <td>Проверить доступность узла</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <p>
+                        Для удаления ARP-записей
+                        в Windows обычно требуются
+                        права администратора.
+                    </p>
+
+
+                    <h3>7. Команды Cisco IOS</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Команда</th>
+                                    <th>Назначение</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td><code>show ip arp</code></td>
+                                    <td>Показать ARP-таблицу</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>show ip arp 192.168.1.10</code></td>
+                                    <td>Найти запись по IPv4</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>show ip interface brief</code></td>
+                                    <td>Проверить интерфейсы</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>show ip route</code></td>
+                                    <td>Проверить маршруты</td>
+                                </tr>
+
+                                <tr>
+                                    <td><code>show mac address-table</code></td>
+                                    <td>MAC-таблица коммутатора</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <h3>8. Быстрая схема принятия решения</h3>
+
+                    <div class="network-diagram">
+
+                        <svg viewBox="0 0 860 415"
+                            xmlns="http://www.w3.org/2000/svg"
+                            role="img"
+                            aria-label="Алгоритм определения MAC-адреса для локального и удалённого получателя">
+
+                            <!-- Start -->
+
+                            <rect x="280" y="20"
+                                width="300" height="55"
+                                rx="9"
+                                fill="#eaf3fb"
+                                stroke="#1976bd"
+                                stroke-width="2" />
+
+                            <text x="430" y="53"
+                                text-anchor="middle"
+                                font-size="16"
+                                font-weight="700"
+                                fill="#195b8c">
+                                Нужно отправить IPv4-пакет
+                            </text>
+
+
+                            <!-- Decision -->
+
+                            <path d="M430 90 L590 155 L430 220 L270 155 Z"
+                                fill="#fff8df"
+                                stroke="#b98922"
+                                stroke-width="2.5" />
+
+                            <text x="430" y="148"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#725414">
+                                Получатель
+                            </text>
+
+                            <text x="430" y="168"
+                                text-anchor="middle"
+                                font-size="15"
+                                font-weight="700"
+                                fill="#725414">
+                                в локальной сети?
+                            </text>
+
+                            <line x1="430" y1="75"
+                                x2="430" y2="90"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+
+                            <!-- Left branch -->
+
+                            <path d="M270 155 H155 V245"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M155 253 L149 242 L161 242 Z"
+                                fill="#1976bd" />
+
+                            <text x="210" y="142"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                Да
+                            </text>
+
+                            <rect x="25" y="253"
+                                width="260" height="70"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="155" y="280"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                Следующий узел —
+                            </text>
+
+                            <text x="155" y="302"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#356b4a">
+                                сам получатель
+                            </text>
+
+
+                            <!-- Right branch -->
+
+                            <path d="M590 155 H705 V245"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="3" />
+
+                            <path d="M705 253 L699 242 L711 242 Z"
+                                fill="#1976bd" />
+
+                            <text x="650" y="142"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#725414">
+                                Нет
+                            </text>
+
+                            <rect x="575" y="253"
+                                width="260" height="70"
+                                rx="8"
+                                fill="#edf9f3"
+                                stroke="#4d8b64"
+                                stroke-width="2" />
+
+                            <text x="705" y="280"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#356b4a">
+                                Следующий узел —
+                            </text>
+
+                            <text x="705" y="302"
+                                text-anchor="middle"
+                                font-size="13"
+                                fill="#356b4a">
+                                router по маршруту
+                            </text>
+
+
+                            <!-- Footer -->
+
+                            <rect x="280" y="355"
+                                width="300" height="48"
+                                rx="8"
+                                fill="#eaf3fb"
+                                stroke="#1976bd"
+                                stroke-width="2" />
+
+                            <text x="430" y="384"
+                                text-anchor="middle"
+                                font-size="14"
+                                font-weight="700"
+                                fill="#195b8c">
+                                ARP Cache → при необходимости ARP
+                            </text>
+
+                            <path d="M155 323 V379 H280"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="2.5" />
+
+                            <path d="M705 323 V379 H580"
+                                fill="none"
+                                stroke="#1976bd"
+                                stroke-width="2.5" />
+
+                        </svg>
+
+                    </div>
+
+                    <p>
+                        Схема предполагает, что для назначения
+                        существует подходящий маршрут,
+                        а следующий узел доступен через
+                        Ethernet-интерфейс с IPv4.
+                    </p>
+
+
+                    <h3>9. Быстрая диагностика ARP</h3>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Наблюдение</th>
+                                    <th>Что проверить</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>ARP-записи нет</td>
+                                    <td>
+                                        Был ли обмен, верный ли
+                                        интерфейс, не истекла ли запись
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>ARP Request без Reply</td>
+                                    <td>
+                                        IP-адрес, VLAN, соединение,
+                                        состояние устройства
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Ping удалённого IP не работает</td>
+                                    <td>
+                                        Default gateway, маршруты,
+                                        ARP шлюза и обратный путь
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>ARP Request при каждом обращении</td>
+                                    <td>
+                                        Не удаляется ли запись,
+                                        поступает ли ARP Reply,
+                                        корректна ли адресация
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Повторный ping без ARP</td>
+                                    <td>
+                                        Нормально при пригодной
+                                        записи в ARP Cache
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <div class="info-box success">
+
+                        <div class="info-box-title">✅ Формула главы 5</div>
+
+                        <pre class="code-block"><code>Маршрут → Next Hop IPv4 → ARP Cache → MAC → Ethernet</code></pre>
+
+                        <p>
+                            <strong>
+                                Сначала устройство определяет
+                                следующий узел по маршруту,
+                                затем использует сохранённый
+                                MAC-адрес или выполняет
+                                ARP-разрешение, если оно необходимо.
+                            </strong>
+                        </p>
+
+                        <p>
+                            ARP работает с IPv4.
+                            Для IPv6 соответствующие задачи
+                            решает Neighbor Discovery (ND).
+                        </p>
+
+                    </div>
+                </article>
             </section>
                         
         </main>
